@@ -33,7 +33,7 @@ public class DbTest {
 	@Test
 	public void mybatisTest() throws Exception {
 		//mybatis 설정 완료
-		//db접근 test 완료
+		//db접근 test 완료(dbcp, log4j 적용 확인)
 		//lombok test 완료
 		log.info(mapper.connectionTest());
 	}
