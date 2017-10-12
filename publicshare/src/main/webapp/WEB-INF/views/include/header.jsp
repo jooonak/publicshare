@@ -17,7 +17,7 @@
 	<link href="/resources/assets/css/bootstrap2.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/resources/assets/css/style.css" rel="stylesheet">
+    <link href="/resources/assets/css/style.css?ver=1" rel="stylesheet">
     <link href="/resources/assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="/resources/assets/js/fancybox/jquery.fancybox.css" rel="stylesheet" />
 

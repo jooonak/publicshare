@@ -26,6 +26,7 @@
 				verticalOffset: 40
 			});
 		});
+
 		</script>
 		
 		<script type="text/javascript">
