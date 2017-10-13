@@ -46,10 +46,10 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#home" class="smothscroll">Home</a></li>
-            <li><a href="#desc" class="smothscroll">Description</a></li>
-            <li><a href="#showcase" class="smothScroll">Showcase</a></li>
-            <li><a href="#contact" class="smothScroll">Contact</a></li>
+            <li class="active"><a href="/loanbook/list" class="smothscroll">물품 대여</a></li>
+            <li><a href="/itemmanage/list" class="smothscroll">물품 관리</a></li>
+            <li><a href="/return/list" class="smothScroll">대여 관리</a></li>
+            <li><a href="/mypage" class="smothScroll">마이페이지</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

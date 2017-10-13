@@ -61,9 +61,6 @@ a:hover {
 		<div class="row">
 			<!--reigster btn  -->
 			<h1>BOOKS</h1>
-			<button>
-				<a href="http://localhost:8080/itemmanage/register">register</a>
-			</button>
 
 			<div class="carousel slide" id="myCarousel">
 				<div class="carousel-inner">
@@ -322,7 +319,6 @@ a:hover {
 		<!--/Portfoliowrap -->
 	</div>
 </div>
-
 
 
 <!-- actionForm   -->
