@@ -41,7 +41,7 @@ public class Criteria {
 
 
 	public int getSkip() {
-		return (this.page - 1) * 10;
+		return (this.page - 1) * 8;
 	}
 
 //	public String getURI() {
