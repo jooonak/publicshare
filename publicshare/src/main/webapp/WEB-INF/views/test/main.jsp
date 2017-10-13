@@ -39,14 +39,19 @@ a:hover {
 	margin: 0 auto;
 	margin-top: 10px;
 	width: 440px;
+	height: 50px;
 }
 
 #divPaging li {
-	list-style: none; float : left;
-	width: 30px;
+	list-style: none;
+	float: left;
 	margin: 5 auto;
 	text-align: center;
-	float: left;
+}
+
+#divPaging>li>a, #divPaging>li>span {
+	border-radius: 50% !important;
+	margin: 0 5px;
 }
 </style>
 
@@ -234,20 +239,6 @@ a:hover {
 							</div>
 							<!-- col-lg-4 -->
 						</div>
-
-
-						<div id="divPaging">
-							<ul>
-								<li><<</li>
-								<li>1</li>
-								<li>2</li>
-								<li>3</li>
-								<li>4</li>
-								<li>5</li>
-								<li>>></li>
-							</ul>
-						</div>
-
 					</div>
 				</div>
 			</div>
@@ -255,6 +246,18 @@ a:hover {
 		</div>
 		<!--/container -->
 	</div>
+	
+<div class="container">
+	<ul id="divPaging">
+		<li class="disabled"><a href="#">«</a></li>
+		<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+		<li><a href="#">2</a></li>
+		<li><a href="#">3</a></li>
+		<li><a href="#">4</a></li>
+		<li><a href="#">5</a></li>
+		<li><a href="#">»</a></li>
+	</ul>
+</div>
 	<!--/Portfoliowrap -->
 </div>
 <%@include file="../include/footer.jsp"%>
