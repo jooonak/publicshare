@@ -20,11 +20,11 @@ public class LoanBooksController {
 	
 	@GetMapping("/list")
 	public void getBookList(Model model, @ModelAttribute("cri") Criteria cri) {
-		model.addAttribute("booklist",service.getBookList(cri));
+		model.addAttribute("booklist", service.getBookList(cri));
 	}
 	
 	@GetMapping("/view")
 	public void viewBook(Model model, @ModelAttribute("cri") Criteria cri, int bno) {
-		
+		model.addAttribute("book", service.getBook(bno));
 	}
 }

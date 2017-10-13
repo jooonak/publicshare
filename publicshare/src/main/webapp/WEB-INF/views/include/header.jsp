@@ -14,7 +14,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/resources/assets/css/bootstrap.css" rel="stylesheet">
-	<link href="/resources/assets/css/bootstrap2.css" rel="stylesheet">
+	<link href="/resources/assets/css/bootstrap2.css?ver=1" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="/resources/assets/css/style.css?ver=1" rel="stylesheet">
@@ -45,11 +45,11 @@
           <a class="navbar-brand" href="#"><b>Pratt</b></a>
         </div>
         <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="/loanbook/list" class="smothscroll">물품 대여</a></li>
-            <li><a href="/itemmanage/list" class="smothscroll">물품 관리</a></li>
-            <li><a href="/return/list" class="smothScroll">대여 관리</a></li>
-            <li><a href="/mypage" class="smothScroll">마이페이지</a></li>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/loanbook/list" class="smothscroll">Loan page</a></li>
+            <li><a href="/itemmanage/list" class="smothscroll">My Item Manage</a></li>
+            <li><a href="/return/list" class="smothScroll">My Loan List</a></li>
+            <li><a href="/mypage" class="smothScroll">MyPage</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

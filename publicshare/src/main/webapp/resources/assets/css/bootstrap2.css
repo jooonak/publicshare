@@ -3797,6 +3797,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .nav:after {
   clear: both;
+  text-align: right;
 }
 
 .nav > li {

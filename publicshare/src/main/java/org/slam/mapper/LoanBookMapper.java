@@ -15,4 +15,8 @@ public interface LoanBookMapper {
 	//DB에서 Book테이블의 총 카운드값 반환
 	@Select("select count(*) from tbl_book")
 	public int getTotal();
+	
+	//DB에서 bno에 해당하는 Book데이터 반환
+	@Select("select * from tbl_book where bno = #{bno}")
+	public BookDTO getBook(int bno);
 }
