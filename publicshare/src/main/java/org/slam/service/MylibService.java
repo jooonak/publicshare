@@ -1,5 +1,5 @@
 package org.slam.service;
 
-public interface MyLibService {
+public interface MylibService {
 
 }

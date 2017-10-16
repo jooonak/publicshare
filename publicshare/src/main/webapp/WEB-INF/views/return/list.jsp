@@ -61,9 +61,6 @@ a:hover {
 		<div class="row">
 			<!--reigster btn  -->
 			<h1>BOOKS</h1>
-			<button>
-				<a href="http://localhost:8080/itemmanage/register">register</a>
-			</button>
 
 			<div class="carousel slide" id="myCarousel">
 				<div class="carousel-inner">
@@ -324,7 +321,6 @@ a:hover {
 </div>
 
 
-
 <!-- actionForm   -->
 <form id="actionForm" action="/itemmanage/view" method="get">
 	<!-- <input type="hidden" name="bno" > -->
@@ -348,6 +344,8 @@ $(document).ready(function(){
 		var $actionForm = $(actionForm);
 		
 		$actionForm.submit();
+		
+		
 		
 	});
 	
