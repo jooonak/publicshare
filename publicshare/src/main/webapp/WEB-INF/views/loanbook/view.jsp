@@ -57,44 +57,6 @@
 
 <html>
 
-
-<!-- bookDTO의 available이 T(True)일 경우 나타나는 모달 -->
-<div class="row text-center" style="padding: 50px;">
-	<div class="modal fade modalDialogA " tabindex="-1"
-		role="dialogA" aria-labelledby="modalLabelA">
-		<div class="modal-dialog_a modal-lg">
-			<div class="modal-content_a">
-				<div class="modal-body_a  ">
-					<h2>신청 페이지</h2>
-					<h4>대여 하시겠습니까?</h4>
-					<input type="hidden" name="bno" value="${book.bno}">
-					<p>
-						<button id="loanBook" class="btn btn-default">대여하기</button>
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- bookDTO의 available이 F(False)일 경우 나타나는 모달 -->
-<div class="row text-center" style="padding: 50px;">
-	<div class="modal fade modalDialogB " tabindex="-1"
-		role="dialogB" aria-labelledby="modalLabelB">
-		<div class="modal-dialog_b modal-lg">
-			<div class="modal-content_b">
-				<div class="modal-body_b  ">
-					<h2>This is a Reservation Modal!</h2>
-					<h4>Some message text shown to users.</h4>
-					<p>
-						<button id="resBtn" class="btn btn-default">예약하기</button>
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
 <section id="home" name="home"></section>
 <div id="headerwrap">
 	<div class="container">
@@ -155,6 +117,44 @@
 
 							<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
 							<a href="/loanbook/list?page=${cri.page}" class="btn">뒤로가기</a>
+							
+							
+							<!-- bookDTO의 available이 T(True)일 경우 나타나는 모달 -->
+							<div class="row text-center" style="padding: 50px;">
+								<div class="modal fade modalDialogA " tabindex="-1"
+									role="dialogA" aria-labelledby="modalLabelA">
+									<div class="modal-dialog_a modal-lg">
+										<div class="modal-content_a">
+											<div class="modal-body_a  ">
+												<h2>신청 페이지</h2>
+												<h4>대여 하시겠습니까?</h4>
+												<input type="hidden" name="bno" value="${book.bno}">
+												<p>
+													<button id="loanBook" class="btn btn-default">대여하기</button>
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<!-- bookDTO의 available이 F(False)일 경우 나타나는 모달 -->
+							<div class="row text-center" style="padding: 50px;">
+								<div class="modal fade modalDialogB " tabindex="-1"
+									role="dialogB" aria-labelledby="modalLabelB">
+									<div class="modal-dialog_b modal-lg">
+										<div class="modal-content_b">
+											<div class="modal-body_b  ">
+												<h2>This is a Reservation Modal!</h2>
+												<h4>Some message text shown to users.</h4>
+												<p>
+													<button id="resBtn" class="btn btn-default">예약하기</button>
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
 						</div>
 					</div>
