@@ -7,6 +7,40 @@
 <%@include file="../include/header.jsp"%>
 <!-- 왜 상대경로만 되는지... -->
 <html>
+<!-- modal style -->
+<style>
+.modal {
+	padding-right: 0px;
+	background-color: rgba(4, 4, 4, 0.3);
+}
+
+.modal-dialog_a {
+	top: 20%;
+	width: 50%;
+	position: absolute;
+	margin-left: 25%;
+}
+
+.modal-content_a {
+	border-radius: 10px;
+	border: none;
+	padding: 25px;
+	top: 40%;
+}
+
+.modal-body_a {
+	background-color: #0f8845;
+	border-radius: 10px;
+	color: white;
+	padding: 10px;
+}
+
+
+
+
+
+</style>
+
 
 <style>
 .project-wrapper {
@@ -194,6 +228,23 @@ a:hover {
 							class="glyphicon glyphicon-chevron-right"></i></li>
 				</ul>
 				</nav>
+				
+				<div class="row text-center" style="padding: 50px;">
+								<div class="modal fade modalDialogA " tabindex="-1"
+									role="dialogA" aria-labelledby="modalLabelA">
+									<div class="modal-dialog_a modal-lg">
+										<div class="modal-content_a">
+											<div class="modal-body_a  ">
+												<h2>This is a Loan Modal!</h2>
+												<h4>Some message text shown to users.</h4>
+												<p>
+													<button class="btn btn-default">btn-block</button>
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
 
 			</div>
