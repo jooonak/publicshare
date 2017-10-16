@@ -143,11 +143,11 @@
 
 							<!-- choose/when구문을 사용해서 해당 bookDTO의 available상태에 따른 노출값이 다를 수 있도록 구현 -->
 							<c:choose>
-								<c:when test="${book.available eq 'T'}">
+								<c:when test="${book.resCnt eq '0'}">
 									<input type="button" data-toggle="modal"
 										data-target=".modalDialogA" value="대여">
 								</c:when>
-								<c:when test="${book.available eq 'F'}">
+								<c:when test="${book.resCnt eq '1'}">
 									<input type="button" data-toggle="modal"
 										data-target=".modalDialogB" value="예약">
 								</c:when>

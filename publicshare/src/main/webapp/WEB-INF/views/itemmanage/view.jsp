@@ -16,13 +16,13 @@
 				<h1>Public Share</h1>
 			</div>
 		</div>
-		<! --/row -->
+		<!--/row -->
 	</div>
-	<! --/container -->
+	<!--/container -->
 </div>
-<! --/headerwrap -->
+<!--/headerwrap -->
 
-<! -- PORTFOLIO SECTION -->
+<!-- PORTFOLIO SECTION -->
 <section id="portfolio" name="portfolio"></section>
 
 <div id="portfoliowrap">
@@ -37,7 +37,7 @@
 						href="/resources/assets/img/portfolio/port04.jpg"><img
 						class="img-responsive" src="/resources/assets/img/pic.png"></a>
 				</div>
-				<! --/col-lg-4-->
+				<!--/col-lg-4-->
 				<div class="col-lg-8 name-desc">
 					<div class="col-md-6"></div>
 					<div class="col-md-6">
@@ -57,7 +57,7 @@
 						</div>
 					</div>
 				</div>
-				<! --/col-lg-8-->
+				<!--/col-lg-8-->
 			</div>
 			<!-- /row -->
 		</div>
@@ -65,7 +65,7 @@
 	</div>
 	<!-- /aboutwrap -->
 </div>
-<! --/Portfoliowrap -->
+<!--/Portfoliowrap -->
 
 <!-- actionForm form 데이터 전송용  -->
 <form id="actionForm" action="/itemmanage/modify?bno=${book.bno }" method="get">

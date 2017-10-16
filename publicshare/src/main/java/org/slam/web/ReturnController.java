@@ -13,6 +13,4 @@ public class ReturnController {
 	public void getList() {
 		
 	}
-	
-	
 }
