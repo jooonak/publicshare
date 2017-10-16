@@ -7,6 +7,40 @@
 <%@include file="../include/header.jsp"%>
 <!-- 왜 상대경로만 되는지... -->
 <html>
+<!-- modal style -->
+<style>
+.modal {
+	padding-right: 0px;
+	background-color: rgba(4, 4, 4, 0.3);
+}
+
+.modal-dialog_a {
+	top: 20%;
+	width: 50%;
+	position: absolute;
+	margin-left: 25%;
+}
+
+.modal-content_a {
+	border-radius: 10px;
+	border: none;
+	padding: 25px;
+	top: 40%;
+}
+
+.modal-body_a {
+	background-color: #0f8845;
+	border-radius: 10px;
+	color: white;
+	padding: 10px;
+}
+
+
+
+
+
+</style>
+
 
 <style>
 .project-wrapper {
@@ -65,161 +99,81 @@ a:hover {
 				<a href="http://localhost:8080/itemmanage/register">register</a>
 			</button>
 
+
 			<div class="carousel slide" id="myCarousel">
 				<div class="carousel-inner">
 					<div class="item active">
 
 
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
+						<c:forEach items="${list}" var="book">
+							<div class="col-sm-3 col-xs-12 desc">
+								<div class="project-wrapper">
+									<div class="project">
+										<div class="photo-wrapper">
+											<a href="/itemmanage/view?bno=${book.bno}">
+												<div class="photo">
+													<img src="/resources/assets/img/portfolio/port01.jpg"
+														alt="">
+
+												</div>
+												<div class="caption">
+													<h4>${book.bname}</h4>
+													<p>${book.publisher}</p>
+													<c:choose>
+														<c:when test="${book.available eq 'T'}">
+															<input type="button" value="대여 가능">
+														</c:when>
+														<c:when test="${book.available eq 'F'}">
+															<input type="button" value="대여중">
+														</c:when>
+													</c:choose>
+													<p></p>
+												</div>
+												<div class="overlay"></div>
+											</a>
 										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
+						</c:forEach>
+
+
 
 
 					</div>
 					<!-- /Slide1 -->
 					<div class="item">
+						<c:forEach items="${list}" var="book">
+							<div class="col-sm-3 col-xs-12 desc">
+								<div class="project-wrapper">
+									<div class="project">
+										<div class="photo-wrapper">
+											<a href="/itemmanage/view?bno=${book.bno}">
+												<div class="photo">
+													<img src="/resources/assets/img/portfolio/port01.jpg"
+														alt="">
 
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
+												</div>
+												<div class="caption">
+													<h4>${book.bname}</h4>
+													<p>${book.publisher}</p>
+													<c:choose>
+														<c:when test="${book.available eq 'T'}">
+															<input type="button" value="대여 가능">
+														</c:when>
+														<c:when test="${book.available eq 'F'}">
+															<input type="button" value="대여중">
+														</c:when>
+													</c:choose>
+													<p></p>
+												</div>
+												<div class="overlay"></div>
+											</a>
 										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
+						</c:forEach>
 
 
 
@@ -227,78 +181,38 @@ a:hover {
 					<!-- /Slide2 -->
 					<div class="item">
 
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port02.jpg" alt=""></a>
+						<c:forEach items="${list}" var="book">
+							<div class="col-sm-3 col-xs-12 desc">
+								<div class="project-wrapper">
+									<div class="project">
+										<div class="photo-wrapper">
+											<a href="/itemmanage/view?bno=${book.bno}">
+												<div class="photo">
+													<img src="/resources/assets/img/portfolio/port01.jpg"
+														alt="">
+
+												</div>
+												<div class="caption">
+													<h4>${book.bname}</h4>
+													<p>${book.publisher}</p>
+													<c:choose>
+														<c:when test="${book.available eq 'T'}">
+															<input type="button" value="대여 가능">
+														</c:when>
+														<c:when test="${book.available eq 'F'}">
+															<input type="button" value="대여중">
+														</c:when>
+													</c:choose>
+													<p></p>
+												</div>
+												<div class="overlay"></div>
+											</a>
 										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
+						</c:forEach>
+
 
 
 					</div>
@@ -314,6 +228,23 @@ a:hover {
 							class="glyphicon glyphicon-chevron-right"></i></li>
 				</ul>
 				</nav>
+				
+				<div class="row text-center" style="padding: 50px;">
+								<div class="modal fade modalDialogA " tabindex="-1"
+									role="dialogA" aria-labelledby="modalLabelA">
+									<div class="modal-dialog_a modal-lg">
+										<div class="modal-content_a">
+											<div class="modal-body_a  ">
+												<h2>This is a Loan Modal!</h2>
+												<h4>Some message text shown to users.</h4>
+												<p>
+													<button class="btn btn-default">btn-block</button>
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
 
 			</div>
@@ -331,29 +262,26 @@ a:hover {
 
 </form>
 
- <script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
 
 <!-- 클래스 link 버튼 처리 -->
 <script type="text/javascript">
-$(document).ready(function(){
-	
-	$(".link").on("click",function(e){
-		
-		e.preventDefault();
-		console.log($(this));
-		
-		var $actionForm = $(actionForm);
-		
-		$actionForm.submit();
-		
+	$(document).ready(function() {
+
+		$(".link").on("click", function(e) {
+
+			e.preventDefault();
+			console.log($(this));
+
+			var $actionForm = $(actionForm);
+
+			$actionForm.submit();
+
+		});
+
 	});
-	
-});
-
-
 </script>
 
 <%@include file="../include/footer.jsp"%>

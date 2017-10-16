@@ -43,9 +43,10 @@
 					<div class="col-md-6">
 						<!-- BookDTO, MemberDTO, Criteria 필요 -->
 						<h3>글쓴이, 등록일, 조회수</h3>
-						<p>책제목<input type="text" readonly="readonly"></p>
-						<p>출판사<input type="text" readonly="readonly"></p>
-						<p>날짜정보<input type="text" readonly="readonly"></p>
+						
+						<p>책제목<input type="text" readonly="readonly" value="${book.bname }"></p>
+						<p>출판사<input type="text" readonly="readonly" value="${book.publisher }"></p>
+						<p>날짜정보<input type="text" readonly="readonly" value="${book.owner }"></p>
 						<div>
 							<!-- 수정/삭제 div 호출(대여 페이지에서 이동할 경우 표시되는 버튼) -->
 							<input class="modBtn" type="button" name="대여" value="수정/삭제">
@@ -67,8 +68,8 @@
 <! --/Portfoliowrap -->
 
 <!-- actionForm form 데이터 전송용  -->
-<form id="actionForm" action="/itemmanage/modify" method="post">
-	<!-- <input type="hidden" name="bno" > -->
+<form id="actionForm" action="/itemmanage/modify?bno=${book.bno }" method="get">
+	 <input type="hidden" name="bno"  value="${book.bno }">
 
 </form>
 
@@ -86,12 +87,9 @@ $(document).ready(function(){
 		
 		e.preventDefault();
 		
-		
-		var $actionForm = $(actionForm);
+		var $actionForm = $("#actionForm");
 		
 		$actionForm.submit();
-		
-		
 		
 	});
 	

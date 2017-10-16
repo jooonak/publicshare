@@ -42,18 +42,21 @@
 					<div class="col-md-6"></div>
 					<div class="col-md-6">
 						<!-- BookDTO, MemberDTO, Criteria 필요 -->
+						<form id="modForm" action="/itemmanage/modify" method="post">
 						<h3>글쓴이, 등록일, 조회수</h3>
-						<p>책제목<input type="text"></p>
-						<p>출판사<input type="text"></p>
-						<p>날짜정보<input type="text"></p>
+						<p>책제목<input type="text" name="bname" value="${book.bname }"></p>
+						<p>출판사<input type="text" name="publisher" value="${book.publisher }"></p>
+						<p>날짜정보<input type="text" name="owner" value="${book.owner }"></p>
 						<div>
 							<!-- 수정 div 호출(대여 페이지에서 이동할 경우 표시되는 버튼) -->
-							<input type="button" name="대여" value="수정">
+							<input class="modBtn" type="button" value="수정">
 							<!-- 삭제 div 호출(나의 물품 관리 페이지에서 이동할 경우 표시되는 버튼) -->
-							<input type="button" name="대여" value="삭제"> 
+							<input class="delBtn" type="button" value="삭제"> 
 							<!-- 뒤로가기 -->
 							<input type="button" name="list" value="뒤로가기">
+							<input type="hidden" name="bno" value="${book.bno }" >
 						</div>
+						</form>
 					</div>
 				</div>
 				<! --/col-lg-8-->
@@ -67,15 +70,34 @@
 <! --/Portfoliowrap -->
 
 <!-- actionForm form 데이터 전송용  -->
-<form id="actionForm" action="/itemmanage/modify" method="post">
-	<!-- <input type="hidden" name="bno" > -->
-
+<form id="actionForm" action="/itemmanage/remove" method="post">
+	 <input type="hidden" name="bno" value="${book.bno }" >
 </form>
 
  <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	$(".modBtn").on("click",function(e){
+		
+		$("#modForm").submit();
+		
+	});
+	
+	$(".delBtn").on("click",function(e){
+		
+		$("#actionForm").submit();
+		
+	});
+	
+});
+
+</script>
 
 
 <%@include file="../include/footer.jsp"%>
