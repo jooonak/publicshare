@@ -86,9 +86,9 @@
 				<div class="col-md-6 col-md-offset-3">
 					<h1>DESIGN STUDIO</h1>
 				</div>
-			</div><! --/row -->
-		</div><! --/container -->
-	</div><! --/headerwrap -->
+			</div><!--/row -->
+		</div><!--/container -->
+	</div><!--/headerwrap -->
 	
 	<section id="about" name="about"></section>
 	<div id="aboutwrap">
@@ -102,7 +102,7 @@
 					
 					</div>
 					
-				</div><! --/col-lg-4-->
+				</div><!--/col-lg-4-->
 				<div class="col-lg-8 name-desc">
 					<h2>TALENTED DESIGNER & <br/>FRONT-END DEVELOPER <br/>ENJOYING THE BEAUTIFUL NYC</h2>
 					<div class="name-zig"></div>
@@ -116,7 +116,7 @@
 						<p> Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. </p>
 					</div>
 					
-				</div><! --/col-lg-8-->
+				</div><!--/col-lg-8-->
 		
 			</div><!-- /row -->
 		</div><!-- /container -->
@@ -144,7 +144,7 @@
    
 </div>
 
-	<! -- PORTFOLIO SECTION -->
+	<!-- PORTFOLIO SECTION -->
 	<section id="portfolio" name="portfolio"></section>
 	<div id="portfoliowrap">
 		<div class="container">
@@ -230,6 +230,6 @@
 	                </div>
 				</div><!-- col-lg-4 -->
 			</div><!-- /row -->
-		</div><! --/container -->
-	</div><! --/Portfoliowrap -->
+		</div><!--/container -->
+	</div><!--/Portfoliowrap -->
 <%@include file="./include/footer.jsp"%>
