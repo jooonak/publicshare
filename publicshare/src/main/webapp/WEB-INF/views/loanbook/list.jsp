@@ -84,25 +84,27 @@ a:hover {
 						<div class="project">
 							<div class="photo-wrapper">
 								<a href="/loanbook/view?bno=${book.bno}&page=${cri.page}">
-								<div class="photo">
+									<div class="photo">
 										<img src="/resources/assets/img/portfolio/port01.jpg" alt="">
-									
-								</div>
-								<div class="caption">
-									<h4>${book.bname}</h4>
-									<p>${book.publisher}</p>
-									<c:choose>
-										<c:when test="${book.available eq 'T'}">
-											<input type="button" value="대여 가능">	
-										</c:when>
-										<c:when test="${book.available eq 'F'}">
-											<input type="button" value="대여중">
-										</c:when>
-									</c:choose>
-									<p></p>
-								</div>
-								<div class="overlay"></div>
-							    </a>
+									</div>
+									<div class="caption">
+										<h4>${book.bname}</h4>
+										<p>${book.publisher}</p>
+
+										<!-- choose/when 구믄을 사용해 bookDTO의 resCnt 상태에 따른 버튼 표시 -->
+										<c:choose>
+											<c:when test="${book.resCnt eq '0'}">
+												<input type="button" value="대여 가능">
+											</c:when>
+											<c:when test="${book.resCnt eq '1'}">
+												<input type="button" value="대여중">
+											</c:when>
+										</c:choose>
+
+										<p></p>
+									</div>
+									<div class="overlay"></div>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -131,9 +133,7 @@ a:hover {
 	    liCount: 5
 	});
 	
-	console.log(pageStr)
-	
-	$("#divPaging").html(pageStr.str);
+	$("#divPaging").html(pageStr);
 </script>
 
 <%@include file="../include/footer.jsp"%>

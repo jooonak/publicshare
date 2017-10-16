@@ -13,11 +13,12 @@ import lombok.extern.java.Log;
 @Aspect
 @Log
 public class TimeChecker {
+	
 	//junit test를 이용하여 aop 실행 test완료
 	@Before("execution(* org.slam.mapper.*.*(..))")	//수정 필요
 	public void sample(JoinPoint jp) {
 		log.info("============TimeChecker============");
-		log.info(Arrays.toString(jp.getArgs()));
+		log.info("join poin's args" + Arrays.toString(jp.getArgs()));
 		log.info("============TimeChecker============");
 	}
 }

@@ -100,10 +100,10 @@ a:hover {
 			</button>
 
 
+			<!-- 나중에 css처리 해야함 -->
 			<div class="carousel slide" id="myCarousel">
 				<div class="carousel-inner">
 					<div class="item active">
-
 
 						<c:forEach items="${list}" var="book">
 							<div class="col-sm-3 col-xs-12 desc">
@@ -120,10 +120,10 @@ a:hover {
 													<h4>${book.bname}</h4>
 													<p>${book.publisher}</p>
 													<c:choose>
-														<c:when test="${book.available eq 'T'}">
+														<c:when test="${book.resCnt eq '0'}">
 															<input type="button" value="대여 가능">
 														</c:when>
-														<c:when test="${book.available eq 'F'}">
+														<c:when test="${book.resCnt eq '1'}">
 															<input type="button" value="대여중">
 														</c:when>
 													</c:choose>
@@ -158,10 +158,10 @@ a:hover {
 													<h4>${book.bname}</h4>
 													<p>${book.publisher}</p>
 													<c:choose>
-														<c:when test="${book.available eq 'T'}">
+														<c:when test="${book.resCnt eq '0'}">
 															<input type="button" value="대여 가능">
 														</c:when>
-														<c:when test="${book.available eq 'F'}">
+														<c:when test="${book.resCnt eq '1'}">
 															<input type="button" value="대여중">
 														</c:when>
 													</c:choose>
@@ -196,10 +196,10 @@ a:hover {
 													<h4>${book.bname}</h4>
 													<p>${book.publisher}</p>
 													<c:choose>
-														<c:when test="${book.available eq 'T'}">
+														<c:when test="${book.resCnt eq '0'}">
 															<input type="button" value="대여 가능">
 														</c:when>
-														<c:when test="${book.available eq 'F'}">
+														<c:when test="${book.resCnt eq '1'}">
 															<input type="button" value="대여중">
 														</c:when>
 													</c:choose>

@@ -14,8 +14,9 @@ public class BookDTO {
 	private String publisher;
 	private String owner;
 	private Date regDate;
-	private String available; //type 확인 필요(boolean)
+	private int resCnt; //type 확인 필요(boolean)
 	private int lateFee;
 	private String img;
+	
 
 }
