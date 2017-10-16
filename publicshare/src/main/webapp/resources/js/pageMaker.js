@@ -2,7 +2,7 @@ function PageMaker(param){
     var tag = "<li>%page</li>"; 
     var total = param.total;
     var current = param.current || 1;
-    var showCount = param.showCount || 8;
+    var showCount = param.showCount || 10;
     var liCount = param.liCount || 10;
 
     var tempEnd = (function(){
@@ -23,24 +23,28 @@ function PageMaker(param){
     })();
 
     var next = (function(){
-        return endPage * liCount > total ? false : true;
+        return showCount * endPage >= total ? false : true;
     })();
 
     function makePage() {
         var str = "";
 
         if (prev) {
-            str += tag.replace("%page", '<a href="/loanbook/list?page=' + (startPage - 1) + '">Prev</a>');
+            str += tag.replace("%page", '<a class="btn" href="/loanbook/list?page=' + (startPage - 1) + '">Prev</a>');
         }
 
         for (var i = startPage; i <= endPage; i++){
-            str += tag.replace("%page", '<a href="/loanbook/list?page=' + (i) + '">' + (i) + '</a>');
+            str += tag.replace("%page", '<a class="btn" href="/loanbook/list?page=' + (i) + '">' + (i) + '</a>');
         }
 
         if (next) {
-            str += tag.replace("%page", '<a href="/loanbook/list?page=' + (endPage + 1) + '">Next</a>');
+            str += tag.replace("%page", '<a class="btn" href="/loanbook/list?page=' + (endPage + 1) + '">Next</a>');
         }
-        return str;
+        return {
+        	str: str,
+        	prev: prev,
+        	next: next
+        	};
     }
     return makePage();
 };

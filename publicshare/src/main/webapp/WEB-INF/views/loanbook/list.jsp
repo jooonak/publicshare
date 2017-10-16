@@ -38,7 +38,7 @@ a:hover {
 	clear: both;
 	margin: 0 auto;
 	margin-top: 10px;
-	width: 440px;
+	width: 40%;
 	height: 50px;
 }
 
@@ -60,7 +60,7 @@ a:hover {
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<h1>DESIGN STUDIO</h1>
+				<h1>Public Share</h1>
 			</div>
 		</div>
 		<!--/row -->
@@ -83,15 +83,26 @@ a:hover {
 					<div class="project-wrapper">
 						<div class="project">
 							<div class="photo-wrapper">
+								<a href="/loanbook/view?bno=${book.bno}&page=${cri.page}">
 								<div class="photo">
-									<a href="/loanbook/view?bno=${book.bno}&page=${cri.page}"><img src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
+										<img src="/resources/assets/img/portfolio/port01.jpg" alt="">
+									
 								</div>
 								<div class="caption">
 									<h4>${book.bname}</h4>
-									<p>Nullam Condimentum Nibh Etiam Sem</p>
-									<a class="btn btn-mini" href="#">» Read More</a>
+									<p>${book.publisher}</p>
+									<c:choose>
+										<c:when test="${book.available eq 'T'}">
+											<input type="button" value="대여 가능">	
+										</c:when>
+										<c:when test="${book.available eq 'F'}">
+											<input type="button" value="대여중">
+										</c:when>
+									</c:choose>
+									<p></p>
 								</div>
 								<div class="overlay"></div>
+							    </a>
 							</div>
 						</div>
 					</div>
@@ -115,10 +126,14 @@ a:hover {
 
 	var pageStr = PageMaker({
 	    total: ${cri.total},
-	    current: ${cri.page}
+	    current: ${cri.page},
+	    showCount: 8,
+	    liCount: 5
 	});
-
-	$("#divPaging").html(pageStr);
+	
+	console.log(pageStr)
+	
+	$("#divPaging").html(pageStr.str);
 </script>
 
 <%@include file="../include/footer.jsp"%>

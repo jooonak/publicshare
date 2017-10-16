@@ -41,28 +41,38 @@
 				<div class="col-lg-8 name-desc">
 					<div class="col-md-6"></div>
 					<div class="col-md-6">
-						<!-- BookDTO, MemberDTO, Criteria 필요 -->
-						<h3>글쓴이, 등록일, 조회수</h3>
-						<p>책제목<input type="text"></p>
-						<p>출판사<input type="text"></p>
-						<p>날짜정보<input type="text"></p>
-						<div>
-							<!-- 대여/예약 div 호출(대여 페이지에서 이동할 경우 표시되는 버튼) -->
-							<input type="button" name="대여" value="대여/예약">
-							<!-- 히스토리 div 호출(나의 물품 관리 페이지에서 이동할 경우 표시되는 버튼) -->
-							<input type="button" name="대여" value="히스토리"> 
-							<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
-							<input type="button" name="list" value="뒤로가기">
-						</div>
+
+						<form method="post">
+							<!-- BookDTO, MemberDTO, Criteria 필요 -->
+							<h3>글쓴이, 등록일, 조회수</h3>
+							<p>
+								책제목<input type="text" name="bname">
+							</p>
+							<p>
+								출판사<input type="text" name="publisher">
+							</p>
+							<p>
+								책주인<input type="text" name="owner">
+							</p>
+							<div>
+
+								<!-- 등록버튼  -->
+								<input id="regBtn" type="submit" value="Register">
+								
+						</form>
+						<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
+						<a href="/itemmanage/list"><input id="listBtn" type="button" name="list" value="뒤로가기"></a>
 					</div>
 				</div>
-				<! --/col-lg-8-->
 			</div>
-			<!-- /row -->
+			<! --/col-lg-8-->
 		</div>
-		<!-- /container -->
+		<!-- /row -->
 	</div>
-	<!-- /aboutwrap -->
+	<!-- /container -->
 </div>
-<! --/Portfoliowrap -->
-<%@include file="../include/footer.jsp"%>
+<!-- /aboutwrap -->
+</div>
+<! --/Portfoliowrap --> 
+
+ <%@include file="../include/footer.jsp"%>

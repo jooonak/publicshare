@@ -22,5 +22,11 @@ public class LoanBookServiceImpl implements LoanBookService{
 		//criteria의 total값을 setting
 		return mapper.getBookList(cri);
 	}
+
+	//mapper의 메서드를 통해 bno에 해당하는 Book데이터 반환
+	@Override
+	public BookDTO getBook(int bno) {
+		return mapper.getBook(bno);
+	}
 	
 }
