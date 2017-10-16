@@ -14,10 +14,10 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/resources/assets/css/bootstrap.css" rel="stylesheet">
-	<link href="/resources/assets/css/bootstrap2.css?ver=1" rel="stylesheet">
+	<link href="/resources/assets/css/bootstrap2.css?ver=2" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/resources/assets/css/style.css?ver=1" rel="stylesheet">
+    <link href="/resources/assets/css/style.css?ver=2" rel="stylesheet">
     <link href="/resources/assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="/resources/assets/js/fancybox/jquery.fancybox.css" rel="stylesheet" />
 
