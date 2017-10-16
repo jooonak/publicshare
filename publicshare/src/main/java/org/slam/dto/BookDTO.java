@@ -17,5 +17,6 @@ public class BookDTO {
 	private String available; //type 확인 필요(boolean)
 	private int lateFee;
 	private String img;
+	
 
 }

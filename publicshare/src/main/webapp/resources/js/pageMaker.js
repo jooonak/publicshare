@@ -31,7 +31,9 @@ function PageMaker(param){
 
         if (prev) {
             str += tag.replace("%page", '<a class="btn" href="/loanbook/list?page=' + (startPage - 1) + '">Prev</a>');
-        }
+        } else {
+			str += tag.replace("%page", '<a class="btn" disabled>Prev</a>');
+		}
 
         for (var i = startPage; i <= endPage; i++){
             str += tag.replace("%page", '<a class="btn" href="/loanbook/list?page=' + (i) + '">' + (i) + '</a>');
@@ -40,11 +42,7 @@ function PageMaker(param){
         if (next) {
             str += tag.replace("%page", '<a class="btn" href="/loanbook/list?page=' + (endPage + 1) + '">Next</a>');
         }
-        return {
-        	str: str,
-        	prev: prev,
-        	next: next
-        	};
+        return str;
     }
     return makePage();
 };

@@ -161,7 +161,7 @@ body {
 
 			<div class="w3-center">
 				<br> 
-				<span onclick="document.getElementById('id01').style.display='none'"
+				<span onclick="document.getElementById('joinModal').style.display='none'"
 				class="w3-button w3-xlarge w3-hover-red w3-display-topright"
 				title="Close Modal">&times;</span> 
 				<img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="Avatar"
@@ -177,11 +177,11 @@ body {
 					<input class="w3-input w3-border" type="password"
 						placeholder="Enter Password" name="mpw" required> 
 					<label><b>Name</b></label>
-					<input class="w3-input w3-border" type="password"
-						placeholder="Enter Password" name="mpw" required>
+					<input class="w3-input w3-border" type="text"
+						placeholder="Enter Password" name="mname" required>
 				</div>
 				<div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-					<button onclick="document.getElementById('id01').style.display='none'"
+					<button onclick="document.getElementById('joinModal').style.display='none'"
 					class="btn btn-danger" id="regCancelBtn">Cancel</button>
 					<button id="regBtn" class="btn btn-success">Join In</button>
 				</div>
@@ -196,18 +196,18 @@ body {
 			<p id="profile-name" class="profile-name-card"></p>
 			<form class="form-signin" action="/login" method="post">
 				<span id="reauth-email" class="reauth-email"></span> 
-				<input type="email" id="inputEmail" class="form-control"
+				<input type="text" class="form-control" name="mid"
 					placeholder="UserID" required autofocus> 
-				<input type="password" id="inputPassword" class="form-control"
+				<input type="password" name="mpw" class="form-control"
 					placeholder="Password" required>
 				<div id="remember" class="checkbox">
-					<label><input type="checkbox" value="remember-me">Remember Me</label>
+					<label><input type="checkbox" name="auto">Remember Me</label>
 				</div>
 				<button class="btn btn-lg btn-success btn-block ">Sign In</button>
 			</form>
 			<!-- /form -->
 			<button class="btn btn-lg btn-danger btn-block"
-				onclick="document.getElementById('id01').style.display='block'">Join Now!</button>
+				onclick="document.getElementById('joinModal').style.display='block'">Join Now!</button>
 			<a href="#" class="forgot-password"> Forgot the password? </a>
 		</div>
 		<!-- /card-container -->
