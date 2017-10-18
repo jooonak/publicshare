@@ -135,7 +135,7 @@ a:hover {
 	
 	$("#divPaging").html(pageStr);
 	
-	console.log(${result});
+	console.log("${result}");
 </script>
 
 <%@include file="../include/footer.jsp"%>

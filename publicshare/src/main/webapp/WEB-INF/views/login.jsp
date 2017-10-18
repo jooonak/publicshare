@@ -147,7 +147,7 @@ body {
 	color: rgb(12, 97, 33);
 }
 
-#regBtn {
+#joinBtn {
 	float: right;
 }
 </style>
@@ -183,7 +183,7 @@ body {
 				<div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
 					<button onclick="document.getElementById('joinModal').style.display='none'"
 					class="btn btn-danger" id="regCancelBtn">Cancel</button>
-					<button id="regBtn" class="btn btn-success">Join In</button>
+					<button id="joinBtn" class="btn btn-success">Join In</button>
 				</div>
 			</form>
 		</div>

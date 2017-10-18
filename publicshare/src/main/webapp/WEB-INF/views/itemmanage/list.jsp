@@ -35,9 +35,7 @@
 	color: white;
 	padding: 10px;
 }
-</style>
 
-<style>
 .project-wrapper {
 	border-radius: 5px;
 	text-align: center;
@@ -69,22 +67,6 @@ a:hover {
 }
 </style>
 
-
-<!-- register 성공시  뜨는 modal -->
-<div class="row text-center" style="padding: 50px;">
-	<div class="modal modalDialogA fade in ">
-		<div class="modal-dialog_a modal-lg">
-			<div class="modal-content_a">
-				<div class="modal-body_a">
-					<h2>등록되었습니다.</h2>
-					<p>
-						<button>확인</button>
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 
 <section id="home" name="home"></section>
 <div id="headerwrap">
@@ -255,6 +237,22 @@ a:hover {
 						</div>
 					</div>
 				</div>
+				<!-- register 성공시  뜨는 modal -->
+				<div class="row text-center" style="padding: 50px;">
+					<div class="modal modalDialogA fade in ">
+						<div class="modal-dialog_a modal-lg">
+							<div class="modal-content_a">
+								<div class="modal-body_a">
+									<h2>등록되었습니다.</h2>
+									<p>
+										<button>확인</button>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
 
 			</div>
 			<!--/container -->
@@ -291,14 +289,13 @@ a:hover {
 		});
 
 	});
-	
+
 	var msg = "${result}";
-	
-	if(msg === "success"){
-		
+
+	if (msg === "success") {
+
 		alert("등록되었습니다.");
 	}
-
 </script>
 
 <%@include file="../include/footer.jsp"%>

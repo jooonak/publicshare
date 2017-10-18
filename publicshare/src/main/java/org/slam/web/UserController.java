@@ -73,4 +73,12 @@ public class UserController {
 		
 		return "redirect:/login";
 	}
+	
+	@PostMapping("/modify")
+	public String userModify(MemberDTO dto, RedirectAttributes rttr) {
+		service.modifyUser(dto);
+		
+		rttr.addFlashAttribute("result","modify");
+		return "redirect:/loanbook/list";
+	}
 }

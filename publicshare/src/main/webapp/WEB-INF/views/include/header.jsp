@@ -10,7 +10,8 @@
 <meta name="author" content="">
 <link rel="shortcut icon" href="/resources/assets/ico/favicon.ico">
 
-<title>NYC - Design Studio</title>
+
+<title>Public Share</title>
 
 <!-- Bootstrap core CSS -->
 <link href="/resources/assets/css/bootstrap.css" rel="stylesheet">

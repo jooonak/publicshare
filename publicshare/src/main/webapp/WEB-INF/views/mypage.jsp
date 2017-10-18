@@ -7,8 +7,6 @@
 <%@include file="./include/header.jsp"%>
 <html>
 <!-- í©ì³ì§ê³  ìµìíë ìµì  CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 <!-- ë¶ê°ì ì¸ íë§ -->
 <link rel="stylesheet"
@@ -16,7 +14,6 @@
 
 <!-- w3 Modalì¬ì©ì ìí link -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <style>
 body {
@@ -167,8 +164,8 @@ body {
 				<input type="text" class="form-control" name="mid"	placeholder="UserID" value="${member.mid}" readonly="readonly">
 				<label>ENTER PASSWORD</label>
 				<input type="password" name="mpw" class="form-control" placeholder="Password" required value="${member.mpw}">
-				<label>CHECK PASSWORD</label> 
-				<input type="password" name="mpwCK" class="form-control" placeholder="Password" required> 
+				<!-- <label>CHECK PASSWORD</label> 
+				<input type="password" name="mpwCK" class="form-control" placeholder="Password" required> --> 
 				<label>NAME</label> 
 				<input type="text" class="form-control" name="mname" placeholder="UserID" value="${member.mname}" readonly="readonly"> 
 				<label>JOIN	DATE</label> 

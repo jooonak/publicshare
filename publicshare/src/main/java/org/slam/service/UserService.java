@@ -9,4 +9,6 @@ public interface UserService {
 	public MemberDTO checkMember(MemberDTO dto);
 	
 	public MemberDTO getMember(String mid);
+	
+	public void modifyUser(MemberDTO dto);
 }

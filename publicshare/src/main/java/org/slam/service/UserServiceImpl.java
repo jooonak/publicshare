@@ -27,4 +27,9 @@ public class UserServiceImpl implements UserService{
 		return mapper.getMember(mid);
 	}
 
+	@Override
+	public void modifyUser(MemberDTO dto) {
+		mapper.updateUser(dto);
+	}
+
 }
