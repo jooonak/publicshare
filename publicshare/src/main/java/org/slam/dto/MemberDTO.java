@@ -8,8 +8,7 @@ import lombok.extern.java.Log;
 @Log
 @Data
 public class MemberDTO {
-
-	private int mno;
+	//mno ªË¡¶(sb)
 	private String mid;	
 	private String mpw;
 	private String mname;
