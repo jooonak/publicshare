@@ -291,6 +291,18 @@ a:hover {
 		});
 
 	});
+<<<<<<< HEAD
+=======
+	
+	var msg = "${result}";
+	
+	if(msg === "success"){
+		
+		alert("등록되었습니다.");
+	}
+
+	
+>>>>>>> refs/remotes/origin/master
 </script>
 
 <%@include file="../include/footer.jsp"%>

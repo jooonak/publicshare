@@ -4,9 +4,11 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
+
 <%@include file="../include/header.jsp"%>
 <!-- 왜 상대경로만 되는지... -->
 <html>
+
 
 <section id="home" name="home"></section>
 <div id="headerwrap">
@@ -42,17 +44,17 @@
 					<div class="col-md-6"></div>
 					<div class="col-md-6">
 
-						<form method="post">
+						<form class="register" method="post">
 							<!-- BookDTO, MemberDTO, Criteria 필요 -->
 							<h3>글쓴이, 등록일, 조회수</h3>
 							<p>
-								책제목<input type="text" name="bname">
+								책제목<input class="input" type="text" name="bname" >
 							</p>
 							<p>
-								출판사<input type="text" name="publisher">
+								출판사<input class="input" type="text" name="publisher">
 							</p>
 							<p>
-								책주인<input type="text" name="owner">
+								책주인<input class="input" type="text" name="owner">
 							</p>
 							<div>
 
@@ -74,5 +76,38 @@
 <!-- /aboutwrap -->
 </div>
 <! --/Portfoliowrap --> 
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+
+<script>
+	$(document).ready(function(){
+		
+		$("#regBtn").on("click",function(e){
+			
+			e.preventDefault();
+			
+			var input = $(".input[name='bname']").val();			
+			
+			if($(".input[name='bname']").val()===""){
+				alert("책 제목을 입력해주세요.");
+				return;
+			}else if($(".input[name='publisher']").val()===""){
+				alert("출판사를 입력해주세요.");
+				return;
+			}else if($(".input[name='owner']").val()===""){
+				alert("책 주인을 입력해주세요.");
+				return;
+			}
+			
+			$(".register").submit();
+			
+		});
+		
+	});
+
+
+</script>
+
 
  <%@include file="../include/footer.jsp"%>
