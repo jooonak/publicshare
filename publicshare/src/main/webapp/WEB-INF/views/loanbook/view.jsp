@@ -58,43 +58,7 @@
 <html>
 
 
-<!-- bookDTO의 available이 T(True)일 경우 나타나는 모달 -->
-<div class="row text-center" style="padding: 50px;">
-	<div class="modal fade modalDialogA " tabindex="-1"
-		role="dialogA" aria-labelledby="modalLabelA">
-		<div class="modal-dialog_a modal-lg">
-			<div class="modal-content_a">
-				<div class="modal-body_a  ">
-					<h2>신청 페이지</h2>
-					<h4>대여 하시겠습니까?</h4>
-					<input type="hidden" name="bno" value="${book.bno}">
-					<p>
-						<button class="loanBook" value="onapply">대여하기</button>
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 
-<!-- bookDTO의 available이 F(False)일 경우 나타나는 모달 -->
-<div class="row text-center" style="padding: 50px;">
-	<div class="modal fade modalDialogB " tabindex="-1"
-		role="dialogB" aria-labelledby="modalLabelB">
-		<div class="modal-dialog_b modal-lg">
-			<div class="modal-content_b">
-				<div class="modal-body_b  ">
-					<h2>신청 페이지</h2>
-					<h4>예약 하시겠습니까?</h4>
-					<input type="hidden" name="bno" value="${book.bno}">
-					<p>
-						<button class="loanBook" value="onres">대여하기</button>
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 
 <section id="home" name="home"></section>
 <div id="headerwrap">
@@ -120,8 +84,10 @@
 			<div class="row">
 				<div class="col-lg-6 name">
 					<!-- 상대경로, 절대경로 참조: https://stackoverflow.com/questions/34445457/404-error-for-bootstrap-min-css-and-bootstrap-min-js -->
-					<a class="fancybox"	href="/resources/assets/img/portfolio/port01.jpg">
-					<img class="img-responsive" src="/resources/assets/img/portfolio/port01.jpg"></a>
+					<a class="fancybox"
+						href="/resources/assets/img/portfolio/port01.jpg"> <img
+						class="img-responsive"
+						src="/resources/assets/img/portfolio/port01.jpg"></a>
 				</div>
 				<!--/col-lg-4-->
 				<div class="col-lg-6 name-desc">
@@ -153,11 +119,49 @@
 										data-target=".modalDialogA" value="대여">
 								</c:when>
 							</c:choose>-->
-									<input type="button" data-toggle="modal" data-target=".modalDialogB" value="예약">
-									<input type="button" data-toggle="modal" data-target=".modalDialogA" value="대여">
+							<input type="button" data-toggle="modal"
+								data-target=".modalDialogB" value="예약"> <input
+								type="button" data-toggle="modal" data-target=".modalDialogA"
+								value="대여">
 							<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
 							<a href="/loanbook/list?page=${cri.page}" class="btn">뒤로가기</a>
+							<!-- bookDTO의 available이 T(True)일 경우 나타나는 모달 -->
+							<div class="row text-center" style="padding: 50px;">
+								<div class="modal fade modalDialogA " tabindex="-1"
+									role="dialogA" aria-labelledby="modalLabelA">
+									<div class="modal-dialog_a modal-lg">
+										<div class="modal-content_a">
+											<div class="modal-body_a  ">
+												<h2>신청 페이지</h2>
+												<h4>대여 하시겠습니까?</h4>
+												<input type="hidden" name="bno" value="${book.bno}">
+												<p>
+													<button class="loanBook" value="onapply">대여하기</button>
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
+							<!-- bookDTO의 available이 F(False)일 경우 나타나는 모달 -->
+							<div class="row text-center" style="padding: 50px;">
+								<div class="modal fade modalDialogB " tabindex="-1"
+									role="dialogB" aria-labelledby="modalLabelB">
+									<div class="modal-dialog_b modal-lg">
+										<div class="modal-content_b">
+											<div class="modal-body_b  ">
+												<h2>신청 페이지</h2>
+												<h4>예약 하시겠습니까?</h4>
+												<input type="hidden" name="bno" value="${book.bno}">
+												<p>
+													<button class="loanBook" value="onres">대여하기</button>
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

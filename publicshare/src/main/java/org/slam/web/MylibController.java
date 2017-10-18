@@ -41,6 +41,9 @@ public class MylibController {
 	public String registerPost(BookDTO dto, RedirectAttributes rttr) {
 
 		service.register(dto);
+		
+		rttr.addFlashAttribute("result","success");
+		
 		return "redirect:/itemmanage/list";
 	}
 
