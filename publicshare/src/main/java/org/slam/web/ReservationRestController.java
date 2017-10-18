@@ -25,10 +25,25 @@ public class ReservationRestController {
 	//나의 물품 등록 페이지
 	@PostMapping("/new")
 	public void reserve(@RequestBody ReservationDTO dto) {
-		//mno값 가져와야 함 and mno 없애고 id값으로 사용하자
+		//mno값 가져와야 함 and mno 없애고 id값으로 사용하자(sb)
 		log.info(""+dto);
-		service.bookReserve(dto, "test");
+		service.bookReserve(dto, "testUser");
 	}
-
+	
+	@PostMapping("/confirm")
+	public void confirm(@RequestBody ReservationDTO dto) {
+		//
+		System.out.println("confirm:"+dto);
+		service.confirmBookReserve(dto);
+		//
+	}
+	
+	@PostMapping("/reject")
+	public void resject(@RequestBody ReservationDTO dto) {
+		//
+		System.out.println("reject:"+dto);
+		service.rejectBookReserve(dto);
+		//
+	}
 
 }

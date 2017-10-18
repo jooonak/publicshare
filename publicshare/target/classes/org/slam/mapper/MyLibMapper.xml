@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="org.slam.mapper.MyLibMapper">
+	<resultMap type="map" id="detailedApplyMap">
+		<collection property="BookDTO" ofType="BookDTO">
+			<id property="bno" column="bno" />
+			<id property="bname" column="bname" />
+			<id property="publisher" column="publisher" />
+		</collection>
+		<collection property="ReservationDTO" ofType="ReservationDTO">
+			<id property="rno" column="rno" />
+			<id property="resDate" column="resdate" />
+			<id property="lender" column="lender" />
+		</collection>
+
+	</resultMap>
+
+	<select id="getApplyList" resultMap="detailedApplyMap">
+		select
+		tbl_book.bno,
+		tbl_book.bname ,tbl_book.publisher, tbl_reservation.rno ,tbl_reservation.resdate,
+		tbl_reservation.lender lender
+		from
+		tbl_reservation,
+		(
+		select
+		*
+		from
+		tbl_book
+		where owner = 'testOwner'	<!-- 수정 필요한 부분 -->
+		) tbl_book
+		where tbl_reservation.bno =
+		tbl_book.bno and
+		tbl_reservation.status = 'onapply'
+	</select>
+</mapper>

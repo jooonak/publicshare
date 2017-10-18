@@ -1,6 +1,7 @@
 package org.slam.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -27,9 +28,8 @@ public class MylibServiceImpl implements MylibService {
 
 	//리스트 서비스 임플
 	@Override
-	public List<BookDTO> list(Criteria cri) {
-		
-		return mapper.list(cri);
+	public List<BookDTO> list(Criteria cri, String mid) {
+		return mapper.list(cri, mid);
 	}
 
 	//뷰 서비스 임플
@@ -54,6 +54,11 @@ public class MylibServiceImpl implements MylibService {
 		mapper.remove(bno);
 		
 	}
-
 	
+	//대여 요청온 물품 리스트를 가져오는 임플(sb)
+	public List<Map<String, Object>> ApplyList() {
+		return mapper.getApplyList();
+	}
+	
+
 }

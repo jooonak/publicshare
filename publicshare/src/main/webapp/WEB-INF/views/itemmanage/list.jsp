@@ -35,8 +35,6 @@
 	color: white;
 	padding: 10px;
 }
-
-
 </style>
 
 <style>
@@ -80,7 +78,7 @@ a:hover {
 				<div class="modal-body_a">
 					<h2>등록되었습니다.</h2>
 					<p>
-						<button >확인</button>
+						<button>확인</button>
 					</p>
 				</div>
 			</div>
@@ -112,6 +110,21 @@ a:hover {
 			<button>
 				<a href="http://localhost:8080/itemmanage/register">register</a>
 			</button>
+
+			<!-- 등록 modal 요청용  -->
+			<div>
+				<c:forEach items="${applylist}" var="apply">
+					<div>${apply.BookDTO}</div>
+					<div>${apply.ReservationDTO}</div>
+					<button class = 'apply-btn' data-oper = 'confirm' data-rno = '${apply.ReservationDTO.rno}'
+					data-bno = '${apply.BookDTO.bno}'
+					>확인${apply.ReservationDTO.rno}</button>
+					<button class = 'apply-btn' data-oper = 'reject' data-rno = '${apply.ReservationDTO.rno}'
+					data-bno = '${apply.BookDTO.bno}'
+					>취소</button>
+				</c:forEach>
+			</div>
+			<!-- 등록 modal 요청용 end -->
 
 
 			<!-- 나중에 css처리 해야함 -->
@@ -270,7 +283,6 @@ a:hover {
 	$(document).ready(function() {
 
 		$(".link").on("click", function(e) {
-
 			e.preventDefault();
 			console.log($(this));
 
@@ -279,11 +291,26 @@ a:hover {
 			$actionForm.submit();
 
 		});
-
+		
+		$('.apply-btn').click(function(){
+			var $this = $(this)
+			var data = {
+					bno: $this.attr('data-bno'), 
+				  	rno: $this.attr('data-rno'),
+				  };
+			
+			$.ajax({
+				url : '/reservation/'+$this.attr('data-oper'),
+				type : 'post',
+				contentType: "application/json; charset=utf-8",
+				data:JSON.stringify(data),
+				success : function(result) {
+					alert("등록 완료하였습니다.");
+					//callback하면 modal 'hide'처리 예정(sb)
+				}
+			});
+		});
 	});
-	
-
-	
 </script>
 
 <%@include file="../include/footer.jsp"%>

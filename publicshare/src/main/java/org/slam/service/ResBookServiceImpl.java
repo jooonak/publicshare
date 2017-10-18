@@ -13,8 +13,22 @@ public class ResBookServiceImpl implements ResBookService {
 	private ResBookMapper mapper;
 	
 	@Override
-	public void bookReserve(ReservationDTO dto, String mid) {
-		mapper.insertReservation(dto, mid);
+	public void bookReserve(ReservationDTO dto, String lender) {
+		//transaction 처리 필요(sb)
+		mapper.insertReservation(dto, lender);
+		mapper.updateResCntUp(dto.getBno());
+	}
+	
+	@Override
+	public void confirmBookReserve(ReservationDTO dto) {
+		mapper.confirmUpdateResData(dto.getRno());
+		mapper.updateResCntDown(dto.getBno());
+	}
+	
+	@Override
+	public void rejectBookReserve(ReservationDTO dto) {
+		mapper.rejectUpdateResData(dto);
+		mapper.updateResCntDown(dto.getBno());
 	}
 	
 }

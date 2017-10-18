@@ -19,7 +19,7 @@
 	margin-left: 25%;
 }
 
-.modal-content_a {
+.modal-content_a { 
 	border-radius: 10px;
 	border: none;
 	padding: 25px;
