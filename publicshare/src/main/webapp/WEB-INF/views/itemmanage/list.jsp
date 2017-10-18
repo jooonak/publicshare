@@ -282,6 +282,12 @@ a:hover {
 
 	});
 	
+	var msg = "${result}";
+	
+	if(msg === "success"){
+		
+		alert("등록되었습니다.");
+	}
 
 	
 </script>
