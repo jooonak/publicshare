@@ -34,11 +34,6 @@
 	color: white;
 	padding: 10px;
 }
-
-
-
-
-
 </style>
 
 
@@ -228,7 +223,7 @@ a:hover {
 							class="glyphicon glyphicon-chevron-right"></i></li>
 				</ul>
 				</nav>
-				
+
 				<div class="row text-center" style="padding: 50px;">
 								<div class="modal fade modalDialogA " tabindex="-1"
 									role="dialogA" aria-labelledby="modalLabelA">
@@ -245,6 +240,9 @@ a:hover {
 									</div>
 								</div>
 							</div>
+						</div>
+					</div>
+				</div>
 
 
 			</div>
