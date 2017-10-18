@@ -7,4 +7,6 @@ public interface UserService {
 	public void joinMember(MemberDTO dto);
 	
 	public MemberDTO checkMember(MemberDTO dto);
+	
+	public MemberDTO getMember(String mid);
 }

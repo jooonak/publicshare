@@ -7,6 +7,7 @@
 <%@include file="../include/header.jsp"%>
 <!-- 왜 상대경로만 되는지... -->
 <html>
+
 <!-- modal style -->
 <style>
 .modal {
@@ -35,7 +36,6 @@
 	padding: 10px;
 }
 </style>
-
 
 <style>
 .project-wrapper {
@@ -68,6 +68,23 @@ a:hover {
 	padding: 10px
 }
 </style>
+
+
+<!-- register 성공시  뜨는 modal -->
+<div class="row text-center" style="padding: 50px;">
+	<div class="modal modalDialogA fade in ">
+		<div class="modal-dialog_a modal-lg">
+			<div class="modal-content_a">
+				<div class="modal-body_a">
+					<h2>등록되었습니다.</h2>
+					<p>
+						<button>확인</button>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <section id="home" name="home"></section>
 <div id="headerwrap">
@@ -131,8 +148,6 @@ a:hover {
 								</div>
 							</div>
 						</c:forEach>
-
-
 
 
 					</div>
@@ -225,25 +240,21 @@ a:hover {
 				</nav>
 
 				<div class="row text-center" style="padding: 50px;">
-								<div class="modal fade modalDialogA " tabindex="-1"
-									role="dialogA" aria-labelledby="modalLabelA">
-									<div class="modal-dialog_a modal-lg">
-										<div class="modal-content_a">
-											<div class="modal-body_a  ">
-												<h2>This is a Loan Modal!</h2>
-												<h4>Some message text shown to users.</h4>
-												<p>
-													<button class="btn btn-default">btn-block</button>
-												</p>
-											</div>
-										</div>
-									</div>
+					<div class="modal fade modalDialogA " tabindex="-1" role="dialogA"
+						aria-labelledby="modalLabelA">
+						<div class="modal-dialog_a modal-lg">
+							<div class="modal-content_a">
+								<div class="modal-body_a  ">
+									<h2>This is a Loan Modal!</h2>
+									<h4>Some message text shown to users.</h4>
+									<p>
+										<button class="btn btn-default">btn-block</button>
+									</p>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
 
 			</div>
 			<!--/container -->

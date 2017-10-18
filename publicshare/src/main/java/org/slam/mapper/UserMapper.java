@@ -11,4 +11,7 @@ public interface UserMapper {
 	
 	@Select("select * from tbl_member where mid = #{mid} and mpw = #{mpw}")
 	public MemberDTO checkMember(MemberDTO dto);
+	
+	@Select("select * from tbl_member where mid = #{mid}")
+	public MemberDTO getMember(String mid);
 }

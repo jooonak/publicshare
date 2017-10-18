@@ -1,18 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Title</title>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!-- 합쳐지고 최소화된 최신 CSS -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<%@include file="./include/header.jsp"%>
+<html>
+<!-- í©ì³ì§ê³  ìµìíë ìµì  CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-<!-- 부가적인 테마 -->
+<!-- ë¶ê°ì ì¸ íë§ -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
-<!-- w3 Modal사용을 위한 link -->
+<!-- w3 Modalì¬ì©ì ìí link -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
@@ -27,7 +29,7 @@ body {
 .card-container.card {
 	width: 350px;
 	padding: 40px 40px;
-	margin-top: 25%
+	margin-top: 15%
 }
 
 .btn {
@@ -152,77 +154,57 @@ body {
 }
 </style>
 
-</head>
-<body>
 
-	<div id="joinModal" class="w3-modal">
-		<div class="w3-modal-content w3-card-4 w3-animate-zoom"
-			style="max-width: 600px">
-
-			<div class="w3-center">
-				<br> 
-				<span onclick="document.getElementById('joinModal').style.display='none'"
-				class="w3-button w3-xlarge w3-hover-red w3-display-topright"
-				title="Close Modal">&times;</span> 
-				<img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="Avatar"
-				style="width: 30%" class="w3-circle w3-margin-top">
-			</div>
-
-			<form class="w3-container" action="/join" method="post">
-				<div class="w3-section">
-					<label><b>MemberID</b></label> 
-					<input class="w3-input w3-border w3-margin-bottom" type="text"
-						placeholder="Enter Username" name="mid" required> 
-					<label><b>Password</b></label>
-					<input class="w3-input w3-border" type="password"
-						placeholder="Enter Password" name="mpw" required> 
-					<label><b>Name</b></label>
-					<input class="w3-input w3-border" type="text"
-						placeholder="Enter Name" name="mname" required>
-				</div>
-				<div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-					<button onclick="document.getElementById('joinModal').style.display='none'"
-					class="btn btn-danger" id="regCancelBtn">Cancel</button>
-					<button id="regBtn" class="btn btn-success">Join In</button>
-				</div>
-			</form>
-		</div>
-	</div>
-
-	<div class="container">
-		<div class="card card-container">
+<div class="container">
+	<div class="card card-container">
+		<div>
 			<img id="profile-img" class="profile-img-card"
 				src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
 			<p id="profile-name" class="profile-name-card"></p>
-			<form class="form-signin" action="/login" method="post">
+			<form class="form-signin" action="/modify" method="post">
 				<span id="reauth-email" class="reauth-email"></span> 
-				<input type="text" class="form-control" name="mid"
-					placeholder="UserID" required autofocus> 
-				<input type="password" name="mpw" class="form-control"
-					placeholder="Password" required>
-				<div id="remember" class="checkbox">
-					<label><input type="checkbox" name="auto">Remember Me</label>
-				</div>
-				<button class="btn btn-lg btn-success btn-block ">Sign In</button>
+				<label>ID</label>
+				<input type="text" class="form-control" name="mid"	placeholder="UserID" value="${member.mid}" readonly="readonly">
+				<label>ENTER PASSWORD</label>
+				<input type="password" name="mpw" class="form-control" placeholder="Password" required value="${member.mpw}">
+				<label>CHECK PASSWORD</label> 
+				<input type="password" name="mpwCK" class="form-control" placeholder="Password" required> 
+				<label>NAME</label> 
+				<input type="text" class="form-control" name="mname" placeholder="UserID" value="${member.mname}" readonly="readonly"> 
+				<label>JOIN	DATE</label> 
+				<input type="text" class="form-control" name="mname" placeholder="UserID" value="${member.joinDate}" readonly="readonly">
+				<button id="modify" class="btn btn-success btn-block">MODIFY</button>
+				<button id="logout" class="btn btn-danger btn-block">LOGOUT</button>
 			</form>
 			<!-- /form -->
-			<button class="btn btn-lg btn-danger btn-block"
-				onclick="document.getElementById('joinModal').style.display='block'">Join Now!</button>
+
 			<a href="#" class="forgot-password"> Forgot the password? </a>
 		</div>
 		<!-- /card-container -->
 	</div>
-	<!-- /container -->
+</div>
+<!-- /container -->
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
 	var msg = '${result}';
-	
+
 	if (msg === 'success') {
-		$('#joinModal').style.display='none';
+		$('#joinModal').style.display = 'none';
 	}
+	
+	$("#logout").on("click", function(e){
+		$(".form-signin").attr("action","/logout").attr("method","post").submit();
+	});
+	
+	/* $("#modify").on("click", function(e){
+		e.preventDefault();
+		
+		console.log($("input[type='password']"));
+		
+	}); */
 </script>
 
 </body>
