@@ -31,6 +31,6 @@ public interface MyLibMapper {
 	
 
 	//소유주의 물건에 등록 신청을 했을 경우에 생기는 쿼리(뉴)
-	public List<Map<String, Object>> getApplyList();
+	public List<Map<String, Object>> getApplyList(String owner);
 
 }

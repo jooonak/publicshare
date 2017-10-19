@@ -32,7 +32,7 @@
 		*
 		from
 		tbl_book
-		where owner = 'testOwner'	<!-- 수정 필요한 부분 -->
+		where owner = #{owner}	<!-- 수정 필요한 부분 -->
 		) tbl_book
 		where tbl_reservation.bno =
 		tbl_book.bno and
