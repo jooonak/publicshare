@@ -69,41 +69,30 @@
 			<!-- /row -->
 			<br>
 			<!--댓글 입력 부분 _hb  -->
-			<div>
-				<textarea rows="1" cols="100" name="reply" id="reply"></textarea>
-				<input class="regBtn" type="button" value="등록">
-			</div>
-			<!-- 수정버튼 클릭시 뜨는 입력창  -->
-			<div class="modWindow hide">
-				<textarea rows="1" cols="100" name="reply" id="modReply"></textarea>
-				<input class="modWindowBtn" type="button" value="수정">
-			</div>
+			
 
-			<!--댓글 list  -->
-			<div class="replyDiv">
-				<ul class="replyUL">
-				</ul>
-			</div>
-
-
-			<!-- INPUT MESSAGES -->
+			<!-- INPUT MESSAGES (hb)-->
 			<div class="row mt">
 				<div class="col-lg-12">
 					<div class="form-panel">
 						<h4 class="mb">
 							<i class="fa fa-angle-right"></i> REPLIES
 						</h4>
-
+						<!--댓글 입력 부분 _hb  -->
+						<div>
+							댓글 작성<textarea rows="1" cols="80" name="reply" id="reply"></textarea>
+							<input class="regBtn" type="button" value="등록">
+						</div>
+						<!--댓글 리스트 (홍빈)  -->
 						<form class="form-horizontal tasi-form" method="get">
 							<div class="form-group has-success">
-								<label class="col-sm-2 control-label col-lg-2"
-									for="inputSuccess">등록자 이름</label>
-								<div class="col-lg-10">
-									<input type="text" class="form-control" id="inputSuccess">
-								</div>
+								<ul class="col-lg-10 replyUL">
+
+								</ul>
 							</div>
 						</form>
-
+						<!--댓글 리스트 (홍빈)  -->
+						
 					</div>
 					<!-- /form-panel -->
 				</div>
@@ -144,6 +133,7 @@
 
 <!-- 클래스 link 버튼 처리 -->
 <script type="text/javascript">
+	
 	// 댓글 리스트만들기
 	function getReplyList() {
 
@@ -151,25 +141,23 @@
 		$.getJSON("/reply/${book.bno}/list/1", function(arr) {
 
 			for (var i = 0; i < arr.length; i++) {
-				
-				str +="<li data-reno='"+arr[i].reno+ "'>"+arr[i].reno +"   "+arr[i].reply;
+				str +="<li data-reno='"+arr[i].reno+"'><label class=col-sm-2 control-label col-lg-2 for=inputSuccess>"+arr[i].replyer+"</label>";
+				str +=arr[i].reno+"<div class=form-control id=inputSuccess >"+arr[i].reply+"</div>";
+				str +="<div class=addWindow data-addreno='"+arr[i].reno+"'></div>";
 				str +="<button class='replyModBtn'>수정</button>";
-				str +="<button class='replyDelBtn'>삭제</button></li>";
-				
+				str +="<button class='replyDelBtn'>삭제</button>";
+				str +="<button class='reReplyBtn'>댓글 달기</button></li>";
 			}
-			
+	
 			$(".replyUL").html(str);
-		});
-		
+		});	
 	}
 	getReplyList();
-
-	
 	
 	//댓글 등록
 	$(".regBtn").on("click",function(e){
 		
-		var data = {reply:$("#reply").val() ,bno:${book.bno }};
+		var data = {reply:$("#reply").val() ,bno: ${book.bno} };
 				
 	 	$.ajax({
 			url:'/reply/new',
@@ -190,7 +178,7 @@
 		e.preventDefault();
 		
 		var reno = $(this).parent().attr("data-reno");
-		 
+		
 		$.ajax({
 			url:'/reply/'+reno,
 			type:'DELETE',
@@ -204,22 +192,28 @@
 	});
 	
 	// 댓글 수정 창 띄우기 (나중에 모달로 바꿔야할듯)
-	
 	$(".replyUL").on("click",".replyModBtn",function(e){
-	
+		
+		e.preventDefault();
+		
 		var reno = $(this).parent().attr("data-reno");
 		
-		$(".modWindow").attr("class", "modWindow show ").attr("data-no", reno);
-	 
+		var str ="<div class=modWindow><textarea id=modReply rows=1 cols=80 ></textarea><input class='modWindowBtn' type=button value=댓글수정></div>";
+	
+		$(".addWindow[data-addreno='"+reno+"']").html(str);
+			 
 	});
 	
 	
-	// 댓글 수정
+	// 댓글 수정	
+	$(".replyUL").on("click",".modWindowBtn", function(e){
 		
-	$(".modWindowBtn").on("click",function(e){
-		var reno = $(this).parent().attr('data-no');
+		e.preventDefault();
+		
+		var reno = $(this).parent().parent().parent().attr("data-reno");
+		
 		var data = {reno : reno , reply:$("#modReply").val()};
-		
+				
 		$.ajax({
 			url:'/reply/'+reno,
 			type:'PUT',
@@ -229,13 +223,47 @@
 				alert("mod success");
 				$("#modReply").val("");
 				getReplyList();
-			}
-		});			
-	document.querySelector(".modWindow").setAttribute("class","modWindow hide");
+			} 
+		});		
+	});
+	
+	// 대댓글 창 띄우기
+	$(".replyUL").on("click",".reReplyBtn",function(e){
+		
+		e.preventDefault();
+		
+		var reno = $(this).parent().attr("data-reno");
+		
+		var str ="<div class=rereplyWindow><textarea id=reReply rows=1 cols=60 ></textarea><input class='rereplyWindowBtn' type=button value=댓글달기></div>";
+	
+		$(".addWindow[data-addreno='"+reno+"']").html(str);
+			 
+	});
+	
+	// 대댓글 달기	
+	$(".replyUL").on("click",".rereplyWindowBtn", function(e){
+		
+		e.preventDefault();
+		
+		var reno = $(this).parent().parent().parent().attr("data-reno");
+		
+		var data = {reno : reno , reply:$("#reReply").val(), bno: ${book.bno}};
+		console.log(data);
+		
+	 	$.ajax({
+			url:'/reply/rereply/'+reno,
+			type:'POST',
+			contentType:"application/json; charset=utf-8",
+			data:JSON.stringify(data),
+			success: function(result){
+				alert("rereply register success");
+	 			$("#reReply").val("");
+	 			getReplyList();
+			} 
+		});
 	});
 	
 	
-	 	
 	$(document).ready(function() {
 
 		$(".modBtn").on("click", function(e) {

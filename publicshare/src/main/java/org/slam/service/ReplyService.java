@@ -15,6 +15,8 @@ public interface ReplyService {
 
 	public void update(ReplyDTO dto);
 
+	public void reReplyUpdate(ReplyDTO dto);
+
 
 
 }
