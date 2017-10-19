@@ -18,7 +18,6 @@
 			<id property="resDate" column="resdate" />
 			<id property="lender" column="lender" />
 		</collection>
-
 	</resultMap>
 
 	<select id="getApplyList" resultMap="detailedApplyMap">
