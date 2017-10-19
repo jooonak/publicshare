@@ -10,9 +10,11 @@ import lombok.extern.java.Log;
 public class ReservationDTO {
 
 	private int rno, bno;
-	private String mid;
+	private String lender;
 	//상태값으로 변경(sb) 
-	//예약중: onres, 예약 대기중: onresready(수정필요), 신청중: onapply, 대여중: onloan, 반납완료: returned, 반납요청중: onreturn
+	//신청중: onapply, 예약중: onres, 신청 대기중: onapplyready(수정필요), 
+	//대여중: onloan, 반납요청중: onreturn, 반납완료: returned
+	//취소: cancel, 
 	private String status; 
 	private Date startDate;
 	private Date returnDate;

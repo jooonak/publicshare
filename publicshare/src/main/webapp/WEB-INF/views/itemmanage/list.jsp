@@ -8,7 +8,7 @@
 <!-- 왜 상대경로만 되는지... -->
 <html>
 
-<!-- modal style -->
+<!-- modal style(hb)-->
 <style>
 .modal {
 	padding-right: 0px;
@@ -36,10 +36,10 @@
 	padding: 10px;
 }
 
-
 </style>
 
 <style>
+
 .project-wrapper {
 	border-radius: 5px;
 	text-align: center;
@@ -72,22 +72,6 @@ a:hover {
 </style>
 
 
-<!-- register 성공시  뜨는 modal -->
-<div class="row text-center" style="padding: 50px;">
-	<div class="modal modalDialogA fade in ">
-		<div class="modal-dialog_a modal-lg">
-			<div class="modal-content_a">
-				<div class="modal-body_a">
-					<h2>등록되었습니다.</h2>
-					<p>
-						<button >확인</button>
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
 <section id="home" name="home"></section>
 <div id="headerwrap">
 	<div class="container">
@@ -112,6 +96,21 @@ a:hover {
 			<button>
 				<a href="http://localhost:8080/itemmanage/register">register</a>
 			</button>
+
+			<!-- 등록 modal 요청용(sb)  -->
+			<div>
+				<c:forEach items="${applylist}" var="apply">
+					<div>${apply.BookDTO}</div>
+					<div>${apply.ReservationDTO}</div>
+					<button class = 'apply-btn' data-oper = 'confirm' data-rno = '${apply.ReservationDTO.rno}'
+					data-bno = '${apply.BookDTO.bno}'
+					>확인${apply.ReservationDTO.rno}</button>
+					<button class = 'apply-btn' data-oper = 'reject' data-rno = '${apply.ReservationDTO.rno}'
+					data-bno = '${apply.BookDTO.bno}'
+					>취소</button>
+				</c:forEach>
+			</div>
+			<!-- 등록 modal 요청용 end(sb) -->
 
 
 			<!-- 나중에 css처리 해야함 -->
@@ -150,8 +149,6 @@ a:hover {
 								</div>
 							</div>
 						</c:forEach>
-
-
 
 
 					</div>
@@ -243,7 +240,37 @@ a:hover {
 				</ul>
 				</nav>
 
-
+				<div class="row text-center" style="padding: 50px;">
+					<div class="modal fade modalDialogA " tabindex="-1" role="dialogA"
+						aria-labelledby="modalLabelA">
+						<div class="modal-dialog_a modal-lg">
+							<div class="modal-content_a">
+								<div class="modal-body_a  ">
+									<h2>This is a Loan Modal!</h2>
+									<h4>Some message text shown to users.</h4>
+									<p>
+										<button class="btn btn-default">btn-block</button>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- register 성공시  뜨는 modal -->
+				<div class="row text-center" style="padding: 50px;">
+					<div class="modal modalDialogA fade in ">
+						<div class="modal-dialog_a modal-lg">
+							<div class="modal-content_a">
+								<div class="modal-body_a">
+									<h2>등록되었습니다.</h2>
+									<p>
+										<button>확인</button>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
 
 			</div>
@@ -270,7 +297,6 @@ a:hover {
 	$(document).ready(function() {
 
 		$(".link").on("click", function(e) {
-
 			e.preventDefault();
 			console.log($(this));
 
@@ -279,17 +305,32 @@ a:hover {
 			$actionForm.submit();
 
 		});
-
-	});
-	
-	var msg = "${result}";
-	
-	if(msg === "success"){
 		
+		$('.apply-btn').click(function(){
+			var $this = $(this)
+			var data = {
+					bno: $this.attr('data-bno'), 
+				  	rno: $this.attr('data-rno'),
+				  };
+			
+			$.ajax({
+				url : '/reservation/'+$this.attr('data-oper'),
+				type : 'post',
+				contentType: "application/json; charset=utf-8",
+				data:JSON.stringify(data),
+				success : function(result) {
+					alert("등록 완료하였습니다.");
+					//callback하면 modal 'hide'처리 예정(sb)
+				}
+			});
+		});
+	});
+	var msg = "${result}";
+
+	if (msg === "success") {
+
 		alert("등록되었습니다.");
 	}
-
-	
 </script>
 
 <%@include file="../include/footer.jsp"%>

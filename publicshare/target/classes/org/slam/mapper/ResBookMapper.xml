@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="org.slam.mapper.ResBookMapper">
+
+	<select id="rejectUpdateResData" parameterType="ReservationDTO">
+		update 
+			tbl_reservation
+		set
+			status = case status
+			         when 'onapply' then 'rejected'		
+			         when 'onres' then 'onapplyready'
+			         end
+			where  bno = #{bno} and rno >= #{rno} and status != 'cancel'
+		order by 
+			rno 
+		limit 2;
+	</select>
+</mapper>

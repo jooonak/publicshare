@@ -66,6 +66,21 @@ a:hover {
 				<div class="carousel-inner">
 					<div class="item active">
 
+						<!-- 예약 대기 modal 요청용  -->
+						<div>
+							<c:forEach items="${applylist}" var="apply">
+								<div>${apply.BookDTO}</div>
+								<div>${apply.ReservationDTO}</div>
+								<button class='apply-btn' data-oper='confirm'
+									data-rno='${apply.ReservationDTO.rno}'
+									data-bno='${apply.BookDTO.bno}'>확인${apply.ReservationDTO.rno}</button>
+								<button class='apply-btn' data-oper='reject'
+									data-rno='${apply.ReservationDTO.rno}'
+									data-bno='${apply.BookDTO.bno}'>취소</button>
+							</c:forEach>
+						</div>
+						<!-- 예약 대기 modal 요청용 end -->
+
 
 						<div class="col-sm-3 col-xs-12 desc link">
 							<div class="project-wrapper">
@@ -327,31 +342,26 @@ a:hover {
 
 </form>
 
- <script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
 
 <!-- 클래스 link 버튼 처리 -->
 <script type="text/javascript">
-$(document).ready(function(){
-	
-	$(".link").on("click",function(e){
-		
-		e.preventDefault();
-		console.log($(this));
-		
-		var $actionForm = $(actionForm);
-		
-		$actionForm.submit();
-		
-		
-		
+	$(document).ready(function() {
+
+		$(".link").on("click", function(e) {
+
+			e.preventDefault();
+			console.log($(this));
+
+			var $actionForm = $(actionForm);
+
+			$actionForm.submit();
+
+		});
+
 	});
-	
-});
-
-
 </script>
 
 <%@include file="../include/footer.jsp"%>
