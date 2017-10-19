@@ -41,12 +41,13 @@
 			<beans:ref bean="login"/>
 		</interceptor>
 		
-		<interceptor>
-			<mapping path="/*/*"/>
+		<!--<interceptor>
+			 <mapping path="/*/*"/>
 			<mapping path="/*"/>
 			<exclude-mapping path="/login"/>
+			<exclude-mapping path="/reservation"/> 
 			<beans:ref bean="checkLogin"/>
-		</interceptor>
+		</interceptor>-->
 	</interceptors>
 
 </beans:beans>

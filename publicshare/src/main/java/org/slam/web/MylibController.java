@@ -1,6 +1,7 @@
 package org.slam.web;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -25,9 +26,11 @@ public class MylibController {
 	// 나의 물품 리스트 페이지
 	@GetMapping("/list")
 	public void getList(@ModelAttribute("cri") Criteria cri, Model model) {
-
-		model.addAttribute("list", service.list(cri));
-
+		//test용 아이디 "testOwner" 삽입(sb)
+		model.addAttribute("list", service.list(cri, "testOwner"));
+		List<Map<String, Object>> map = service.ApplyList();
+		System.out.println(""+map);
+		model.addAttribute("applylist", service.ApplyList());
 	}
 
 	// 나의 물품 등록 페이지
