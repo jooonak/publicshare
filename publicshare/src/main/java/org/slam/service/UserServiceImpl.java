@@ -22,4 +22,14 @@ public class UserServiceImpl implements UserService{
 		return mapper.checkMember(dto);
 	}
 
+	@Override
+	public MemberDTO getMember(String mid) {
+		return mapper.getMember(mid);
+	}
+
+	@Override
+	public void modifyUser(MemberDTO dto) {
+		mapper.updateUser(dto);
+	}
+
 }

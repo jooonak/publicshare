@@ -96,7 +96,7 @@ a:hover {
 											<c:when test="${book.resCnt eq '0'}">
 												<input type="button" value="대여 가능">
 											</c:when>
-											<c:when test="${book.resCnt eq '1'}">
+											<c:when test="${book.resCnt ne '0'}">
 												<input type="button" value="대여중">
 											</c:when>
 										</c:choose>
@@ -134,6 +134,8 @@ a:hover {
 	});
 	
 	$("#divPaging").html(pageStr);
+	
+	console.log("${result}");
 </script>
 
 <%@include file="../include/footer.jsp"%>
