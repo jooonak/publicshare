@@ -80,288 +80,73 @@ a:hover {
 							</c:forEach>
 						</div>
 						<!-- 예약 대기 modal 요청용 end -->
-
-
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
+						<div class="item">
+							<div class="col-sm-3 col-xs-12 desc link">
+								<div class="project-wrapper">
+									<div class="project">
+										<div class="photo-wrapper">
+											<div class="photo">
+												<a href="#"><img
+													src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
+											</div>
+											<div class="caption">
+												<h4>Praesent commodo</h4>
+												<p>Nullam Condimentum Nibh Etiam Sem</p>
+												<a class="btn btn-mini" href="#">» Read More</a>
+											</div>
+											<div class="overlay"></div>
 										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-
 					</div>
-					<!-- /Slide1 -->
-					<div class="item">
-
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
 
 
-
-					</div>
-					<!-- /Slide2 -->
-					<div class="item">
-
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port02.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3 col-xs-12 desc link">
-							<div class="project-wrapper">
-								<div class="project">
-									<div class="photo-wrapper">
-										<div class="photo">
-											<a href="#"><img
-												src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>Praesent commodo</h4>
-											<p>Nullam Condimentum Nibh Etiam Sem</p>
-											<a class="btn btn-mini" href="#">» Read More</a>
-										</div>
-										<div class="overlay"></div>
-									</div>
-								</div>
-							</div>
-						</div>
+					<nav>
+					<ul class="control-box pager">
+						<li><a data-slide="prev" href="#myCarousel" class=""><i
+								class="glyphicon glyphicon-chevron-left"></i></a></li>
+						<li><a data-slide="next" href="#myCarousel" class=""><i
+								class="glyphicon glyphicon-chevron-right"></i></li>
+					</ul>
+					</nav>
 
 
-					</div>
-					<!-- /Slide3 -->
 				</div>
-
-
-				<nav>
-				<ul class="control-box pager">
-					<li><a data-slide="prev" href="#myCarousel" class=""><i
-							class="glyphicon glyphicon-chevron-left"></i></a></li>
-					<li><a data-slide="next" href="#myCarousel" class=""><i
-							class="glyphicon glyphicon-chevron-right"></i></li>
-				</ul>
-				</nav>
-
-
+				<!--/container -->
 			</div>
-			<!--/container -->
+			<!--/Portfoliowrap -->
 		</div>
-		<!--/Portfoliowrap -->
 	</div>
-</div>
 
 
-<!-- actionForm   -->
-<form id="actionForm" action="/itemmanage/view" method="get">
-	<!-- <input type="hidden" name="bno" > -->
+	<!-- actionForm   -->
+	<form id="actionForm" action="/itemmanage/view" method="get">
+		<!-- <input type="hidden" name="bno" > -->
 
-</form>
+	</form>
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-	crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+		crossorigin="anonymous"></script>
 
-<!-- 클래스 link 버튼 처리 -->
-<script type="text/javascript">
-	$(document).ready(function() {
+	<!-- 클래스 link 버튼 처리 -->
+	<script type="text/javascript">
+		$(document).ready(function() {
 
-		$(".link").on("click", function(e) {
+			$(".link").on("click", function(e) {
 
-			e.preventDefault();
-			console.log($(this));
+				e.preventDefault();
+				console.log($(this));
 
-			var $actionForm = $(actionForm);
+				var $actionForm = $(actionForm);
 
-			$actionForm.submit();
+				$actionForm.submit();
+
+			});
 
 		});
+	</script>
 
-	});
-</script>
-
-<%@include file="../include/footer.jsp"%>
+	<%@include file="../include/footer.jsp"%>
