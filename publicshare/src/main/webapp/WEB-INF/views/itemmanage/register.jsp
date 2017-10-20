@@ -127,7 +127,7 @@
 									<div class="modal-content_a">
 										<div class="modal-body_a  ">
 											<h2>file upload</h2>
-											<h4>대여 하시겠습니까?</h4>
+											
 											<p></p>
 										</div>
 									</div>
