@@ -21,14 +21,14 @@ public class ReturnRestController {
 		
 	}
 	
-	@PostMapping("/confirm")
+	@PostMapping("/reserveconfirm")
 	public void confirm(@RequestBody ReservationDTO dto) {
 		service.acceptBookReserve(dto);
 	}
 	
 	
-	@PostMapping("/reject")
-	public void resject(@RequestBody ReservationDTO dto) {
+	@PostMapping("/reservereject")
+	public void reject(@RequestBody ReservationDTO dto) {
 		service.refuseBookReserve(dto);
 		
 	}	

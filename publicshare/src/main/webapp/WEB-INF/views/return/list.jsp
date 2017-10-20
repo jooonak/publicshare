@@ -71,10 +71,10 @@ a:hover {
 							<c:forEach items="${applyreadylist}" var="apply">
 								<div>${apply.BookDTO}</div>
 								<div>${apply.ReservationDTO}</div>
-								<button class='apply-btn' data-oper='confirm'
+								<button class='apply-btn' data-oper='reserveconfirm'
 									data-rno='${apply.ReservationDTO.rno}'
 									data-bno='${apply.BookDTO.bno}'>확인${apply.ReservationDTO.rno}</button>
-								<button class='apply-btn' data-oper='reject'
+								<button class='apply-btn' data-oper='reservereject'
 									data-rno='${apply.ReservationDTO.rno}'
 									data-bno='${apply.BookDTO.bno}'>취소</button>
 							</c:forEach>

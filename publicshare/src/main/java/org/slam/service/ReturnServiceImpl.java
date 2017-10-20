@@ -41,5 +41,4 @@ public class ReturnServiceImpl implements ReturnService{
 		resBookMapper.rejectUpdateApplyData(dto);
 		resBookMapper.updateResCntDown(dto.getBno());
 	}
-
 }
