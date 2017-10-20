@@ -23,6 +23,6 @@ public interface MylibService {
 	//삭제 서비스
 	public void remove(int bno);
 
-	public List<Map<String, Object>> ApplyList();
+	public List<Map<String, Object>> ApplyList(String owner);
 	
 }

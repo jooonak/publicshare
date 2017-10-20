@@ -7,18 +7,32 @@
 
 
 <mapper namespace="org.slam.mapper.ResBookMapper">
-
-	<select id="rejectUpdateResData" parameterType="ReservationDTO">
-		update 
-			tbl_reservation
+	<update id="rejectUpdateResData" parameterType="ReservationDTO">
+		update
+		tbl_reservation
 		set
-			status = case status
-			         when 'onapply' then 'rejected'		
-			         when 'onres' then 'onapplyready'
-			         end
-			where  bno = #{bno} and rno >= #{rno} and status != 'cancel'
-		order by 
-			rno 
+		status = case status
+		when 'onapply' then 'loanrejected'
+		when 'onres' then 'onapplyready'
+		end
+		where bno = #{bno} and rno >= #{rno} and status != 'cancel'
+		order by
+		rno
 		limit 2;
-	</select>
+	</update>
+
+	<!-- 이전 예약자가 예약 취소를 한 경우 다음 예약자에게 예약 여부를 물어보았을 때 다음 예약자가 취소를 한 경우 호출되는 쿼리(sb) -->
+	<update id="rejectUpdateApplyData" parameterType="ReservationDTO">
+		update
+		tbl_reservation
+		set
+		status = case status
+		when 'onapplyready' then 'cancel'
+		when 'onres' then 'onapplyready'
+		end
+		where bno = #{bno} and rno >= #{rno} and status != 'cancel'
+		order by
+		rno
+		limit 2;
+	</update>
 </mapper>

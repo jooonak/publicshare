@@ -25,14 +25,14 @@ public class ReservationRestController {
 	//나의 물품 등록 페이지
 	@PostMapping("/new")
 	public void reserve(@RequestBody ReservationDTO dto) {
-		//mno값 가져와야 함 and mno 없애고 id값으로 사용하자(sb)
+		//대여자가 소유주에게 대여 신청하는 메서드(sb)
 		log.info(""+dto);
 		service.bookReserve(dto, "testUser");
 	}
 	
 	@PostMapping("/confirm")
 	public void confirm(@RequestBody ReservationDTO dto) {
-		//
+		//소유주가 대여자에게 대여를 허락하는 경우 분기되는 메서드(sb)
 		System.out.println("confirm:"+dto);
 		service.confirmBookReserve(dto);
 		//
@@ -40,7 +40,7 @@ public class ReservationRestController {
 	
 	@PostMapping("/reject")
 	public void resject(@RequestBody ReservationDTO dto) {
-		//
+		//소유주가 대여를 거절하는 경우 분기되는 메서드(sb)
 		System.out.println("reject:"+dto);
 		service.rejectBookReserve(dto);
 		//

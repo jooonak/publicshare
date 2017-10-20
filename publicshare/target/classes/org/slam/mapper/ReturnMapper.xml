@@ -6,36 +6,41 @@
 
 
 
-<mapper namespace="org.slam.mapper.MyLibMapper">
-	<resultMap type="map" id="detailedApplyMap">
+<mapper namespace="org.slam.mapper.ReturnMapper">
+
+	<resultMap type="map" id="detailedOnApplyMap">
 		<collection property="BookDTO" ofType="BookDTO">
 			<id property="bno" column="bno" />
 			<id property="bname" column="bname" />
 			<id property="publisher" column="publisher" />
+			<id property="owner" column="owner" />
 		</collection>
 		<collection property="ReservationDTO" ofType="ReservationDTO">
 			<id property="rno" column="rno" />
-			<id property="resDate" column="resdate" />
 			<id property="lender" column="lender" />
+			<id property="status" column="status" />
 		</collection>
 	</resultMap>
-
-	<select id="getApplyList" resultMap="detailedApplyMap">
+	
+	<select id="getOnApplyReadyList" resultMap="detailedOnApplyMap">
 		select
-		tbl_book.bno,
-		tbl_book.bname ,tbl_book.publisher, tbl_reservation.rno ,tbl_reservation.resdate,
-		tbl_reservation.lender lender
+		tbl_reservation.rno rno, tbl_reservation.bno bno,
+		tbl_reservation.lender, tbl_reservation.status,
+		tbl_book.bname bname,
+		tbl_book.publisher publisher, tbl_book.owner
 		from
-		tbl_reservation,
 		(
 		select
 		*
 		from
-		tbl_book
-		where owner = #{owner}	<!-- 수정 필요한 부분 -->
-		) tbl_book
-		where tbl_reservation.bno =
-		tbl_book.bno and
-		tbl_reservation.status = 'onapply'
+		tbl_reservation
+		where
+		lender = #{lender}
+		and
+		status = 'onapplyready'
+		)
+		tbl_reservation, tbl_book
+
+		where tbl_reservation.bno = tbl_book.bno;
 	</select>
 </mapper>
