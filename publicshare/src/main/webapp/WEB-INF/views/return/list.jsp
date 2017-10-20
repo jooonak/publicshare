@@ -6,7 +6,6 @@
 
 <%@include file="../include/header.jsp"%>
 <!-- 왜 상대경로만 되는지... -->
-<html>
 
 <style>
 .project-wrapper {
@@ -39,7 +38,6 @@ a:hover {
 	padding: 10px
 }
 </style>
-
 <section id="home" name="home"></section>
 <div id="headerwrap">
 	<div class="container">
@@ -61,11 +59,9 @@ a:hover {
 		<div class="row">
 			<!--reigster btn  -->
 			<h1>BOOKS</h1>
-
 			<div class="carousel slide" id="myCarousel">
 				<div class="carousel-inner">
 					<div class="item active">
-
 						<!-- 예약 대기 modal 요청용  -->
 						<div>
 							<c:forEach items="${applylist}" var="apply">
@@ -80,73 +76,70 @@ a:hover {
 							</c:forEach>
 						</div>
 						<!-- 예약 대기 modal 요청용 end -->
-						<div class="item">
-							<div class="col-sm-3 col-xs-12 desc link">
+						<c:forEach items="${list}" var="data">
+							<div class="col-sm-3 col-xs-12 desc">
 								<div class="project-wrapper">
 									<div class="project">
 										<div class="photo-wrapper">
 											<div class="photo">
-												<a href="#"><img
-													src="/resources/assets/img/portfolio/port01.jpg" alt=""></a>
+												<img src="/resources/assets/img/portfolio/port01.jpg"
+													alt="">
 											</div>
 											<div class="caption">
-												<h4>Praesent commodo</h4>
-												<p>Nullam Condimentum Nibh Etiam Sem</p>
-												<a class="btn btn-mini" href="#">» Read More</a>
+												<h4>${data.BookDTO.bname}</h4>
+												<p>${data.BookDTO.publisher}</p>
+												<button data-rno="${data.ReservationDTO.rno}" id="returnBtn">반납하기</button>
+												<p></p>
 											</div>
 											<div class="overlay"></div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+						</c:forEach>
 					</div>
-
-
-					<nav>
-					<ul class="control-box pager">
-						<li><a data-slide="prev" href="#myCarousel" class=""><i
-								class="glyphicon glyphicon-chevron-left"></i></a></li>
-						<li><a data-slide="next" href="#myCarousel" class=""><i
-								class="glyphicon glyphicon-chevron-right"></i></li>
-					</ul>
-					</nav>
-
-
 				</div>
-				<!--/container -->
+				<nav>
+				<ul class="control-box pager">
+					<li><a data-slide="prev" href="#myCarousel" class=""><i
+							class="glyphicon glyphicon-chevron-left"></i></a></li>
+					<li><a data-slide="next" href="#myCarousel" class=""><i
+							class="glyphicon glyphicon-chevron-right"></i></a></li>
+				</ul>
+				</nav>
 			</div>
-			<!--/Portfoliowrap -->
+			<!--/container -->
 		</div>
+		<!--/Portfoliowrap -->
 	</div>
+</div>
 
 
-	<!-- actionForm   -->
-	<form id="actionForm" action="/itemmanage/view" method="get">
-		<!-- <input type="hidden" name="bno" > -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+<!-- 클래스 link 버튼 처리 -->
+<script type="text/javascript">
+	$(document).ready(function() {
 
-	</form>
-
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-		crossorigin="anonymous"></script>
-
-	<!-- 클래스 link 버튼 처리 -->
-	<script type="text/javascript">
-		$(document).ready(function() {
-
-			$(".link").on("click", function(e) {
-
-				e.preventDefault();
-				console.log($(this));
-
-				var $actionForm = $(actionForm);
-
-				$actionForm.submit();
-
+		$(".item").on("click", "#returnBtn", function(e){
+			
+			var data = $(this).attr("data-rno");
+			
+			$.ajax({
+				url:'/myreturn/request',
+				type:'POST',
+				contentType:"application/json; charset=utf-8",
+				data:JSON.stringify(data),
+				success: function(result){
+					
+					alert("register success");
+		 			
+				} 
 			});
-
 		});
-	</script>
 
-	<%@include file="../include/footer.jsp"%>
+	});
+</script>
+
+<%@include file="../include/footer.jsp"%>

@@ -127,7 +127,6 @@ a:hover {
 												<div class="photo">
 													<img src="/resources/assets/img/portfolio/port01.jpg"
 														alt="">
-
 												</div>
 												<div class="caption">
 													<h4>${book.bname}</h4>
@@ -271,8 +270,10 @@ a:hover {
 						</div>
 					</div>
 				</div>
-
-
+				<div class="beModal" style="display: none; background-color: blue;">
+					<ul class="returnUl">
+					</ul>
+				</div>
 			</div>
 			<!--/container -->
 		</div>
@@ -320,6 +321,52 @@ a:hover {
 				data:JSON.stringify(data),
 				success : function(result) {
 					alert("등록 완료하였습니다.");
+					//callback하면 modal 'hide'처리 예정(sb)
+				}
+			});
+		});
+		
+		function checkReturn(){
+			
+			var str = "";
+			
+			$.getJSON("/myreturn/check", function(result) {
+				for (var i = 0; i < result.length; i++) {
+					alert(result[i].BookDTO.bno);
+					
+					str += "<li>" + result[i].BookDTO.bno + "</li>";
+					str += "<li>" + result[i].BookDTO.bname + "</li>";
+					str += "<li>" + result[i].ReservationDTO.rno + "</li>";
+					str += "<li>" + result[i].ReservationDTO.lender + "</li>";
+					str += "<li>" + result[i].ReservationDTO.startdate + "</li>";
+					str += "<li><button id=rejBtn>REJECT</button>";
+					str += "<button data-rno=" + result[i].ReservationDTO.rno + " data-bno=" + result[i].BookDTO.bno; 
+					str += " id=accBtn>ACCEPT</button></li>";
+					$(".beModal").html(str).show("slow");
+				}
+			});
+		}
+		
+		checkReturn();
+		
+		$(".beModal").on("click", "#accBtn", function(e){
+
+			console.log($(this).attr("data-rno"));
+			console.log($(this).attr("data-bno"));
+			
+			
+			var data = {
+					bno: $(this).attr("data-bno"),
+					rno: $(this).attr("data-rno")
+			}
+			
+			$.ajax({
+				url : "/myreturn/returnconfirm",
+				type : 'post',
+				contentType: "application/json; charset=utf-8",
+				data:JSON.stringify(data),
+				success : function(result) {
+					alert("반납처리 완료");
 					//callback하면 modal 'hide'처리 예정(sb)
 				}
 			});

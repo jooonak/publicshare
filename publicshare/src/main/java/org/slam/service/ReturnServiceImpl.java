@@ -1,11 +1,12 @@
 package org.slam.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.slam.dto.BookDTO;
 import org.slam.dto.Criteria;
+import org.slam.mapper.ResBookMapper;
 import org.slam.mapper.ReturnMapper;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +14,30 @@ import org.springframework.stereotype.Service;
 public class ReturnServiceImpl implements ReturnService{
 
 	@Inject
-	ReturnMapper mapper;
+	ReturnMapper returnMapper;
+	
+	@Inject
+	ResBookMapper resBookMapper;
 	
 	@Override
-	public List<BookDTO> getList(Criteria cri) {
-		return mapper.getList(cri);
+	public List<Map<String, Object>> getList(Criteria cri) {
+		return returnMapper.getList(cri);
+	}
+
+	@Override
+	public void request(int rno) {
+		returnMapper.request(rno);
+	}
+
+	@Override
+	public List<Map<String, Object>> checkItem() {
+		return returnMapper.checkItem();
+	}
+
+	@Override
+	public void returnConfirm(int bno, int rno) {
+		returnMapper.returnConfirm(bno, rno);
+		resBookMapper.updateResCntDown(bno);
 	}
 
 }

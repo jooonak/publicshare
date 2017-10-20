@@ -81,4 +81,5 @@ public class UserController {
 		rttr.addFlashAttribute("result","modify");
 		return "redirect:/loanbook/list";
 	}
+	
 }

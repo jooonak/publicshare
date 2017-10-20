@@ -19,7 +19,7 @@
 	margin-left: 25%;
 }
 
-.modal-content_a { 
+.modal-content_a {
 	border-radius: 10px;
 	border: none;
 	padding: 25px;
@@ -114,7 +114,7 @@
 									<input type="button" data-toggle="modal"
 										data-target=".modalDialogB" value="예약">
 								</c:when>
-								<c:when test="${book.resCnt eq '1'}">
+								<c:when test="${book.resCnt ne '0'}">
 									<input type="button" data-toggle="modal"
 										data-target=".modalDialogA" value="대여">
 								</c:when>
@@ -125,7 +125,7 @@
 								value="대여">
 							<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
 							<a href="/loanbook/list?page=${cri.page}" class="btn">뒤로가기</a>
-							<!-- bookDTO의 available이 T(True)일 경우 나타나는 모달 -->
+							<!-- bookDTO의 available이 T(대여 가능)일 경우 나타나는 모달 -->
 							<div class="row text-center" style="padding: 50px;">
 								<div class="modal fade modalDialogA " tabindex="-1"
 									role="dialogA" aria-labelledby="modalLabelA">
