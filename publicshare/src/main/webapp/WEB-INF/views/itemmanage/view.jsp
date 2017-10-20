@@ -8,6 +8,44 @@
 <!-- 왜 상대경로만 되는지... -->
 <html>
 
+<style>
+.hide {
+	display: block;
+}
+
+.show {
+	display: none;
+}
+
+.form-panel {
+	background: #f4f4f4;
+	margin: 10px;
+	padding: 10px;
+	box-shadow: 0px 4px 4px #aab2bd;
+	
+}
+.form-replypanel{
+	 margin-left: 5%;
+	 
+}
+
+.form-replycontrol {
+  display: block;
+  width: 100%;
+  height: 34px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0px;
+  float: left;
+  
+
+}
+</style>
+
 <section id="home" name="home"></section>
 <div id="headerwrap">
 	<div class="container">
@@ -75,16 +113,18 @@
 			<div class="row mt">
 				<div class="col-lg-12">
 					<div class="form-panel">
-						<h4 class="mb">
-							<i class="fa fa-angle-right"></i> REPLIES
+						<h4 >
+						REPLIES
+							<!--댓글 입력 부분 _hb  -->
+							<div class="form-replypanel">							
+								<input class="form-replycontrol" name="reply" id="reply" >
+								<input style="float: right;" class="regBtn" type="button" value="등록">
+								
+							</div>
 						</h4>
-						<!--댓글 입력 부분 _hb  -->
-						<div>
-							댓글 작성<textarea rows="1" cols="80" name="reply" id="reply"></textarea>
-							<input class="regBtn" type="button" value="등록">
-						</div>
+						<hr>
 						<!--댓글 리스트 (홍빈)  -->
-						<form class="form-horizontal tasi-form" method="get">
+						<form class="form-horizontal tasi-form" >
 							<div class="form-group has-success">
 								<ul class="col-lg-10 replyUL">
 
@@ -107,17 +147,6 @@
 	<!-- /aboutwrap -->
 </div>
 <!--/Portfoliowrap -->
-
-<style>
-.hide {
-	display: block;
-}
-
-.show {
-	display: none;
-}
-</style>
-
 
 <!-- actionForm form 데이터 전송용  -->
 <form id="actionForm" action="/itemmanage/modify?bno=${book.bno }"
