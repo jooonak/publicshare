@@ -64,13 +64,13 @@ a:hover {
 					<div class="item active">
 						<!-- 예약 대기 modal 요청용  -->
 						<div>
-							<c:forEach items="${applylist}" var="apply">
+							<c:forEach items="${applyreadylist}" var="apply">
 								<div>${apply.BookDTO}</div>
 								<div>${apply.ReservationDTO}</div>
-								<button class='apply-btn' data-oper='confirm'
+								<button class='apply-btn' data-oper='reserveconfirm'
 									data-rno='${apply.ReservationDTO.rno}'
 									data-bno='${apply.BookDTO.bno}'>확인${apply.ReservationDTO.rno}</button>
-								<button class='apply-btn' data-oper='reject'
+								<button class='apply-btn' data-oper='reservereject'
 									data-rno='${apply.ReservationDTO.rno}'
 									data-bno='${apply.BookDTO.bno}'>취소</button>
 							</c:forEach>
@@ -138,6 +138,25 @@ a:hover {
 				} 
 			});
 		});
+			
+		$('.apply-btn').click(function(){
+			var $this = $(this)
+			var data = {
+					bno: $this.attr('data-bno'), 
+				  	rno: $this.attr('data-rno'),
+				  };
+			
+			$.ajax({
+				url : '/myreturn/'+$this.attr('data-oper'),
+				type : 'post',
+				contentType: "application/json; charset=utf-8",
+				data:JSON.stringify(data),
+				success : function(result) {
+					alert("등록 완료하였습니다.");
+					//callback하면 modal 'hide'처리 예정(sb)
+				}
+			});
+		});			
 
 	});
 </script>

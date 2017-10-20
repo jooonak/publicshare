@@ -8,7 +8,7 @@ import lombok.Data;
 public class ReplyDTO {
 
 	private int reno;
-	private String reply;
+	private String reply,replyer;
 	private Date regdate;
 	private int bno;// book rno¿Í ¿¬°á?
 }

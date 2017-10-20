@@ -14,6 +14,8 @@ public interface ReturnMapper {
 	@Update("update tbl_reservation set status = 'onreturn' where rno = #{rno}")
 	public void request(int rno);
 	//대여 신청, 대여 중, 예약 중 등등..
+	
+	public List<Map<String, Object>> getOnApplyReadyList(String lender);
 
 	public List<Map<String, Object>> checkItem();
 

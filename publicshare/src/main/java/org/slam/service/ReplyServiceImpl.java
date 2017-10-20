@@ -42,4 +42,10 @@ public class ReplyServiceImpl implements ReplyService {
 		mapper.update(dto);
 	}
 
+	@Override
+	public void reReplyUpdate(ReplyDTO dto) {
+		mapper.reReplycreate(dto);
+		
+	}
+
 }

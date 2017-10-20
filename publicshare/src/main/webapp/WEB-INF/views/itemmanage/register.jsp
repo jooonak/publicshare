@@ -62,6 +62,14 @@
 								<input id="regBtn" type="submit" value="Register">
 								
 						</form>
+						
+						<!-- fileUpload용 iframe -->
+							<iframe>
+							
+							</iframe>
+						<!-- fileUpload용 iframe -->
+						
+						
 						<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
 						<a href="/itemmanage/list"><input id="listBtn" type="button" name="list" value="뒤로가기"></a>
 					</div>

@@ -28,7 +28,7 @@ public class ReplyController {
 	@Inject
 	ReplyService service;
 
-	//댓글 리스트
+	// 댓글 리스트
 	@GetMapping("/{bno}/list/{page}")
 	public List<ReplyDTO> list(@PathVariable("bno") int bno, @PathVariable("page") int page) {
 
@@ -38,21 +38,28 @@ public class ReplyController {
 	// 댓글 생성
 	@PostMapping("/new")
 	public void addReply(@RequestBody ReplyDTO dto) {
-		
+
 		service.register(dto);
 	}
-	
-	//삭제
+
+	// 삭제
 	@DeleteMapping("/{reno}")
 	public void removeReply(@PathVariable("reno") int reno) {
-		
+
 		service.remove(reno);
 	}
-	
-	//수정
+
+	// 수정
 	@PutMapping("/{reno}")
 	public void updateReply(@PathVariable("reno") int reno, @RequestBody ReplyDTO dto) {
-		log.info(reno+"");
+		log.info(reno + "");
 		service.update(dto);
+	}
+
+	// 대댓글 입력
+	@PostMapping("/rereply/{reno}")
+	public void addReReply(@RequestBody ReplyDTO dto) {
+		
+		service.reReplyUpdate(dto);
 	}
 }
