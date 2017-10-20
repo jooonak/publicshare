@@ -37,6 +37,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 			log.info("LOGIN CHECKED");
 
 			return useSession;
+			
 		} else if (useCookie) {
 
 			MemberDTO member = service.getMember(cookie.getValue());
@@ -53,21 +54,26 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 
-		String result = (String) modelAndView.getModel().get("logout");
-		Cookie loginCookie = WebUtils.getCookie(request, "memberID");
-		HttpSession session = request.getSession();
+		try {
+			String result = (String) modelAndView.getModel().get("logout");
+			Cookie loginCookie = WebUtils.getCookie(request, "memberID");
+			HttpSession session = request.getSession();
 
-		if (result != null) {
+			if (result != null) {
 
-			session.removeAttribute("member");
-			
-			
-			if (loginCookie != null) {
-				loginCookie.setValue(null);
-				loginCookie.setMaxAge(0);
-				
-				response.addCookie(loginCookie);
+				session.removeAttribute("member");
+
+				if (loginCookie != null) {
+					loginCookie.setValue(null);
+					loginCookie.setMaxAge(0);
+
+					response.addCookie(loginCookie);
+				}
 			}
+
+		} catch (Exception e) {
+
 		}
+
 	}
 }

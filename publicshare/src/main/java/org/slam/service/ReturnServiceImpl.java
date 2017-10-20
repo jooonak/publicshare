@@ -21,8 +21,8 @@ public class ReturnServiceImpl implements ReturnService{
 	ResBookMapper resBookMapper;
 	
 	@Override
-	public List<Map<String, Object>> getList(Criteria cri) {
-		return returnMapper.getList(cri);
+	public List<Map<String, Object>> getList(Criteria cri, String mid) {
+		return returnMapper.getList(cri,mid);
 	}
 
 	@Override
@@ -31,8 +31,8 @@ public class ReturnServiceImpl implements ReturnService{
 	}
 
 	@Override
-	public List<Map<String, Object>> checkItem() {
-		return returnMapper.checkItem();
+	public List<Map<String, Object>> checkItem(String mid) {
+		return returnMapper.checkItem(mid);
 	}
 
 	@Override
@@ -40,10 +40,10 @@ public class ReturnServiceImpl implements ReturnService{
 		returnMapper.returnConfirm(bno, rno);
 		resBookMapper.updateResCntDown(bno);
 	}
-	
+
 	@Override
-	public List<Map<String, Object>> onApplyReadyList(String lender){
-		return returnMapper.getOnApplyReadyList(lender);
+	public void returnReject(int rno) {
+		returnMapper.returnReject(rno);
 	}
 
 	@Override
@@ -56,4 +56,10 @@ public class ReturnServiceImpl implements ReturnService{
 		resBookMapper.rejectUpdateApplyData(dto);
 		resBookMapper.updateResCntDown(dto.getBno());
 	}
+
+	@Override
+	public List<Map<String, Object>> checkReturn(String mid) {
+		return returnMapper.checkReturn(mid);
+	}
+
 }

@@ -27,7 +27,7 @@ public class ReservationRestController {
 	public void reserve(@RequestBody ReservationDTO dto) {
 		//대여자가 소유주에게 대여 신청하는 메서드(sb)
 		log.info(""+dto);
-		service.bookReserve(dto, "testUser");
+		service.bookReserve(dto, "123");
 	}
 	
 	@PostMapping("/confirm")
@@ -44,6 +44,12 @@ public class ReservationRestController {
 		System.out.println("reject:"+dto);
 		service.rejectBookReserve(dto);
 		//
+	}
+	
+	@GetMapping("/applyreadylist")
+	public void applyreadylist() {
+		//대여자가 예약한 물품 중 앞서 예약한 사람이 예약을 취소하여 자신의 차례가 되었을 때 예약을 할 것인지에 대한 여부를 물어보기 위한 동작
+		service.onApplyReadyList("123");
 	}
 
 }

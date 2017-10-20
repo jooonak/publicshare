@@ -11,7 +11,7 @@
 		tbl_book book,tbl_reservation res 
 		where 
 		book.bno = res.bno 
-		and lender = 'testUser' <!-- 추후 mid로 변경 필요 -->
+		and lender = #{mid}
 		order by startdate asc, rno desc
 	</select>
 	
@@ -29,6 +29,31 @@
 		</collection>
 	</resultMap>
 	
+	<select id="checkReturn" resultMap="checkMyReturn">
+		select
+        rno, book.bno, bname, publisher, owner, startdate, status, res.latefee latefee
+        from
+        tbl_book book, tbl_reservation res
+        where book.bno = res.bno
+        and lender = #{mid}
+        and status = 'returnrejected'
+	</select>
+	
+	<resultMap type="map" id="checkMyReturn">
+		<collection property="BookDTO" ofType="BookDTO">
+			<id property="bno" column="bno" />
+			<id property="bname" column="bname" />
+			<id property="publisher" column="publisher" />
+			<id property="owner" column="owner" />
+		</collection>
+		<collection property="ReservationDTO" ofType="ReservationDTO">
+			<id property="rno" column="rno" />
+			<id property="startDate" column="startdate" />
+			<id property="lateFee" column="latefee" />
+			<id property="status" column="status" />
+		</collection>
+	</resultMap>
+	
 	<select id="checkItem" resultMap="checkMyItem">
 		select 
 			rno, book.bno, bname, publisher, lender, status, startdate 
@@ -36,7 +61,7 @@
 			tbl_book book,tbl_reservation res 
 		where 
 			book.bno = res.bno 
-			and owner = 'testOwner'
+			and owner = #{mid}
 		    and status = 'onreturn'
 		order by startdate asc, rno desc;
 
@@ -60,7 +85,7 @@
 		UPDATE tbl_reservation
 		    SET status = (
 				case status 
-				when 'onloan' then 'returned'
+				when 'onreturn' then 'returned'
 		        when 'onres' then 'onapplyready'
 		        end),
 		    returndate = (case status when 'returned' then now()
@@ -70,39 +95,4 @@
 		limit 2;
 	</update>
 
-	<resultMap type="map" id="detailedOnApplyMap">
-		<collection property="BookDTO" ofType="BookDTO">
-			<id property="bno" column="bno" />
-			<id property="bname" column="bname" />
-			<id property="publisher" column="publisher" />
-			<id property="owner" column="owner" />
-		</collection>
-		<collection property="ReservationDTO" ofType="ReservationDTO">
-			<id property="rno" column="rno" />
-			<id property="lender" column="lender" />
-			<id property="status" column="status" />
-		</collection>
-	</resultMap>
-	
-	<select id="getOnApplyReadyList" resultMap="detailedOnApplyMap">
-		select
-		tbl_reservation.rno rno, tbl_reservation.bno bno,
-		tbl_reservation.lender, tbl_reservation.status,
-		tbl_book.bname bname,
-		tbl_book.publisher publisher, tbl_book.owner
-		from
-		(
-		select
-		*
-		from
-		tbl_reservation
-		where
-		lender = #{lender}
-		and
-		status = 'onapplyready'
-		)
-		tbl_reservation, tbl_book
-
-		where tbl_reservation.bno = tbl_book.bno;
-	</select>
 </mapper>

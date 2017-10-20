@@ -1,5 +1,8 @@
 package org.slam.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
@@ -34,6 +37,8 @@ public interface ResBookMapper {
 	
 	@Update("update tbl_book set rescnt = rescnt-1 where bno = #{bno}")
 	public void updateResCntDown(int bno);
+
 	
-	
+	public List<Map<String, Object>> getOnApplyReadyList(String lender);
+
 }

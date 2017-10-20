@@ -9,7 +9,7 @@ import org.slam.dto.Criteria;
 
 public interface ReturnMapper {
 	
-	public List<Map<String, Object>> getList(Criteria cri);
+	public List<Map<String, Object>> getList(@Param("cri") Criteria cri, @Param("mid") String mid);
 	
 	@Update("update tbl_reservation set status = 'onreturn' where rno = #{rno}")
 	public void request(int rno);
@@ -17,8 +17,13 @@ public interface ReturnMapper {
 	
 	public List<Map<String, Object>> getOnApplyReadyList(String lender);
 
-	public List<Map<String, Object>> checkItem();
+	public List<Map<String, Object>> checkItem(String mid);
 
 	public void returnConfirm(@Param("bno") int bno, @Param("rno") int rno);
+
+	@Update("update tbl_reservation set status = 'returnrejected' where rno = #{rno}")
+	public void returnReject(int rno);
+
+	public List<Map<String, Object>> checkReturn(String mid);
 	
 }

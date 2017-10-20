@@ -1,9 +1,13 @@
 package org.slam.service;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.slam.dto.ReservationDTO;
 import org.slam.mapper.ResBookMapper;
+import org.slam.mapper.ReturnMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,4 +35,9 @@ public class ResBookServiceImpl implements ResBookService {
 		mapper.updateResCntDown(dto.getBno());
 	}
 	
+	@Override
+	public List<Map<String, Object>> onApplyReadyList(String lender){
+		return mapper.getOnApplyReadyList(lender);
+	}
+
 }

@@ -27,7 +27,8 @@ public class ReturnRestController {
 
 	@GetMapping("/check")
 	public List<Map<String, Object>> checkOnReturn(){
-		return service.checkItem();
+		//파라미터에 mid받아서 "testOwner"대신 작성 필요
+		return service.checkItem("1234");
 	}
 
 	@PostMapping("/returnconfirm")
@@ -35,6 +36,12 @@ public class ReturnRestController {
 		System.out.println(dto.getBno());
 		System.out.println(dto.getRno());
 		service.returnConfirm(dto.getBno(), dto.getRno());
+	}
+	
+	@PostMapping("/returnreject")
+	public void returnReject(@RequestBody ReservationDTO dto) {
+		System.out.println(dto);
+		service.returnReject(dto.getRno());
 	}
 	
 	@PostMapping("/reserveconfirm")
@@ -47,7 +54,12 @@ public class ReturnRestController {
 	public void reject(@RequestBody ReservationDTO dto) {
 		service.refuseBookReserve(dto);
 		
-	}	
+	}
 	
+	@GetMapping("/checkReturn")
+	public List<Map<String, Object>> checkReturn(){
+		//파라미터에 mid받아서 "testOwner"대신 작성 필요
+		return service.checkReturn("123");
+	}
 	
 }

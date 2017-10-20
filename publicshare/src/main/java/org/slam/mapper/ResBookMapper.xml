@@ -4,8 +4,6 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
-
 <mapper namespace="org.slam.mapper.ResBookMapper">
 	<update id="rejectUpdateResData" parameterType="ReservationDTO">
 		update
@@ -35,4 +33,41 @@
 		rno
 		limit 2;
 	</update>
+	
+	<resultMap type="map" id="detailedOnApplyMap">
+		<collection property="BookDTO" ofType="BookDTO">
+			<id property="bno" column="bno" />
+			<id property="bname" column="bname" />
+			<id property="publisher" column="publisher" />
+			<id property="owner" column="owner" />
+		</collection>
+		<collection property="ReservationDTO" ofType="ReservationDTO">
+			<id property="rno" column="rno" />
+			<id property="lender" column="lender" />
+			<id property="status" column="status" />
+		</collection>
+	</resultMap>
+	
+	<select id="getOnApplyReadyList" resultMap="detailedOnApplyMap">
+		select
+		tbl_reservation.rno rno, tbl_reservation.bno bno,
+		tbl_reservation.lender, tbl_reservation.status,
+		tbl_book.bname bname,
+		tbl_book.publisher publisher, tbl_book.owner
+		from
+		(
+		select
+		*
+		from
+		tbl_reservation
+		where
+		lender = #{lender}
+		and
+		status = 'onapplyready'
+		)
+		tbl_reservation, tbl_book
+
+		where tbl_reservation.bno = tbl_book.bno;
+	</select>
+	
 </mapper>

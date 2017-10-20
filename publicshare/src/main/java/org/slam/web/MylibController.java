@@ -27,8 +27,8 @@ public class MylibController {
 	@GetMapping("/list")
 	public void getList(@ModelAttribute("cri") Criteria cri, Model model) {
 		//test용 아이디 "testOwner" 삽입(sb)
-		model.addAttribute("list", service.list(cri, "testOwner"));
-		model.addAttribute("applylist", service.ApplyList("testOwner"));
+		model.addAttribute("list", service.list(cri, "1234"));
+		model.addAttribute("applylist", service.ApplyList("1234"));
 	}
 
 	// 나의 물품 등록 페이지

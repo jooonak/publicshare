@@ -339,7 +339,8 @@ a:hover {
 					str += "<li>" + result[i].ReservationDTO.rno + "</li>";
 					str += "<li>" + result[i].ReservationDTO.lender + "</li>";
 					str += "<li>" + result[i].ReservationDTO.startdate + "</li>";
-					str += "<li><button id=rejBtn>REJECT</button>";
+					str += "<li><button data-rno=" + result[i].ReservationDTO.rno; 
+					str += " id=rejBtn>REJECT</button>";
 					str += "<button data-rno=" + result[i].ReservationDTO.rno + " data-bno=" + result[i].BookDTO.bno; 
 					str += " id=accBtn>ACCEPT</button></li>";
 					$(".beModal").html(str).show("slow");
@@ -351,10 +352,6 @@ a:hover {
 		
 		$(".beModal").on("click", "#accBtn", function(e){
 
-			console.log($(this).attr("data-rno"));
-			console.log($(this).attr("data-bno"));
-			
-			
 			var data = {
 					bno: $(this).attr("data-bno"),
 					rno: $(this).attr("data-rno")
@@ -367,10 +364,31 @@ a:hover {
 				data:JSON.stringify(data),
 				success : function(result) {
 					alert("반납처리 완료");
+					$(".beModal").hide("slow");
 					//callback하면 modal 'hide'처리 예정(sb)
 				}
 			});
 		});
+		
+		$(".beModal").on("click", "#rejBtn", function(e){
+
+			console.log($(this).attr("data-rno"));
+			
+			var data = {rno: $(this).attr("data-rno")}
+			
+			$.ajax({
+				url : "/myreturn/returnreject",
+				type : 'post',
+				contentType: "application/json; charset=utf-8",
+				data:JSON.stringify(data),
+				success : function(result) {
+					alert("반납거부 완료");
+					$(".beModal").hide("slow");
+					//callback하면 modal 'hide'처리 예정(sb)
+				}
+			});
+		});
+		
 	});
 	var msg = "${result}";
 

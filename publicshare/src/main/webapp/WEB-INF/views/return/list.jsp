@@ -37,6 +37,49 @@ a:hover {
 	background: #fff !important;
 	padding: 10px
 }
+
+.modal.left .modal-dialog, .modal.right .modal-dialog {
+	position: fixed;
+	margin: auto;
+	width: 35%;
+	height: 100%;
+	-webkit-transform: translate3d(0%, 0, 0);
+	-ms-transform: translate3d(0%, 0, 0);
+	-o-transform: translate3d(0%, 0, 0);
+	transform: translate3d(0%, 0, 0);
+}
+
+.modal.left .modal-content, .modal.right .modal-content {
+	height: 100%;
+	overflow-y: auto;
+}
+
+.modal.left .modal-body, .modal.right .modal-body {
+	padding: 15px 15px 80px;
+}
+
+.modal.right.fade .modal-dialog {
+	right: -320px;
+	-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+	-moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+	-o-transition: opacity 0.3s linear, right 0.3s ease-out;
+	transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog {
+	right: 0;
+}
+
+/* ----- MODAL STYLE ----- */
+.modal-content {
+	border-radius: 0;
+	border: none;
+}
+
+.modal-header {
+	border-bottom-color: #EEEEEE;
+	background-color: #FAFAFA;
+}
 </style>
 <section id="home" name="home"></section>
 <div id="headerwrap">
@@ -56,38 +99,54 @@ a:hover {
 <section id="portfolio" name="portfolio"></section>
 <div id="portfoliowrap">
 	<div class="container">
+	<button id="returnalarm" style="float: right;" data-toggle="modal" data-target="#myModal">Return Alarm</button>
+	<button id="resalarm" style="float: right;" data-toggle="modal" data-target="#myModal">Reservation Alarm</button>
 		<div class="row">
 			<!--reigster btn  -->
 			<h1>BOOKS</h1>
 			<div class="carousel slide" id="myCarousel">
 				<div class="carousel-inner">
 					<div class="item active">
-						<!-- 예약 대기 modal 요청용  -->
-						<div>
-							<c:forEach items="${applyreadylist}" var="apply">
-								<div>${apply.BookDTO}</div>
-								<div>${apply.ReservationDTO}</div>
-								<button class='apply-btn' data-oper='reserveconfirm'
-									data-rno='${apply.ReservationDTO.rno}'
-									data-bno='${apply.BookDTO.bno}'>확인${apply.ReservationDTO.rno}</button>
-								<button class='apply-btn' data-oper='reservereject'
-									data-rno='${apply.ReservationDTO.rno}'
-									data-bno='${apply.BookDTO.bno}'>취소</button>
-							</c:forEach>
+
+						<!-- Modal -->
+						<div class="modal right fade" id="myModal" tabindex="-1"
+							role="dialog" aria-labelledby="myModalLabel2">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">×</span>
+										</button>
+										<h4 class="modal-title" id="myModalLabel2">Right Sidebar</h4>
+									</div>
+
+									<div class="modal-body">
+										<ul class="alarmUl">
+										</ul>
+									</div>
+
+								</div>
+								<!-- modal-content -->
+							</div>
+							<!-- modal-dialog -->
 						</div>
-						<!-- 예약 대기 modal 요청용 end -->
+						<!-- modal -->
+
+
 						<c:forEach items="${list}" var="data">
 							<div class="col-sm-3 col-xs-12 desc">
 								<div class="project-wrapper">
 									<div class="project">
 										<div class="photo-wrapper">
 											<div class="photo">
-												<img src="/resources/assets/img/portfolio/port01.jpg"
-													alt="">
+												<img src="/resources/assets/img/portfolio/port01.jpg" alt="">
 											</div>
 											<div class="caption">
 												<h4>${data.BookDTO.bname}</h4>
 												<p>${data.BookDTO.publisher}</p>
+												<p>${data.BookDTO.owner}</p>
 												<button data-rno="${data.ReservationDTO.rno}" id="returnBtn">반납하기</button>
 												<p></p>
 											</div>
@@ -120,45 +179,87 @@ a:hover {
 	crossorigin="anonymous"></script>
 <!-- 클래스 link 버튼 처리 -->
 <script type="text/javascript">
-	$(document).ready(function() {
+$(document).ready(function() {
 
-		$(".item").on("click", "#returnBtn", function(e){
-			
-			var data = $(this).attr("data-rno");
-			
-			$.ajax({
-				url:'/myreturn/request',
-				type:'POST',
-				contentType:"application/json; charset=utf-8",
-				data:JSON.stringify(data),
-				success: function(result){
-					
-					alert("register success");
-		 			
-				} 
-			});
+	$(".item").on("click", "#returnBtn", function(e){
+		
+		var data = $(this).attr("data-rno");
+		
+		$.ajax({
+			url:'/myreturn/request',
+			type:'POST',
+			contentType:"application/json; charset=utf-8",
+			data:JSON.stringify(data),
+			success: function(result){
+				
+				alert("register success");
+	 			
+			} 
 		});
-			
-		$('.apply-btn').click(function(){
-			var $this = $(this)
-			var data = {
-					bno: $this.attr('data-bno'), 
-				  	rno: $this.attr('data-rno'),
-				  };
-			
-			$.ajax({
-				url : '/myreturn/'+$this.attr('data-oper'),
-				type : 'post',
-				contentType: "application/json; charset=utf-8",
-				data:JSON.stringify(data),
-				success : function(result) {
-					alert("등록 완료하였습니다.");
-					//callback하면 modal 'hide'처리 예정(sb)
-				}
-			});
-		});			
-
 	});
+		
+	$(".alarmUl").on("click", '#resBtn', function(){
+		var $this = $(this)
+		var data = {
+				bno: $this.attr('data-bno'), 
+			  	rno: $this.attr('data-rno'),
+			  };
+		
+		$.ajax({
+			url : '/myreturn/'+$this.attr('data-oper'),
+			type : 'post',
+			contentType: "application/json; charset=utf-8",
+			data:JSON.stringify(data),
+			success : function(result) {
+				alert("등록 완료하였습니다.");
+				//callback하면 modal 'hide'처리 예정(sb)
+			}
+		});
+	});	
+
+	
+
+	function getReturnAlarm(){
+		var str = "";
+		
+		$.getJSON("/myreturn/checkReturn", function(result) {
+			
+			console.log(result);
+			for (var i = 0; i < result.length; i++) {
+				str += "<li><p>" + result[i].BookDTO.bname + "   " + result[i].ReservationDTO.rno; 
+				str += "<button id=checkReject data-oper=reserveconfirm data-rno='" + result[i].ReservationDTO.rno
+				str += "' data-bno='" + result[i].BookDTO.bno + "'>확인</button></p></li>";		
+			}
+			$(".alarmUl").html(str);
+		});
+	}
+	
+	function getResAlarm(){
+		var str = "";
+		
+		$.getJSON("/reservation/applyreadylist", function(result) {
+			
+			console.log(result);
+			for (var i = 0; i < result.length; i++) {
+				str += "<li><p>" + result[i].BookDTO.bname + "   " + result[i].ReservationDTO.rno;
+				str += "<button id=resBtn data-oper=reserveconfirm data-rno='" + result[i].ReservationDTO.rno;
+				str += "' data-bno='" + result[i].BookDTO.bno + "'>확인</button><button id=resBtn data-oper=reservereject";
+				str += "data-rno='" + result[i].ReservationDTO.rno + "' data-bno='" + result[i].BookDTO.bno + "'>취소</button></p></li>";		
+			}
+			$(".alarmUl").html(str);
+		});
+	}
+	
+	$("#returnalarm").on("click", function(e){
+		$(".alarmUl").html("");
+		getReturnAlarm();
+	});
+	
+	$("#resalarm").on("click", function(e){
+		$(".alarmUl").html("");
+		getResAlarm();
+	});
+});	
 </script>
 
 <%@include file="../include/footer.jsp"%>
