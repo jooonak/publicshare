@@ -58,6 +58,7 @@ public class UserController {
 	
 	@GetMapping("/mypage")
 	public void goMypage(@SessionAttribute("member") MemberDTO member, Model model) {
+		//SessionAttribute를 쓰는게 좋은지, interceptor에서 model에 넣는게 좋은지
 		//@SessionAttribute를 사용하면 Session에 있는 명시된 이름의 data를 가져올 수 있다 (참고 : http://egloos.zum.com/springmvc/v/535572)
 		
 		log.info("member........." + member);

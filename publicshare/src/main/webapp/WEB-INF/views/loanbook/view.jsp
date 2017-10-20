@@ -7,6 +7,7 @@
 <%@include file="../include/header.jsp"%>
 <!-- 왜 상대경로만 되는지... -->
 <style>
+
 .modal {
 	padding-right: 0px;
 	background-color: rgba(4, 4, 4, 0.3);
@@ -53,6 +54,9 @@
 	color: white;
 	padding: 10px;
 }
+
+
+
 </style>
 
 <html>
@@ -119,10 +123,9 @@
 										data-target=".modalDialogA" value="대여">
 								</c:when>
 							</c:choose>-->
-							<input type="button" data-toggle="modal"
-								data-target=".modalDialogB" value="예약"> <input
-								type="button" data-toggle="modal" data-target=".modalDialogA"
-								value="대여">
+							<input type="button" data-toggle="modal" data-target=".modalDialogB" value="예약"> 
+							<input type="button" data-toggle="modal" data-target=".modalDialogA" value="대여">
+					
 							<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
 							<a href="/loanbook/list?page=${cri.page}" class="btn">뒤로가기</a>
 							<!-- bookDTO의 available이 T(대여 가능)일 경우 나타나는 모달 -->
@@ -193,11 +196,15 @@
 				type : 'post',
 				contentType: "application/json; charset=utf-8",
 				data:JSON.stringify(data),
-				success : function(result) {
+				success : function(result) {		
 					alert("success");
+					//$(".modal").modal("show");
 				}
 			});
-		});		
+		});
+		
+
+		
 	});
 </script>
 <%@include file="../include/footer.jsp"%>
