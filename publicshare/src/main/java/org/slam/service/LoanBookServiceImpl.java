@@ -23,7 +23,7 @@ public class LoanBookServiceImpl implements LoanBookService {
 	@Override
 	public List<BookDTO> getBookList(Criteria cri, String mid) {
 		log.info("" + mapper.getBookList(mid, cri));
-		cri.setTotal(mapper.getTotal());
+		cri.setTotal(mapper.getTotal(mid));
 		// criteriaÀÇ total°ªÀ» setting
 		return mapper.getBookList(mid, cri);
 	}
