@@ -52,22 +52,25 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
+		try {
+			String result = (String) modelAndView.getModel().get("logout");
+			Cookie loginCookie = WebUtils.getCookie(request, "memberID");
+			HttpSession session = request.getSession();
 
-		String result = (String) modelAndView.getModel().get("logout");
-		Cookie loginCookie = WebUtils.getCookie(request, "memberID");
-		HttpSession session = request.getSession();
+			if (result != null) {
 
-		if (result != null) {
+				session.removeAttribute("member");
 
-			session.removeAttribute("member");
-			
-			
-			if (loginCookie != null) {
-				loginCookie.setValue(null);
-				loginCookie.setMaxAge(0);
-				
-				response.addCookie(loginCookie);
+				if (loginCookie != null) {
+					loginCookie.setValue(null);
+					loginCookie.setMaxAge(0);
+
+					response.addCookie(loginCookie);
+				}
 			}
+
+		} catch (Exception e) {
+
 		}
 	}
 }

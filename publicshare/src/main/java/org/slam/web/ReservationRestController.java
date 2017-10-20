@@ -2,6 +2,7 @@ package org.slam.web;
 
 import javax.inject.Inject;
 
+import org.slam.dto.MemberDTO;
 import org.slam.dto.ReservationDTO;
 import org.slam.service.ResBookService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import lombok.extern.java.Log;
 
@@ -24,10 +26,10 @@ public class ReservationRestController {
 	
 	//나의 물품 등록 페이지
 	@PostMapping("/new")
-	public void reserve(@RequestBody ReservationDTO dto) {
+	public void reserve(@RequestBody ReservationDTO dto, @SessionAttribute("member") MemberDTO member) {
 		//대여자가 소유주에게 대여 신청하는 메서드(sb)
 		log.info(""+dto);
-		service.bookReserve(dto, "testUser");
+		service.bookReserve(dto, member.getMid());
 	}
 	
 	@PostMapping("/confirm")

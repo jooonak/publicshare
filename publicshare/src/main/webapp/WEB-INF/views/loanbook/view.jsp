@@ -94,13 +94,16 @@
 					<div class="col-md-6"></div>
 					<div class="col-md-6">
 						<!-- BookDTO, MemberDTO, Criteria 필요 -->
-						<h3>글쓴이, 등록일, 조회수</h3>
+						<h3>Book Information</h3>
+						</br>
 						<p>
 							책제목<input type="text" value="${book.bname}" readonly="readonly">
 						</p>
 						<p>
-							출판사<input type="text" value="${book.publisher}"
-								readonly="readonly">
+							출판사<input type="text" value="${book.publisher}" readonly="readonly">
+						</p>
+						<p>
+							주인장<input type="text" value="${book.owner}" readonly="readonly">
 						</p>
 						<p>
 							날짜정보:
@@ -119,6 +122,7 @@
 										data-target=".modalDialogA" value="대여">
 								</c:when>
 							</c:choose>-->
+							<hr>
 							<input type="button" data-toggle="modal"
 								data-target=".modalDialogB" value="예약"> <input
 								type="button" data-toggle="modal" data-target=".modalDialogA"

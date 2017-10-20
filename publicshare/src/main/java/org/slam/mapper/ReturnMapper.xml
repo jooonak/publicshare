@@ -11,8 +11,8 @@
 		tbl_book book,tbl_reservation res 
 		where 
 		book.bno = res.bno 
-		and lender = 'testUser' <!-- 추후 mid로 변경 필요 -->
-		order by startdate asc, rno desc
+		and lender = #{mid} <!-- 추후 mid로 변경 필요 -->
+		order by startdate asc, rno desc;
 	</select>
 	
 	<resultMap type="map" id="getMyLoanList">

@@ -1,18 +1,20 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Title</title>
 
-<!-- 합쳐지고 최소화된 최신 CSS -->
+<!-- í©ì³ì§ê³  ìµìíë ìµì  CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-<!-- 부가적인 테마 -->
+<!-- ë¶ê°ì ì¸ íë§ -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
-<!-- w3 Modal사용을 위한 link -->
+<!-- w3 Modalì¬ì©ì ìí link -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
@@ -171,7 +173,7 @@ body {
 			<form class="w3-container" action="/join" method="post">
 				<div class="w3-section">
 					<label><b>MemberID</b></label> 
-					<input class="w3-input w3-border w3-margin-bottom" type="text"
+					<input class="w3-input w3-border" type="text"
 						placeholder="Enter Username" name="mid" required> 
 					<label><b>Password</b></label>
 					<input class="w3-input w3-border" type="password"
@@ -179,11 +181,14 @@ body {
 					<label><b>Name</b></label>
 					<input class="w3-input w3-border" type="text"
 						placeholder="Enter Name" name="mname" required>
+					<label><b>Nickname</b></label>
+					<input class="w3-input w3-border" type="text"
+						placeholder="Enter Name" name="nickname" required>
 				</div>
 				<div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+					<button id="joinBtn" class="btn btn-success">Join In</button>
 					<button onclick="document.getElementById('joinModal').style.display='none'"
 					class="btn btn-danger" id="regCancelBtn">Cancel</button>
-					<button id="joinBtn" class="btn btn-success">Join In</button>
 				</div>
 			</form>
 		</div>

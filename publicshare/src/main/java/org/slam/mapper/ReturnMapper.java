@@ -6,10 +6,11 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 import org.slam.dto.Criteria;
+import org.slam.dto.MemberDTO;
 
 public interface ReturnMapper {
 	
-	public List<Map<String, Object>> getList(Criteria cri);
+	public List<Map<String, Object>> getList(@Param("cri")Criteria cri, @Param("mid") String mid);
 	
 	@Update("update tbl_reservation set status = 'onreturn' where rno = #{rno}")
 	public void request(int rno);

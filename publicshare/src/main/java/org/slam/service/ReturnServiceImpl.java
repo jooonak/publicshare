@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.slam.dto.Criteria;
+import org.slam.dto.MemberDTO;
 import org.slam.dto.ReservationDTO;
 import org.slam.mapper.ResBookMapper;
 import org.slam.mapper.ReturnMapper;
@@ -21,8 +22,8 @@ public class ReturnServiceImpl implements ReturnService{
 	ResBookMapper resBookMapper;
 	
 	@Override
-	public List<Map<String, Object>> getList(Criteria cri) {
-		return returnMapper.getList(cri);
+	public List<Map<String, Object>> getList(Criteria cri, String mid) {
+		return returnMapper.getList(cri,mid);
 	}
 
 	@Override
