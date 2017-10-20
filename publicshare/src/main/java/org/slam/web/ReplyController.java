@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.annotations.Update;
 import org.slam.dto.BookDTO;
 import org.slam.dto.Criteria;
+import org.slam.dto.MemberDTO;
 import org.slam.dto.ReplyDTO;
 import org.slam.service.ReplyService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import lombok.extern.java.Log;
 
@@ -37,9 +39,9 @@ public class ReplyController {
 
 	// 댓글 생성
 	@PostMapping("/new")
-	public void addReply(@RequestBody ReplyDTO dto) {
+	public void addReply(@RequestBody ReplyDTO dto , @SessionAttribute("member") MemberDTO member) {
 
-		service.register(dto);
+		service.register(dto, member.getMid());
 	}
 
 	// 삭제
@@ -58,8 +60,8 @@ public class ReplyController {
 
 	// 대댓글 입력
 	@PostMapping("/rereply/{reno}")
-	public void addReReply(@RequestBody ReplyDTO dto) {
+	public void addReReply(@RequestBody ReplyDTO dto, @SessionAttribute("member") MemberDTO member) {
 		
-		service.reReplyUpdate(dto);
+		service.reReplyUpdate(dto, member.getMid());
 	}
 }

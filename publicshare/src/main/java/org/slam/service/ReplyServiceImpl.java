@@ -6,17 +6,23 @@ import javax.inject.Inject;
 
 import org.slam.dto.Criteria;
 import org.slam.dto.ReplyDTO;
+import org.slam.mapper.LoanBookMapper;
 import org.slam.mapper.ReplyMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.java.Log;
 
+@Transactional
 @Service
 @Log
 public class ReplyServiceImpl implements ReplyService {
 
 	@Inject
-	ReplyMapper mapper;
+	private ReplyMapper mapper;
+	
+	@Inject
+	private LoanBookMapper bookMapper;
 
 	@Override
 	public List<ReplyDTO> listPage(Criteria cri, int bno) {
@@ -25,9 +31,10 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public void register(ReplyDTO dto) {
+	public void register(ReplyDTO dto, String mid) {
 
-		mapper.create(dto);
+		mapper.create(dto, mid);
+		bookMapper.updateReplyCnt(dto.getBno());//북에 댓글이 달리면  댓글 카운터가 올라감(hb)
 	}
 
 	@Override
@@ -43,8 +50,8 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public void reReplyUpdate(ReplyDTO dto) {
-		mapper.reReplycreate(dto);
+	public void reReplyUpdate(ReplyDTO dto, String mid) {
+		mapper.reReplycreate(dto, mid);
 		
 	}
 

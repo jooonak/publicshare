@@ -86,7 +86,7 @@ a:hover {
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<h1>DESIGN STUDIO</h1>
+				<h1>PUBLIC SHARE</h1>
 			</div>
 		</div>
 		<!--/row -->

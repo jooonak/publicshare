@@ -7,7 +7,6 @@
 <%@include file="../include/header.jsp"%>
 <!-- 왜 상대경로만 되는지... -->
 <style>
-
 .modal {
 	padding-right: 0px;
 	background-color: rgba(4, 4, 4, 0.3);
@@ -55,8 +54,31 @@
 	padding: 10px;
 }
 
+/*댓글 창 관련 css hb  */
+.form-panel {
+	background: #f4f4f4;
+	margin: 10px;
+	padding: 10px;
+	box-shadow: 0px 4px 4px #aab2bd;
+}
 
+.form-replypanel {
+	margin-left: 5%;
+}
 
+.form-replycontrol {
+	display: block;
+	width: 100%;
+	height: 34px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	margin: 0px;
+	float: left;
+}
 </style>
 
 <html>
@@ -95,7 +117,6 @@
 				</div>
 				<!--/col-lg-4-->
 				<div class="col-lg-6 name-desc">
-					<div class="col-md-6"></div>
 					<div class="col-md-6">
 						<!-- BookDTO, MemberDTO, Criteria 필요 -->
 						<h3>Book Information</h3>
@@ -104,7 +125,8 @@
 							책제목<input type="text" value="${book.bname}" readonly="readonly">
 						</p>
 						<p>
-							출판사<input type="text" value="${book.publisher}" readonly="readonly">
+							출판사<input type="text" value="${book.publisher}"
+								readonly="readonly">
 						</p>
 						<p>
 							주인장<input type="text" value="${book.owner}" readonly="readonly">
@@ -132,6 +154,10 @@
 
 							<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
 							<a href="/loanbook/list?page=${cri.page}" class="btn">뒤로가기</a>
+
+
+
+
 							<!-- bookDTO의 available이 T(대여 가능)일 경우 나타나는 모달 -->
 							<div class="row text-center" style="padding: 50px;">
 								<div class="modal fade modalDialogA " tabindex="-1"
@@ -169,10 +195,45 @@
 									</div>
 								</div>
 							</div>
+
+
+
 						</div>
 					</div>
 				</div>
 				<!--/col-lg-8-->
+				<!-- INPUT MESSAGES (hb)-->
+				<div class="row mt">
+					<div class="col-lg-12">
+						<div class="form-panel">
+							<h4>
+								REPLIES
+								<!--댓글 입력 부분 _hb  -->
+								<div class="form-replypanel">
+									<input class="form-replycontrol" name="reply" id="reply">
+									<input style="float: right;" class="regBtn" type="button"
+										value="등록">
+
+								</div>
+							</h4>
+							<hr>
+							<!--댓글 리스트 (홍빈)  -->
+							<form class="form-horizontal tasi-form">
+								<div class="form-group has-success">
+									<ul class="col-lg-10 replyUL">
+
+									</ul>
+								</div>
+							</form>
+							<!--댓글 리스트 (홍빈)  -->
+
+						</div>
+						<!-- /form-panel -->
+					</div>
+					<!-- /col-lg-12 -->
+				</div>
+				<!-- /row -->
+				<!-- INPUT MESSAGES -->
 			</div>
 			<!-- /row -->
 		</div>
@@ -187,28 +248,155 @@
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-		
-		$(".loanBook").on("click", function() {
-			console.log($(this).val());
-			var data = {bno: ${book.bno}, 
-					  	mid: "testUser",
-					  	status: $(this).val()
-					  };
-			$.ajax({ //문제발생
-				url : '/reservation/new',
-				type : 'post',
-				contentType: "application/json; charset=utf-8",
-				data:JSON.stringify(data),
-				success : function(result) {		
-					alert("success");
-					//$(".modal").modal("show");
-				}
-			});
+$(document).ready(function() {
+	
+	$(".loanBook").on("click", function() {
+		console.log($(this).val());
+		var data = {bno: ${book.bno}, 
+				  	mid: "testUser",
+				  	status: $(this).val()
+				  };
+		$.ajax({ //문제발생
+			url : '/reservation/new',
+			type : 'post',
+			contentType: "application/json; charset=utf-8",
+			data:JSON.stringify(data),
+			success : function(result) {		
+				alert("success");
+				//$(".modal").modal("show");
+			}
 		});
-		
-
-		
 	});
+		
+});
+
+// 댓글 리스트만들기
+function getReplyList() {
+
+	var str = "";
+	$.getJSON("/reply/${book.bno}/list/1", function(arr) {
+
+		for (var i = 0; i < arr.length; i++) {
+			str +="<li data-reno='"+arr[i].reno+"'><label class=col-sm-2 control-label col-lg-2 for=inputSuccess>"+arr[i].nickname+"</label>";
+			str +=arr[i].reno+"<div class=form-control id=inputSuccess >"+arr[i].reply+"</div>";
+			str +="<div class=addWindow data-addreno='"+arr[i].reno+"'></div>";
+			str +="<button class='replyModBtn'>수정</button>";
+			str +="<button class='replyDelBtn'>삭제</button>";
+			str +="<button class='reReplyBtn'>댓글 달기</button></li>";
+		}
+
+		$(".replyUL").html(str);
+	});	
+}
+getReplyList();
+
+//댓글 등록
+$(".regBtn").on("click",function(e){
+	
+	var data = {reply:$("#reply").val() ,bno: ${book.bno} };
+			
+ 	$.ajax({
+		url:'/reply/new',
+		type:'POST',
+		contentType:"application/json; charset=utf-8",
+		data:JSON.stringify(data),
+		success: function(result){
+			alert("register success");
+ 			$("#reply").val("");
+ 			getReplyList();
+		} 
+	});
+ });
+
+//댓글 삭제
+$(".replyUL").on("click", ".replyDelBtn", function(e){
+	
+	e.preventDefault();
+	
+	var reno = $(this).parent().attr("data-reno");
+	
+	$.ajax({
+		url:'/reply/'+reno,
+		type:'DELETE',
+		contentType:"application/json; charset=utf-8",
+		success: function(result){
+			alert("delete success");	
+			getReplyList();
+		}
+	});
+	
+});
+
+// 댓글 수정 창 띄우기 (나중에 모달로 바꿔야할듯)
+$(".replyUL").on("click",".replyModBtn",function(e){
+	
+	e.preventDefault();
+	
+	var reno = $(this).parent().attr("data-reno");
+	
+	var str ="<div class=modWindow><textarea id=modReply rows=1 cols=80 ></textarea><input class='modWindowBtn' type=button value=댓글수정></div>";
+
+	$(".addWindow[data-addreno='"+reno+"']").html(str);
+		 
+});
+
+
+// 댓글 수정	
+$(".replyUL").on("click",".modWindowBtn", function(e){
+	
+	e.preventDefault();
+	
+	var reno = $(this).parent().parent().parent().attr("data-reno");
+	
+	var data = {reno : reno , reply:$("#modReply").val()};
+			
+	$.ajax({
+		url:'/reply/'+reno,
+		type:'PUT',
+		data:JSON.stringify(data),
+		contentType:"application/json; charset=utf-8",
+		success: function(result){
+			alert("mod success");
+			$("#modReply").val("");
+			getReplyList();
+		} 
+	});		
+});
+
+// 대댓글 창 띄우기
+$(".replyUL").on("click",".reReplyBtn",function(e){
+	
+	e.preventDefault();
+	
+	var reno = $(this).parent().attr("data-reno");
+	
+	var str ="<div class=rereplyWindow><textarea id=reReply rows=1 cols=60 ></textarea><input class='rereplyWindowBtn' type=button value=댓글달기></div>";
+
+	$(".addWindow[data-addreno='"+reno+"']").html(str);
+		 
+});
+
+// 대댓글 달기	
+$(".replyUL").on("click",".rereplyWindowBtn", function(e){
+	
+	e.preventDefault();
+	
+	var reno = $(this).parent().parent().parent().attr("data-reno");
+	
+	var data = {reno : reno , reply:$("#reReply").val(), bno: ${book.bno}};
+	console.log(data);
+	
+ 	$.ajax({
+		url:'/reply/rereply/'+reno,
+		type:'POST',
+		contentType:"application/json; charset=utf-8",
+		data:JSON.stringify(data),
+		success: function(result){
+			alert("rereply register success");
+ 			$("#reReply").val("");
+ 			getReplyList();
+		} 
+	});
+});	
 </script>
 <%@include file="../include/footer.jsp"%>
