@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.slam.dto.BookDTO;
 import org.slam.dto.Criteria;
+import org.slam.dto.MemberDTO;
 
 public interface MyLibMapper {
 
@@ -18,7 +19,7 @@ public interface MyLibMapper {
 
 	//해당 소유주의 물건만 가져오도록 쿼리 수정(sb)
 	@Select("select * from tbl_book where owner = #{mid} order by bno limit #{cri.skip},4")
-	public List<BookDTO> list(@Param("cri") Criteria cri, @Param("mid") String mid);
+	public List<BookDTO> list(@Param("cri") Criteria cri,@Param("mid") String mid);
 
 	@Select("select * from tbl_book where bno = #{bno}")
 	public BookDTO getById(int bno);

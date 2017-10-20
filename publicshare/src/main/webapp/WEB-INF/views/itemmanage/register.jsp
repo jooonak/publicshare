@@ -100,7 +100,7 @@
 
 						<form class="register" method="post">
 							<!-- BookDTO, MemberDTO, Criteria 필요 -->
-							<h3>글쓴이, 등록일, 조회수</h3>
+							<h3>책 정보를 입력하세요</h3>
 							<p>
 								책제목<input class="input" type="text" name="bname">
 							</p>
@@ -108,7 +108,7 @@
 								출판사<input class="input" type="text" name="publisher">
 							</p>
 							<p>
-								책주인<input class="input" type="text" name="owner">
+								주인장<input class="input" type="text" name="owner" value="${member.mid}" readonly="readonly">
 							</p>
 							<div></div>
 

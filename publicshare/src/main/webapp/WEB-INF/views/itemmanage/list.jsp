@@ -125,7 +125,7 @@ a:hover {
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<h1>DESIGN STUDIO</h1>
+				<h1>Public Share</h1>
 			</div>
 		</div>
 		<!--/row -->
@@ -179,6 +179,31 @@ a:hover {
 					</div><!-- modal-dialog -->
 				</div><!-- modal -->
 				<!-- 등록 modal 요청용 end(sb) -->
+
+
+
+
+
+
+
+
+			<!-- 등록 modal 요청용(sb)  -->
+			<div>
+				<c:forEach items="${applylist}" var="apply">
+					<div>${apply.BookDTO}</div>
+					<div>${apply.ReservationDTO}</div>
+					<button class = 'apply-btn' data-oper = 'confirm' data-rno = '${apply.ReservationDTO.rno}'
+					data-bno = '${apply.BookDTO.bno}'>확인${apply.ReservationDTO.rno}</button>
+					<button class = 'apply-btn' data-oper = 'reject' data-rno = '${apply.ReservationDTO.rno}'
+					data-bno = '${apply.BookDTO.bno}'>취소</button>
+				</c:forEach>
+			</div>
+			<!-- 등록 modal 요청용 end(sb) -->
+
+
+
+
+
 
 
 

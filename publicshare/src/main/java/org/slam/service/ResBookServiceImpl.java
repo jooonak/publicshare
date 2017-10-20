@@ -2,6 +2,7 @@ package org.slam.service;
 
 import javax.inject.Inject;
 
+import org.slam.dto.MemberDTO;
 import org.slam.dto.ReservationDTO;
 import org.slam.mapper.ResBookMapper;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,9 @@ public class ResBookServiceImpl implements ResBookService {
 	private ResBookMapper mapper;
 	
 	@Override
-	public void bookReserve(ReservationDTO dto, String lender) {
+	public void bookReserve(ReservationDTO dto, String mid) {
 		//transaction 처리 필요(sb)
-		mapper.insertReservation(dto, lender);
+		mapper.insertReservation(dto, mid);
 		mapper.updateResCntUp(dto.getBno());
 	}
 	

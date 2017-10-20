@@ -76,7 +76,6 @@ a:hover {
 	<div class="container">
 		<div class="row">
 			<h1>SOME OF MY LATEST WORKS</h1>
-
 			<!-- list 출력을 위한 forEach 시작 -->
 			<c:forEach items="${booklist}" var="book">
 				<div class="col-sm-3 col-xs-12 desc">

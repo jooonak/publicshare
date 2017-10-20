@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.slam.dto.BookDTO;
 import org.slam.dto.Criteria;
+import org.slam.dto.MemberDTO;
 import org.slam.service.MylibService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -25,10 +27,10 @@ public class MylibController {
 
 	// 나의 물품 리스트 페이지
 	@GetMapping("/list")
-	public void getList(@ModelAttribute("cri") Criteria cri, Model model) {
+	public void getList(@ModelAttribute("cri") Criteria cri, Model model, @SessionAttribute("member") MemberDTO member) {
 		//test용 아이디 "testOwner" 삽입(sb)
-		model.addAttribute("list", service.list(cri, "testOwner"));
-		model.addAttribute("applylist", service.ApplyList("testOwner"));
+		model.addAttribute("list", service.list(cri, member.getMid()));
+		model.addAttribute("applylist", service.ApplyList(member.getMid()));
 	}
 
 	// 나의 물품 등록 페이지

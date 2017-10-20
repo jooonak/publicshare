@@ -27,6 +27,7 @@ public class UserController {
 	public String joinPost(MemberDTO dto, RedirectAttributes rttr) {
 		log.info("JOIN IN.....");
 		
+		log.info(""+dto);
 		service.joinMember(dto);
 		//받은 user data를 db에 저장
 
@@ -48,7 +49,7 @@ public class UserController {
 		//입력한 정보를 db에서 찾아 나머지 정보를 받아오는 메서드
 		
 		if(member == null) {
-			return "login";
+			return "/login";
 		}
 
 		model.addAttribute("member", member);

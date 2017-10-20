@@ -98,13 +98,16 @@
 					<div class="col-md-6"></div>
 					<div class="col-md-6">
 						<!-- BookDTO, MemberDTO, Criteria 필요 -->
-						<h3>글쓴이, 등록일, 조회수</h3>
+						<h3>Book Information</h3>
+						</br>
 						<p>
 							책제목<input type="text" value="${book.bname}" readonly="readonly">
 						</p>
 						<p>
-							출판사<input type="text" value="${book.publisher}"
-								readonly="readonly">
+							출판사<input type="text" value="${book.publisher}" readonly="readonly">
+						</p>
+						<p>
+							주인장<input type="text" value="${book.owner}" readonly="readonly">
 						</p>
 						<p>
 							날짜정보:
@@ -113,7 +116,10 @@
 						<div>
 
 							<!-- choose/when구문을 사용해서 해당 bookDTO의 available상태에 따른 노출값이 다를 수 있도록 구현 -->
-							<!--<c:choose>
+
+
+							<hr>
+							<c:choose>
 								<c:when test="${book.resCnt eq '0'}">
 									<input type="button" data-toggle="modal"
 										data-target=".modalDialogB" value="예약">
@@ -122,10 +128,8 @@
 									<input type="button" data-toggle="modal"
 										data-target=".modalDialogA" value="대여">
 								</c:when>
-							</c:choose>-->
-							<input type="button" data-toggle="modal" data-target=".modalDialogB" value="예약"> 
-							<input type="button" data-toggle="modal" data-target=".modalDialogA" value="대여">
-					
+							</c:choose>
+
 							<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
 							<a href="/loanbook/list?page=${cri.page}" class="btn">뒤로가기</a>
 							<!-- bookDTO의 available이 T(대여 가능)일 경우 나타나는 모달 -->

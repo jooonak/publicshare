@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.slam.dto.BookDTO;
 import org.slam.dto.Criteria;
+import org.slam.dto.MemberDTO;
 import org.slam.mapper.MyLibMapper;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +24,13 @@ public class MylibServiceImpl implements MylibService {
 	//등록 서비스 임플
 	@Override
 	public void register(BookDTO dto) {
+		
 		mapper.register(dto);
 	}
 
 	//리스트 서비스 임플
 	@Override
-	public List<BookDTO> list(Criteria cri, String mid) {
+	public List<BookDTO> list(Criteria cri,String mid) {
 		return mapper.list(cri, mid);
 	}
 
