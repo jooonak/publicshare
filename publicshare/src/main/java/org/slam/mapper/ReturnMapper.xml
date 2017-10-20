@@ -63,7 +63,7 @@
 			book.bno = res.bno 
 			and owner = #{mid}
 		    and status = 'onreturn'
-		order by startdate asc, rno desc;
+		order by startdate asc, rno desc
 
 	</select>
 	
@@ -92,7 +92,7 @@
 		        end)
 		WHERE bno = #{bno} and rno >= #{rno} and status != 'cancel'
 		order by rno
-		limit 2;
+		limit 2
 	</update>
 
 </mapper>

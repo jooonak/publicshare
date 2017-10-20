@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.slam.dto.BookDTO;
 import org.slam.dto.Criteria;
+import org.slam.dto.MemberDTO;
 
 public interface MylibService {
 

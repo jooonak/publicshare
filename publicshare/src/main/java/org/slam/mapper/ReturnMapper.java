@@ -9,8 +9,9 @@ import org.slam.dto.Criteria;
 
 public interface ReturnMapper {
 	
+
 	public List<Map<String, Object>> getList(@Param("cri") Criteria cri, @Param("mid") String mid);
-	
+
 	@Update("update tbl_reservation set status = 'onreturn' where rno = #{rno}")
 	public void request(int rno);
 	//대여 신청, 대여 중, 예약 중 등등..

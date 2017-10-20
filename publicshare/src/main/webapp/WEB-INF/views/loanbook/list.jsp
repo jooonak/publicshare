@@ -76,7 +76,6 @@ a:hover {
 	<div class="container">
 		<div class="row">
 			<h1>SOME OF MY LATEST WORKS</h1>
-
 			<!-- list 출력을 위한 forEach 시작 -->
 			<c:forEach items="${booklist}" var="book">
 				<div class="col-sm-3 col-xs-12 desc">
@@ -93,10 +92,10 @@ a:hover {
 
 										<!-- choose/when 구믄을 사용해 bookDTO의 resCnt 상태에 따른 버튼 표시 -->
 										<c:choose>
-											<c:when test="${book.resCnt eq '0'}">
+											<c:when test="${book.resCnt eq 0}">
 												<input type="button" value="대여 가능">
 											</c:when>
-											<c:when test="${book.resCnt ne '0'}">
+											<c:when test="${book.resCnt ne 0}">
 												<input type="button" value="대여중">
 											</c:when>
 										</c:choose>

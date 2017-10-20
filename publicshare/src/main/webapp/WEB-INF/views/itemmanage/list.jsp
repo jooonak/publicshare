@@ -7,9 +7,57 @@
 <%@include file="../include/header.jsp"%>
 <!-- 왜 상대경로만 되는지... -->
 <html>
-
-<!-- modal style(hb)-->
 <style>
+/* <!-- modal style for reservation status(jn) --> */
+	.modal.left .modal-dialog,
+	.modal.right .modal-dialog {
+		position: fixed;
+		margin: auto;
+		width: 320px;
+		height: 100%;
+		-webkit-transform: translate3d(0%, 0, 0);
+		    -ms-transform: translate3d(0%, 0, 0);
+		     -o-transform: translate3d(0%, 0, 0);
+		        transform: translate3d(0%, 0, 0);
+	}
+
+	.modal.left .modal-content,
+	.modal.right .modal-content {
+		height: 100%;
+		overflow-y: auto;
+	}
+	
+	.modal.left .modal-body,
+	.modal.right .modal-body {
+		padding: 15px 15px 80px;
+	}
+
+/*Right*/
+	.modal.right.fade .modal-dialog {
+		right: -320px;
+		-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+		   -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+		     -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+		        transition: opacity 0.3s linear, right 0.3s ease-out;
+	}
+	
+	.modal.right.fade.in .modal-dialog {
+		right: 0;
+	}
+
+/* ----- MODAL STYLE ----- */
+	.modal-content {
+		border-radius: 0;
+		border: none;
+	}
+
+	.modal-header {
+		border-bottom-color: #EEEEEE;
+		background-color: #FAFAFA;
+	}
+/* <!-- modal style for reservation status end(jn) --> */
+
+/* <!-- modal style for alert(hb)--> */
 .modal {
 	padding-right: 0px;
 	background-color: rgba(4, 4, 4, 0.3);
@@ -35,11 +83,10 @@
 	color: white;
 	padding: 10px;
 }
-
+/* <!-- modal style for alert end(hb)--> */
 </style>
 
 <style>
-
 .project-wrapper {
 	border-radius: 5px;
 	text-align: center;
@@ -69,6 +116,7 @@ a:hover {
 	background: #fff !important;
 	padding: 10px
 }
+<!-- modal style for alert end(jn)-->
 </style>
 
 
@@ -77,7 +125,7 @@ a:hover {
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<h1>DESIGN STUDIO</h1>
+				<h1>Public Share</h1>
 			</div>
 		</div>
 		<!--/row -->
@@ -96,22 +144,41 @@ a:hover {
 			<button>
 				<a href="http://localhost:8080/itemmanage/register">register</a>
 			</button>
-
-			<!-- 등록 modal 요청용(sb)  -->
-			<div>
-				<c:forEach items="${applylist}" var="apply">
-					<div>${apply.BookDTO}</div>
-					<div>${apply.ReservationDTO}</div>
-					<button class = 'apply-btn' data-oper = 'confirm' data-rno = '${apply.ReservationDTO.rno}'
-					data-bno = '${apply.BookDTO.bno}'
-					>확인${apply.ReservationDTO.rno}</button>
-					<button class = 'apply-btn' data-oper = 'reject' data-rno = '${apply.ReservationDTO.rno}'
-					data-bno = '${apply.BookDTO.bno}'
-					>취소</button>
-				</c:forEach>
-			</div>
-			<!-- 등록 modal 요청용 end(sb) -->
-
+						<!-- itemmanage에서 대여 요청에 대한 확인/거절을 누르는 modal -->
+			
+			<!-- itemmanage에서 대여 요청에 대한 확인/거절을 누르는 modal(sb) -->
+			<button data-toggle="modal" data-target="#myModal2">
+				대여 요청 리스트
+			</button>
+				<!-- 등록 modal 요청용(sb)  -->
+				<div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+			
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+								<h4 class="modal-title" id="myModalLabel2">Right Sidebar</h4>
+							</div>
+			
+							<div class="modal-body">
+								<div>
+									<c:forEach items="${applylist}" var="apply">
+										<div>${apply.BookDTO}</div>
+										<div>${apply.ReservationDTO}</div>
+										<button class='apply-btn' data-oper='confirm'
+											data-rno='${apply.ReservationDTO.rno}'
+											data-bno='${apply.BookDTO.bno}'>확인${apply.ReservationDTO.rno}</button>
+										<button class='apply-btn' data-oper='reject'
+											data-rno='${apply.ReservationDTO.rno}'
+											data-bno='${apply.BookDTO.bno}'>취소</button>
+									</c:forEach>
+								</div>
+							</div>
+			
+						</div><!-- modal-content -->
+					</div><!-- modal-dialog -->
+				</div><!-- modal -->
+				<!-- 등록 modal 요청용 end(sb) -->
 
 			<!-- 나중에 css처리 해야함 -->
 			<div class="carousel slide" id="myCarousel">
@@ -222,14 +289,10 @@ a:hover {
 								</div>
 							</div>
 						</c:forEach>
-
-
-
 					</div>
 					<!-- /Slide3 -->
 				</div>
-
-
+				
 				<nav>
 				<ul class="control-box pager">
 					<li><a data-slide="prev" href="#myCarousel" class=""><i
@@ -238,25 +301,8 @@ a:hover {
 							class="glyphicon glyphicon-chevron-right"></i></li>
 				</ul>
 				</nav>
-
-				<div class="row text-center" style="padding: 50px;">
-					<div class="modal fade modalDialogA " tabindex="-1" role="dialogA"
-						aria-labelledby="modalLabelA">
-						<div class="modal-dialog_a modal-lg">
-							<div class="modal-content_a">
-								<div class="modal-body_a  ">
-									<h2>This is a Loan Modal!</h2>
-									<h4>Some message text shown to users.</h4>
-									<p>
-										<button class="btn btn-default">btn-block</button>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 				<!-- register 성공시  뜨는 modal -->
-				<div class="row text-center" style="padding: 50px;">
+		<!-- 		<div class="row text-center" style="padding: 50px;">
 					<div class="modal modalDialogA fade in ">
 						<div class="modal-dialog_a modal-lg">
 							<div class="modal-content_a">
@@ -269,11 +315,15 @@ a:hover {
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
+				
+				
+				
 				<div class="beModal" style="display: none; background-color: blue;">
 					<ul class="returnUl">
 					</ul>
 				</div>
+				
 			</div>
 			<!--/container -->
 		</div>
@@ -295,25 +345,30 @@ a:hover {
 
 <!-- 클래스 link 버튼 처리 -->
 <script type="text/javascript">
-	$(document).ready(function() {
+$(document).ready(function() {
+	
 
-		$(".link").on("click", function(e) {
-			e.preventDefault();
-			console.log($(this));
+	$(".link").on("click", function(e) {
+		e.preventDefault();
+		console.log($(this));
 
-			var $actionForm = $(actionForm);
+		var $actionForm = $(actionForm);
 
-			$actionForm.submit();
+		$actionForm.submit();
 
-		});
-		
-		$('.apply-btn').click(function(){
-			var $this = $(this)
-			var data = {
-					bno: $this.attr('data-bno'), 
-				  	rno: $this.attr('data-rno'),
-				  };
-			
+	});
+	
+	
+	
+	
+	$('.apply-btn').click(function(e){
+		e.stopPropagation();
+		var $this = $(this)
+		var data = {
+				bno: $this.attr('data-bno'), 
+			  	rno: $this.attr('data-rno'),
+			  };
+				
 			$.ajax({
 				url : '/reservation/'+$this.attr('data-oper'),
 				type : 'post',
@@ -325,77 +380,76 @@ a:hover {
 				}
 			});
 		});
-		
-		function checkReturn(){
-			
-			var str = "";
-			
-			$.getJSON("/myreturn/check", function(result) {
-				for (var i = 0; i < result.length; i++) {
-					alert(result[i].BookDTO.bno);
-					
-					str += "<li>" + result[i].BookDTO.bno + "</li>";
-					str += "<li>" + result[i].BookDTO.bname + "</li>";
-					str += "<li>" + result[i].ReservationDTO.rno + "</li>";
-					str += "<li>" + result[i].ReservationDTO.lender + "</li>";
-					str += "<li>" + result[i].ReservationDTO.startdate + "</li>";
-					str += "<li><button data-rno=" + result[i].ReservationDTO.rno; 
-					str += " id=rejBtn>REJECT</button>";
-					str += "<button data-rno=" + result[i].ReservationDTO.rno + " data-bno=" + result[i].BookDTO.bno; 
-					str += " id=accBtn>ACCEPT</button></li>";
-					$(".beModal").html(str).show("slow");
-				}
-			});
+
+	
+	function checkReturn(){
+		var str = "";
+		$.getJSON("/myreturn/check", function(result) {
+			for (var i = 0; i < result.length; i++) {
+				alert(result[i].BookDTO.bno);
+				
+				str += "<li>" + result[i].BookDTO.bno + "</li>";
+				str += "<li>" + result[i].BookDTO.bname + "</li>";
+				str += "<li>" + result[i].ReservationDTO.rno + "</li>";
+				str += "<li>" + result[i].ReservationDTO.lender + "</li>";
+				str += "<li>" + result[i].ReservationDTO.startdate + "</li>";
+				str += "<li><button data-rno=" + result[i].ReservationDTO.rno; 
+				str += " id=rejBtn>REJECT</button>";
+				str += "<button data-rno=" + result[i].ReservationDTO.rno + " data-bno=" + result[i].BookDTO.bno; 
+				str += " id=accBtn>ACCEPT</button></li>";
+				$(".beModal").html(str).show("slow");
+			}
+		});
+	}
+	
+	checkReturn();
+	
+	$(".beModal").on("click", "#accBtn", function(e){
+
+		var data = {
+				bno: $(this).attr("data-bno"),
+				rno: $(this).attr("data-rno")
 		}
 		
-		checkReturn();
-		
-		$(".beModal").on("click", "#accBtn", function(e){
-
-			var data = {
-					bno: $(this).attr("data-bno"),
-					rno: $(this).attr("data-rno")
+		$.ajax({
+			url : "/myreturn/returnconfirm",
+			type : 'post',
+			contentType: "application/json; charset=utf-8",
+			data:JSON.stringify(data),
+			success : function(result) {
+				alert("반납처리 완료");
+				$(".beModal").hide("slow");
+				//callback하면 modal 'hide'처리 예정(sb)
 			}
-			
-			$.ajax({
-				url : "/myreturn/returnconfirm",
-				type : 'post',
-				contentType: "application/json; charset=utf-8",
-				data:JSON.stringify(data),
-				success : function(result) {
-					alert("반납처리 완료");
-					$(".beModal").hide("slow");
-					//callback하면 modal 'hide'처리 예정(sb)
-				}
-			});
 		});
-		
-		$(".beModal").on("click", "#rejBtn", function(e){
-
-			console.log($(this).attr("data-rno"));
-			
-			var data = {rno: $(this).attr("data-rno")}
-			
-			$.ajax({
-				url : "/myreturn/returnreject",
-				type : 'post',
-				contentType: "application/json; charset=utf-8",
-				data:JSON.stringify(data),
-				success : function(result) {
-					alert("반납거부 완료");
-					$(".beModal").hide("slow");
-					//callback하면 modal 'hide'처리 예정(sb)
-				}
-			});
-		});
-		
 	});
-	var msg = "${result}";
+	
+	$(".beModal").on("click", "#rejBtn", function(e){
 
-	if (msg === "success") {
+		console.log($(this).attr("data-rno"));
+		
+		var data = {rno: $(this).attr("data-rno")}
+		
+		$.ajax({
+			url : "/myreturn/returnreject",
+			type : 'post',
+			contentType: "application/json; charset=utf-8",
+			data:JSON.stringify(data),
+			success : function(result) {
+				alert("반납거부 완료");
+				$(".beModal").hide("slow");
+				//callback하면 modal 'hide'처리 예정(sb)
+			}
+		});
+	});
+	
+});
+var msg = "${result}";
 
-		alert("등록되었습니다.");
-	}
+if (msg === "success") {
+
+	alert("등록되었습니다.");
+}
 </script>
 
 <%@include file="../include/footer.jsp"%>

@@ -5,9 +5,10 @@ import java.util.Map;
 
 import org.slam.dto.ReservationDTO;
 
+
 public interface ResBookService {
 	
-	public void bookReserve(ReservationDTO dto, String lender);
+	public void bookReserve(ReservationDTO dto, String mid);
 	
 	public void confirmBookReserve(ReservationDTO dto);
 

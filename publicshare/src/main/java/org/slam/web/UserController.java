@@ -27,6 +27,7 @@ public class UserController {
 	public String joinPost(MemberDTO dto, RedirectAttributes rttr) {
 		log.info("JOIN IN.....");
 		
+		log.info(""+dto);
 		service.joinMember(dto);
 		//받은 user data를 db에 저장
 
@@ -48,7 +49,7 @@ public class UserController {
 		//입력한 정보를 db에서 찾아 나머지 정보를 받아오는 메서드
 		
 		if(member == null) {
-			return "login";
+			return "/login";
 		}
 
 		model.addAttribute("member", member);
@@ -58,6 +59,7 @@ public class UserController {
 	
 	@GetMapping("/mypage")
 	public void goMypage(@SessionAttribute("member") MemberDTO member, Model model) {
+		//SessionAttribute를 쓰는게 좋은지, interceptor에서 model에 넣는게 좋은지
 		//@SessionAttribute를 사용하면 Session에 있는 명시된 이름의 data를 가져올 수 있다 (참고 : http://egloos.zum.com/springmvc/v/535572)
 		
 		log.info("member........." + member);

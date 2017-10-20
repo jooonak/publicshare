@@ -6,12 +6,14 @@ import org.slam.dto.MemberDTO;
 import org.slam.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.java.Log;
+
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
 	@Inject
 	UserMapper mapper;
-	
+
 	@Override
 	public void joinMember(MemberDTO dto) {
 		mapper.joinMember(dto);

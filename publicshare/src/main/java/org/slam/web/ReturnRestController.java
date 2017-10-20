@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.slam.dto.MemberDTO;
 import org.slam.dto.ReservationDTO;
 import org.slam.service.ReturnService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 @RestController
 @RequestMapping("/myreturn/*")
@@ -57,9 +59,9 @@ public class ReturnRestController {
 	}
 	
 	@GetMapping("/checkReturn")
-	public List<Map<String, Object>> checkReturn(){
+	public List<Map<String, Object>> checkReturn(@SessionAttribute("member") MemberDTO dto){
 		//파라미터에 mid받아서 "testOwner"대신 작성 필요
-		return service.checkReturn("123");
+		return service.checkReturn(dto.getMid());
 	}
 	
 }

@@ -53,7 +53,6 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-
 		try {
 			String result = (String) modelAndView.getModel().get("logout");
 			Cookie loginCookie = WebUtils.getCookie(request, "memberID");

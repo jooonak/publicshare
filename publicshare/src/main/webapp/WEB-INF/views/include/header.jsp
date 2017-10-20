@@ -45,10 +45,11 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"><b>PUBLIC SHARE</b></a>
+				<a class="navbar-brand" href="/loanbook/list"><b>PUBLIC SHARE</b></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
+					<li><a class="smothscroll">${member.nickname }(${member.mname })님</a></li>
 					<li><a href="/loanbook/list" class="smothscroll">Loan page</a></li>
 					<li><a href="/itemmanage/list" class="smothscroll">My Item
 							Manage</a></li>

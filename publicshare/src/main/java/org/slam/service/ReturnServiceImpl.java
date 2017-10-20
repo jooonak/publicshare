@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.slam.dto.Criteria;
+import org.slam.dto.MemberDTO;
 import org.slam.dto.ReservationDTO;
 import org.slam.mapper.ResBookMapper;
 import org.slam.mapper.ReturnMapper;

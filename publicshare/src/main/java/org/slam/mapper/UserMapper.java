@@ -7,7 +7,7 @@ import org.slam.dto.MemberDTO;
 
 public interface UserMapper {
 
-	@Insert("insert into tbl_member(mid, mpw, mname) values(#{mid}, #{mpw}, #{mname})")
+	@Insert("insert into tbl_member(mid, mpw, mname, nickname) values(#{mid}, #{mpw}, #{mname}, #{nickname})")
 	public void joinMember(MemberDTO dto);
 	
 	@Select("select * from tbl_member where mid = #{mid} and mpw = #{mpw}")
