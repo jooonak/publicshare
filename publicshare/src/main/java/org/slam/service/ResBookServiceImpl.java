@@ -10,6 +10,7 @@ import org.slam.dto.ReservationDTO;
 import org.slam.mapper.ResBookMapper;
 import org.slam.mapper.ReturnMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ResBookServiceImpl implements ResBookService {
@@ -17,6 +18,7 @@ public class ResBookServiceImpl implements ResBookService {
 	@Inject
 	private ResBookMapper mapper;
 	
+	@Transactional
 	@Override
 	public void bookReserve(ReservationDTO dto, String mid) {
 		//transaction 처리 필요(sb)
@@ -24,12 +26,14 @@ public class ResBookServiceImpl implements ResBookService {
 		mapper.updateResCntUp(dto.getBno());
 	}
 	
+	@Transactional
 	@Override
 	public void confirmBookReserve(ReservationDTO dto) {
 		mapper.confirmUpdateResData(dto.getRno());
 		mapper.updateResCntDown(dto.getBno());
 	}
 	
+	@Transactional
 	@Override
 	public void rejectBookReserve(ReservationDTO dto) {
 		mapper.rejectUpdateResData(dto);

@@ -11,6 +11,7 @@ import org.slam.dto.ReservationDTO;
 import org.slam.mapper.ResBookMapper;
 import org.slam.mapper.ReturnMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ReturnServiceImpl implements ReturnService{
@@ -35,7 +36,8 @@ public class ReturnServiceImpl implements ReturnService{
 	public List<Map<String, Object>> checkItem(String mid) {
 		return returnMapper.checkItem(mid);
 	}
-
+	
+	@Transactional
 	@Override
 	public void returnConfirm(int bno, int rno) {
 		returnMapper.returnConfirm(bno, rno);
@@ -51,7 +53,8 @@ public class ReturnServiceImpl implements ReturnService{
 	public void acceptBookReserve(ReservationDTO dto) {
 		resBookMapper.confirmUpdateApplyData(dto.getRno());
 	}
-
+	
+	@Transactional
 	@Override
 	public void refuseBookReserve(ReservationDTO dto) {
 		resBookMapper.rejectUpdateApplyData(dto);
