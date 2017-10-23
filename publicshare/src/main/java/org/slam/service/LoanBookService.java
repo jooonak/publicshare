@@ -12,6 +12,4 @@ public interface LoanBookService {
 	
 	public BookDTO getBook(int bno);
 	
-	
-	
 }
