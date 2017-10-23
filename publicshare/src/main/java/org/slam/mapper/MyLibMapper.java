@@ -14,7 +14,7 @@ import org.slam.dto.MemberDTO;
 
 public interface MyLibMapper {
 
-	@Insert("insert into tbl_book (bname, publisher, owner) values(#{bname},#{publisher},#{owner})")
+	@Insert("insert into tbl_book (bname, publisher, owner, img) values(#{bname},#{publisher},#{owner}, #{img})")
 	public void register(BookDTO dto);
 
 	//해당 소유주의 물건만 가져오도록 쿼리 수정(sb)

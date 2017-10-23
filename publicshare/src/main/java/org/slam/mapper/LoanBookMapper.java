@@ -17,8 +17,8 @@ public interface LoanBookMapper {
 	public List<BookDTO> getBookList(@Param("mid") String mid,@Param("cri") Criteria cri);
 	
 	//DB에서 Book테이블의 총 카운드값 반환
-	@Select("select count(*) from tbl_book")
-	public int getTotal();
+	@Select("select count(*) from tbl_book where owner != #{mid}")
+	public int getTotal(String mid);
 	
 	//DB에서 bno에 해당하는 Book데이터 반환
 	@Select("select * from tbl_book where bno = #{bno}")

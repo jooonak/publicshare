@@ -1,5 +1,7 @@
 package org.slam.web;
 
+import java.util.Arrays;
+
 import javax.inject.Inject;
 
 import org.slam.dto.BookDTO;
@@ -40,6 +42,10 @@ public class MylibController {
 	@PostMapping("/register")
 	public String registerPost(BookDTO dto, RedirectAttributes rttr) {
 
+		System.out.println("imglist: "+ Arrays.toString(dto.getImgFiles()));
+		
+		System.out.println("mainThumb: "+ dto.getImg());
+		
 		service.register(dto);
 		
 		rttr.addFlashAttribute("result","success");
