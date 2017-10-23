@@ -15,8 +15,9 @@ public class BookDTO {
 	private String owner;
 	private Date regDate;
 	private int lateFee;
-	private String img;
 	private int resCnt; //수정(sb)
 	private int replycnt;
+	private String img; //mainThumb으로 수정 필요(sb)
+	private String[] imgFiles; //수정(sb)
 
 }

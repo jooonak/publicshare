@@ -5,10 +5,13 @@ import javax.inject.Inject;
 
 import org.slam.dto.BookDTO;
 import org.slam.dto.Criteria;
+import org.slam.mapper.ImgFileMapper;
 import org.slam.mapper.MyLibMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.java.Log;
+
 
 @Service
 @Log
@@ -16,13 +19,17 @@ public class MylibServiceImpl implements MylibService {
 
 	
 	@Inject
-	public MyLibMapper mapper;
+	private MyLibMapper mapper;
+	
+	@Inject
+	private ImgFileMapper fileMapper;	//mapper 이릅 수정 필요...(sb)
 	
 	//등록 서비스 임플
+	@Transactional
 	@Override
 	public void register(BookDTO dto) {
-		
 		mapper.register(dto);
+		fileMapper.insertImgFileList(dto.getImgFiles());
 	}
 
 	//리스트 서비스 임플
@@ -40,6 +47,7 @@ public class MylibServiceImpl implements MylibService {
 	}
 
 	//수정 서비스 임플
+	@Transactional
 	@Override
 	public void modify(BookDTO dto, Criteria cri) {
 		log.info(""+dto);
