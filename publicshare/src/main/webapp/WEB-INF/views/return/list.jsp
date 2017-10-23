@@ -104,6 +104,7 @@ a:hover {
 		<div class="row">
 			<!--reigster btn  -->
 			<h1>BOOKS</h1>
+			
 			<div class="carousel slide" id="myCarousel">
 				<div class="carousel-inner">
 					<div class="item active">
@@ -148,7 +149,7 @@ a:hover {
 												<p>${data.BookDTO.owner}</p>
 												<button data-rno="${data.ReservationDTO.rno}" id="returnBtn">반납하기</button>
 												<p></p>
-											</div>
+											</div>														
 											<div class="overlay"></div>
 										</div>
 									</div>
@@ -179,7 +180,8 @@ a:hover {
 <!-- 클래스 link 버튼 처리 -->
 <script type="text/javascript">
 $(document).ready(function() {
-
+	
+	
 	var $ModalLabel = $("#myModalLabel2");
 	var $modalBody = $(".modal-body");
 	

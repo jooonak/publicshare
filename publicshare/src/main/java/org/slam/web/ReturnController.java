@@ -2,7 +2,6 @@ package org.slam.web;
 
 import javax.inject.Inject;
 
-
 import org.slam.dto.Criteria;
 import org.slam.dto.MemberDTO;
 import org.slam.service.ReturnService;
@@ -21,10 +20,11 @@ public class ReturnController {
 	@Inject
 	ReturnService service;
 
-	//대여 물품 리스트 페이지
+	// 대여 물품 리스트 페이지
 	@GetMapping("/list")
-	public void getList(@ModelAttribute("cri") Criteria cri, Model model, @SessionAttribute("member") MemberDTO member) {
-		model.addAttribute("list",service.getList(cri, member.getMid()));
+	public void getList(@ModelAttribute("cri") Criteria cri, Model model,
+			@SessionAttribute("member") MemberDTO member) {
+		model.addAttribute("list", service.getList(cri, member.getMid()));
 	}
-	
+
 }

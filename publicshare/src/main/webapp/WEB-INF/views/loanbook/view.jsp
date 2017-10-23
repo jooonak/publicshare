@@ -170,7 +170,7 @@
 												<h4>대여 하시겠습니까?</h4>
 												<input type="hidden" name="bno" value="${book.bno}">
 												<p>
-													<button class="loanBook" value="onapply">대여하기</button>
+													<button id="rentBook" value="onapply">대여하기</button>
 												</p>
 											</div>
 										</div>
@@ -189,7 +189,7 @@
 												<h4>예약 하시겠습니까?</h4>
 												<input type="hidden" name="bno" value="${book.bno}">
 												<p>
-													<button class="loanBook" value="onres">대여하기</button>
+													<button id="reserveBook" value="onres">예약하기</button>
 												</p>
 											</div>
 										</div>
@@ -251,20 +251,46 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		
-		$(".loanBook").on("click", function() {
+		$("#rentBook").on("click", function() {
 			console.log($(this).val());
-			var data = {bno: ${book.bno}, 
-					  	mid: '${member.mid}',
+			var data = {bno: ${book.bno},
 					  	status: $(this).val()
 					  };
 			$.ajax({ //문제발생
-				url : '/reservation/new',
+				url : '/reservation/rent',
 				type : 'post',
 				contentType: "application/json; charset=utf-8",
 				data:JSON.stringify(data),
 				success : function(result) {		
-					alert("success");
+					
+					if (result === "true") {
+
+						alert("success");
+					}else{
+						alert("이 책은 이미 대여됬습니다.");
+						
+						location.reload();
+					}
 					//$(".modal").modal("show");
+				}
+			});
+		});
+	
+		//예약에 대한 처리 새로 만듬(hb)
+		$("#reserveBook").on("click", function() {
+			console.log($(this).val());
+			var data = {bno: ${book.bno},
+					  	status: $(this).val()
+					  };
+			$.ajax({ //문제발생
+				url : '/reservation/reserve',
+				type : 'post',
+				contentType: "application/json; charset=utf-8",
+				data:JSON.stringify(data),
+				success : function(result) {		
+					
+						alert("success");
+				
 				}
 			});
 		});
@@ -399,5 +425,7 @@ $(".replyUL").on("click",".rereplyWindowBtn", function(e){
 	});
 });
 });	
+	
+
 </script>
 <%@include file="../include/footer.jsp"%>
