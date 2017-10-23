@@ -204,7 +204,7 @@ $(document).ready(function() {
 		var $this = $(this)
 		var data = {
 				bno: $this.attr('data-bno'), 
-			  	rno: $this.attr('data-rno'),
+			  	rno: $this.attr('data-rno')
 			  };
 		
 		$.ajax({
@@ -223,7 +223,7 @@ $(document).ready(function() {
 		var $this = $(this)
 		var data = {
 				bno: $this.attr('data-bno'), 
-			  	rno: $this.attr('data-rno'),
+			  	rno: $this.attr('data-rno')
 			  };
 		
 		$.ajax({
@@ -256,8 +256,8 @@ $(document).ready(function() {
 			for (var i = 0; i < result.length; i++) {
 				str += "<div><p>" + result[i].BookDTO.bname + " " + result[i].ReservationDTO.rno + "</p>";
 				str += "<p><button id=resBtn data-oper=reserveconfirm data-rno=" + result[i].ReservationDTO.rno;
-				str += "' data-bno=" + result[i].BookDTO.bno + ">확인</button><button id=resBtn data-oper=reservereject";
-				str += "data-rno=" + result[i].ReservationDTO.rno + " data-bno=" + result[i].BookDTO.bno;
+				str += " data-bno=" + result[i].BookDTO.bno + ">확인</button><button id=resBtn data-oper=reservereject";
+				str += " data-rno=" + result[i].ReservationDTO.rno + " data-bno=" + result[i].BookDTO.bno;
 				str += ">취소</button></p></div>";		
 			}
 			$(".modal-body").html(str);
