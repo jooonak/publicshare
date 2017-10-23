@@ -41,7 +41,19 @@ public class UploadController {
 	public byte[] showThumb(@PathVariable("thumbName") String thumbName) {
 		log.info("showThumb: "+ thumbName);
 		try {
-		File file = new File("D:\\publicshare\\"+thumbName);
+		File file = new File("D:\\publicshare\\s_"+thumbName);
+			return FileUtils.readFileToByteArray(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@GetMapping("/image/{image:.+}")
+	public byte[] showIamge(@PathVariable("image") String image) {
+		log.info("showimage: "+ image);
+		try {
+		File file = new File("D:\\publicshare\\"+image);
 			return FileUtils.readFileToByteArray(file);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -53,7 +65,7 @@ public class UploadController {
 	@PostMapping("/new")
 	public Map<String, String> upload(MultipartFile file) {
 		if(!file.getContentType().contains("image")) {
-			System.out.println(file.getContentType());
+			
 			return null;
 		}
 
@@ -72,8 +84,9 @@ public class UploadController {
 			
 			BufferedImage origin = ImageIO.read(file.getInputStream());
 			
-			BufferedImage destImg = Scalr.resize(origin, Scalr.Method.AUTOMATIC, 
-					Scalr.Mode.FIT_TO_HEIGHT, 100);
+			//썸네일 정확한 파일 크기로 생산하는 메소드, Scalr.Method.ULTRA_QUALITY, Scalr.Mode.FIT_EXACT가 들어간다
+			//https://github.com/rkalla/imgscalr/issues/74
+			BufferedImage destImg = Scalr.resize(origin, Scalr.Method.ULTRA_QUALITY, Scalr.Mode.FIT_EXACT, 400, 273);
 			
 			//실제 썸네일 확장자는 jpg임에도 불구하고 브라우저에 전달되는 확장자는 원본 이미지의 확장자를 따라가게 된다. 
 			//이는 원본이미지가 jpg인 경우에는 문제가 없지만, png 등 다른 확장자인 경우 문제가 발생하기 때문에 코드 수정이 필요하다.

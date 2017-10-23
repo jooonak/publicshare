@@ -26,7 +26,6 @@ public class ResBookServiceImpl implements ResBookService {
 		mapper.updateResCntUp(dto.getBno());
 	}
 
-	@Transactional
 	@Override
 	public void confirmBookReserve(ReservationDTO dto) {
 		mapper.confirmUpdateResData(dto.getRno());

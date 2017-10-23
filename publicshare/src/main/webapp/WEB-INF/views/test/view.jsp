@@ -27,7 +27,7 @@
 
 <div id="portfoliowrap">
 
-	<h1>SOME OF MY LATEST WORKS</h1>
+	<h1>Loan Book</h1>
 	<div id="aboutwrap">
 		<div class="container">
 			<div class="row">
