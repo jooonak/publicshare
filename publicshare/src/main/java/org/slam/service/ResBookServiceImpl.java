@@ -17,34 +17,33 @@ public class ResBookServiceImpl implements ResBookService {
 
 	@Inject
 	private ResBookMapper mapper;
-	
+
 	@Transactional
 	@Override
 	public void bookReserve(ReservationDTO dto, String mid) {
-		//transaction 처리 필요(sb)
+		// transaction 처리 필요(sb)
 		mapper.insertReservation(dto, mid);
 		mapper.updateResCntUp(dto.getBno());
 	}
-	
-	
+
 	@Override
 	public void confirmBookReserve(ReservationDTO dto) {
 		mapper.confirmUpdateResData(dto.getRno());
 	}
-	
+
 	@Transactional
 	@Override
 	public void rejectBookReserve(ReservationDTO dto) {
 		mapper.rejectUpdateResData(dto);
 		mapper.updateResCntDown(dto.getBno());
 	}
-	
+
 	@Override
-	public List<Map<String, Object>> onApplyReadyList(String lender){
+	public List<Map<String, Object>> onApplyReadyList(String lender) {
 		return mapper.getOnApplyReadyList(lender);
 	}
 
-	//대여 요청온 물품 리스트를 가져오는 임플(sb)
+	// 대여 요청온 물품 리스트를 가져오는 임플(sb)
 	public List<Map<String, Object>> ApplyList(String owner) {
 		return mapper.getApplyList(owner);
 	}
