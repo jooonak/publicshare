@@ -131,16 +131,16 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<h1>Public Share</h1>
+				<h1>PUBLIC SHARE</h1>
 			</div>
 		</div>
-		<! --/row -->
+		<!--/row -->
 	</div>
-	<! --/container -->
+	<!--/container -->
 </div>
-<! --/headerwrap -->
+<!--/headerwrap -->
 
-<! -- PORTFOLIO SECTION -->
+<!-- PORTFOLIO SECTION -->
 <section id="portfolio" name="portfolio"></section>
 
 <div id="portfoliowrap">
@@ -209,7 +209,7 @@
 							name="list" value="뒤로가기"></a>
 					</div>
 				</div>
-				<! --/col-lg-8-->
+				<!--/col-lg-8-->
 			</div>
 			<!-- /row -->
 		</div>
@@ -217,7 +217,7 @@
 	</div>
 	<!-- /aboutwrap -->
 </div>
-<! --/Portfoliowrap -->
+<!--/Portfoliowrap -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>

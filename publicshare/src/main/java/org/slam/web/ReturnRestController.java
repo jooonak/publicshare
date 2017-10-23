@@ -29,7 +29,7 @@ public class ReturnRestController {
 	}
 
 	@GetMapping("/check")
-	public List<Map<String, Object>> checkOnReturn(@SessionAttribute("member") MemberDTO dto){
+	public List<Map<String, Object>> checkOnReturn(@SessionAttribute(value="member", required=false) MemberDTO dto){
 		//내 소유의 책에 대해 반납 신청이 있는지 체크하고, 있을 때 그 책의 정보를 가져오는 메서드 -JH 
 		return service.checkItem(dto.getMid());
 	}
@@ -58,7 +58,7 @@ public class ReturnRestController {
 	}
 	
 	@GetMapping("/checkReturn")
-	public List<Map<String, Object>> checkReturn(@SessionAttribute("member") MemberDTO dto){
+	public List<Map<String, Object>> checkReturn(@SessionAttribute(value="member", required=false) MemberDTO dto){
 		//내가 반납 신청 했으나, 상대방에 의해 거절된 정보를 가져오는 메서드 -JH
 		return service.checkReturn(dto.getMid());
 	}

@@ -26,7 +26,7 @@ public class MylibController {
 
 	// 나의 물품 리스트 페이지
 	@GetMapping("/list")
-	public void getList(@ModelAttribute("cri") Criteria cri, Model model, @SessionAttribute("member") MemberDTO member) {
+	public void getList(@ModelAttribute("cri") Criteria cri, Model model, @SessionAttribute(value="member", required=false) MemberDTO member) {
 		//test용 아이디 "testOwner" 삽입(sb)
 		model.addAttribute("list", service.list(cri, member.getMid()));
 	}

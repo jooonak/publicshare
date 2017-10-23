@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.slam.dto.Criteria;
 
@@ -29,4 +30,7 @@ public interface ReturnMapper {
 	
 	@Update("update tbl_reservation set status = 'onloan' where rno = #{rno}")
 	public void checkReject(int rno);
+	
+	@Select("select count(*) from tbl_reservation where lender = #{mid} and status = 'onloan'")
+	public int getTotal(String mid);
 }
