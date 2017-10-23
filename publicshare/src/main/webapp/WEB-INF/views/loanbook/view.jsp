@@ -254,7 +254,7 @@
 		$(".loanBook").on("click", function() {
 			console.log($(this).val());
 			var data = {bno: ${book.bno}, 
-					  	mid: ${member.mid},
+					  	mid: '${member.mid}',
 					  	status: $(this).val()
 					  };
 			$.ajax({ //문제발생
