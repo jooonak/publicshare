@@ -46,14 +46,14 @@
 						<h3>글쓴이, 등록일, 조회수</h3>
 						<p>책제목<input type="text" name="bname" value="${book.bname }"></p>
 						<p>출판사<input type="text" name="publisher" value="${book.publisher }"></p>
-						<p>날짜정보<input type="text" name="owner" value="${book.owner }"></p>
+						<p>주인장<input type="text" name="owner" value="${book.owner }"></p>
 						<div>
 							<!-- 수정 div 호출(대여 페이지에서 이동할 경우 표시되는 버튼) -->
 							<input class="modBtn" type="button" value="수정">
 							<!-- 삭제 div 호출(나의 물품 관리 페이지에서 이동할 경우 표시되는 버튼) -->
 							<input class="delBtn" type="button" value="삭제"> 
 							<!-- 뒤로가기 -->
-							<input type="button" name="list" value="뒤로가기">
+							<input class="backBtn" type="button" name="list" value="뒤로가기">
 							<input type="hidden" name="bno" value="${book.bno }" >
 						</div>
 						</form>
@@ -92,6 +92,12 @@ $(document).ready(function(){
 	$(".delBtn").on("click",function(e){
 		
 		$("#actionForm").submit();
+		
+	});
+	
+	$(".backBtn").on("click",function(e){
+		
+		$("#actionForm").attr("action","/itemmanage/view").attr("method","get").submit();
 		
 	});
 	

@@ -11,4 +11,9 @@ public class ReplyDTO {
 	private String reply,replyer;
 	private Date regdate;
 	private int bno;// book rno와 연결?
+	
+	//대댓글 관련 추가
+	private String replytree;
+	//조인 데이터 가져오려고 추가함(hb)
+	private String nickname;
 }

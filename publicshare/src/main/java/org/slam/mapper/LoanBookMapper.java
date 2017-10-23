@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.slam.dto.BookDTO;
 import org.slam.dto.Criteria;
 import org.slam.dto.MemberDTO;
@@ -22,4 +23,8 @@ public interface LoanBookMapper {
 	//DB에서 bno에 해당하는 Book데이터 반환
 	@Select("select * from tbl_book where bno = #{bno}")
 	public BookDTO getBook(int bno);
+	
+	//북에 달린 댓글 수를 추가하는 sql (hb)
+	@Update("update tbl_book set replycnt = replycnt+1 where bno = #{bno}")
+	public void updateReplyCnt(int bno);
 }

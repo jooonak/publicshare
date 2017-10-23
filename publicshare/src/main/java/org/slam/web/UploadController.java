@@ -53,6 +53,7 @@ public class UploadController {
 	@PostMapping("/new")
 	public Map<String, String> upload(MultipartFile file) {
 		if(!file.getContentType().contains("image")) {
+			System.out.println(file.getContentType());
 			return null;
 		}
 

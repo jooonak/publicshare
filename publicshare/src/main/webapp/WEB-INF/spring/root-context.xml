@@ -21,19 +21,24 @@
 		<property name="password" value="java96"></property>
 	</bean>
 
+
+
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
 	</bean>
+
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	<tx:annotation-driven />
 
+
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	<mybatis-spring:scan base-package="org.slam.mapper" />
 	<context:component-scan base-package="org.slam.service"></context:component-scan>
 	<context:component-scan base-package="org.slam.aop"></context:component-scan>
 	<aop:config></aop:config>
+	 <tx:annotation-driven/>
 </beans>

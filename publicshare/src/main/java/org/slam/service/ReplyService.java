@@ -9,13 +9,13 @@ public interface ReplyService {
 
 	public List<ReplyDTO> listPage(Criteria cri, int bno);
 
-	public void register(ReplyDTO dto);
+	public void register(ReplyDTO dto, String mid);
 
 	public void remove(int reno);
 
 	public void update(ReplyDTO dto);
 
-	public void reReplyUpdate(ReplyDTO dto);
+	public void reReplyUpdate(ReplyDTO dto, String mid);
 
 
 
