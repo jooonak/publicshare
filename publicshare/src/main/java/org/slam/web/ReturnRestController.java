@@ -24,25 +24,25 @@ public class ReturnRestController {
 
 	@PostMapping("/request")
 	public void returnRequest(@RequestBody int rno) {
+		//반납 요청이 있는지 확인하는 메서드 -JH
 		service.request(rno);
 	}
 
 	@GetMapping("/check")
-	public List<Map<String, Object>> checkOnReturn(){
-		//파라미터에 mid받아서 "testOwner"대신 작성 필요
-		return service.checkItem("1234");
+	public List<Map<String, Object>> checkOnReturn(@SessionAttribute("member") MemberDTO dto){
+		//내 소유의 책에 대해 반납 신청이 있는지 체크하고, 있을 때 그 책의 정보를 가져오는 메서드 -JH 
+		return service.checkItem(dto.getMid());
 	}
 
 	@PostMapping("/returnconfirm")
 	public void returnConfirm(@RequestBody ReservationDTO dto) {
-		System.out.println(dto.getBno());
-		System.out.println(dto.getRno());
+		//반납 신청이 있을 때 반납 처리 하는 메서드 -JH
 		service.returnConfirm(dto.getBno(), dto.getRno());
 	}
 	
 	@PostMapping("/returnreject")
 	public void returnReject(@RequestBody ReservationDTO dto) {
-		System.out.println(dto);
+		//반납 신청이 있을 때 반납 거부 처리 하는 메서드 -JH
 		service.returnReject(dto.getRno());
 	}
 	
@@ -55,13 +55,16 @@ public class ReturnRestController {
 	@PostMapping("/reservereject")
 	public void reject(@RequestBody ReservationDTO dto) {
 		service.refuseBookReserve(dto);
-		
 	}
 	
 	@GetMapping("/checkReturn")
 	public List<Map<String, Object>> checkReturn(@SessionAttribute("member") MemberDTO dto){
-		//파라미터에 mid받아서 "testOwner"대신 작성 필요
+		//내가 반납 신청 했으나, 상대방에 의해 거절된 정보를 가져오는 메서드 -JH
 		return service.checkReturn(dto.getMid());
 	}
 	
+	@PostMapping("/checkreject")
+	public void checkReject(@RequestBody ReservationDTO dto) {
+		service.checkReject(dto.getRno());
+	}
 }

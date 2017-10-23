@@ -14,9 +14,9 @@ public class BookDTO {
 	private String publisher;
 	private String owner;
 	private Date regDate;
-	private int resCnt; //수정(sb)
 	private int lateFee;
 	private String img;
-	
+	private int resCnt; //수정(sb)
+	private int replycnt;
 
 }

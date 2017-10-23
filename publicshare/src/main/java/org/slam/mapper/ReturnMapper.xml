@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.slam.mapper.ReturnMapper">
+	<!-- 내가 대여한 책의 정보를 가져오는 쿼리 -JH -->
 	<select id="getList" resultMap="getMyLoanList">
 		select 
 		rno, book.bno, bname, publisher, owner, status, startdate 
@@ -12,6 +13,7 @@
 		where 
 		book.bno = res.bno 
 		and lender = #{mid}
+		and status = 'onloan'
 		order by startdate asc, rno desc
 	</select>
 	
@@ -28,7 +30,9 @@
 			<id property="startDate" column="startdate" />
 		</collection>
 	</resultMap>
+	<!-- /내가 대여한 책의 정보를 가져오는 쿼리 -->
 	
+	<!-- 내가 반납신청 했으나 거절된 책의 정보를 가져오는 쿼리 -JH -->
 	<select id="checkReturn" resultMap="checkMyReturn">
 		select
         rno, book.bno, bname, publisher, owner, startdate, status, res.latefee latefee
@@ -53,7 +57,9 @@
 			<id property="status" column="status" />
 		</collection>
 	</resultMap>
+	<!-- /내가 반납신청 했으나 거절된 책의 정보를 가져오는 쿼리 -->
 	
+	<!-- 내 소유의 책에 대해 반납 신청이 있는지 확인하고, 그 책의 정보를 가져오는 쿼리 -JH -->
 	<select id="checkItem" resultMap="checkMyItem">
 		select 
 			rno, book.bno, bname, publisher, lender, status, startdate 
@@ -64,7 +70,6 @@
 			and owner = #{mid}
 		    and status = 'onreturn'
 		order by startdate asc, rno desc
-
 	</select>
 	
 	<resultMap type="map" id="checkMyItem">
@@ -80,7 +85,9 @@
 			<id property="lender" column="lender" />
 		</collection>
 	</resultMap>
+	<!-- /내 소유의 책에 대해 반납 신청이 있는지 확인하고, 그 책의 정보를 가져오는 쿼리 -JH -->
 	
+	<!-- 내 소유의 책에 반납 신청이 있고, 내가 수락 했을 때 데이터를 업데이트하는 쿼리 -JH -->
 	<update id="returnConfirm">
 		UPDATE tbl_reservation
 		    SET status = (
@@ -94,5 +101,6 @@
 		order by rno
 		limit 2
 	</update>
-
+	<!-- /내 소유의 책에 반납 신청이 있고, 내가 수락 했을 때 데이터를 업데이트하는 쿼리 -JH -->
+	
 </mapper>

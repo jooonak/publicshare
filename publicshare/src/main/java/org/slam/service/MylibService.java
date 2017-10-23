@@ -1,11 +1,8 @@
 package org.slam.service;
 
 import java.util.List;
-import java.util.Map;
-
 import org.slam.dto.BookDTO;
 import org.slam.dto.Criteria;
-import org.slam.dto.MemberDTO;
 
 public interface MylibService {
 
@@ -23,7 +20,5 @@ public interface MylibService {
 
 	//삭제 서비스
 	public void remove(int bno);
-
-	public List<Map<String, Object>> ApplyList(String owner);
 	
 }

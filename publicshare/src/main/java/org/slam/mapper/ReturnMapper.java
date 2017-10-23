@@ -27,4 +27,6 @@ public interface ReturnMapper {
 
 	public List<Map<String, Object>> checkReturn(String mid);
 	
+	@Update("update tbl_reservation set status = 'onloan' where rno = #{rno}")
+	public void checkReject(int rno);
 }

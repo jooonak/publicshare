@@ -86,7 +86,7 @@ a:hover {
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<h1>DESIGN STUDIO</h1>
+				<h1>Public Share</h1>
 			</div>
 		</div>
 		<!--/row -->
@@ -123,8 +123,7 @@ a:hover {
 									</div>
 
 									<div class="modal-body">
-										<ul class="alarmUl">
-										</ul>
+										
 									</div>
 
 								</div>
@@ -181,6 +180,9 @@ a:hover {
 <script type="text/javascript">
 $(document).ready(function() {
 
+	var $ModalLabel = $("#myModalLabel2");
+	var $modalBody = $(".modal-body");
+	
 	$(".item").on("click", "#returnBtn", function(e){
 		
 		var data = $(this).attr("data-rno");
@@ -192,13 +194,13 @@ $(document).ready(function() {
 			data:JSON.stringify(data),
 			success: function(result){
 				
-				alert("register success");
+				alert("Return Request Success");
 	 			
 			} 
 		});
 	});
 		
-	$(".alarmUl").on("click", '#resBtn', function(){
+	$modalBody.on("click", '#resBtn', function(){
 		var $this = $(this)
 		var data = {
 				bno: $this.attr('data-bno'), 
@@ -206,57 +208,73 @@ $(document).ready(function() {
 			  };
 		
 		$.ajax({
-			url : '/myreturn/'+$this.attr('data-oper'),
+			url : '/myreturn/' + $this.attr('data-oper'),
 			type : 'post',
 			contentType: "application/json; charset=utf-8",
 			data:JSON.stringify(data),
 			success : function(result) {
-				alert("등록 완료하였습니다.");
-				//callback하면 modal 'hide'처리 예정(sb)
+				$modalBody.html("");
+				getResAlarm();
+			}
+		});
+	});	
+	
+	$modalBody.on("click", '#checkReject', function(){
+		var $this = $(this)
+		var data = {
+				bno: $this.attr('data-bno'), 
+			  	rno: $this.attr('data-rno'),
+			  };
+		
+		$.ajax({
+			url : '/myreturn/checkreject',
+			type : 'post',
+			contentType: "application/json; charset=utf-8",
+			data:JSON.stringify(data),
+			success : function(result) {
+				$modalBody.html("");
+				getReturnAlarm();
 			}
 		});
 	});	
 
-	
-
 	function getReturnAlarm(){
 		var str = "";
-		
 		$.getJSON("/myreturn/checkReturn", function(result) {
-			
-			console.log(result);
 			for (var i = 0; i < result.length; i++) {
-				str += "<li><p>" + result[i].BookDTO.bname + "   " + result[i].ReservationDTO.rno; 
-				str += "<button id=checkReject data-oper=reserveconfirm data-rno='" + result[i].ReservationDTO.rno
-				str += "' data-bno='" + result[i].BookDTO.bno + "'>확인</button></p></li>";		
+				str += "<div><p>Title: " + result[i].BookDTO.bname + " " + result[i].ReservationDTO.rno + "</p>"; 
+				str += "<p><button id=checkReject data-rno=" + result[i].ReservationDTO.rno
+				str += " data-bno=" + result[i].BookDTO.bno + ">확인</button></p></div>";		
 			}
-			$(".alarmUl").html(str);
+			$(".modal-body").html(str);
 		});
 	}
 	
 	function getResAlarm(){
 		var str = "";
-		
 		$.getJSON("/reservation/applyreadylist", function(result) {
-			
-			console.log(result);
 			for (var i = 0; i < result.length; i++) {
-				str += "<li><p>" + result[i].BookDTO.bname + "   " + result[i].ReservationDTO.rno;
-				str += "<button id=resBtn data-oper=reserveconfirm data-rno='" + result[i].ReservationDTO.rno;
-				str += "' data-bno='" + result[i].BookDTO.bno + "'>확인</button><button id=resBtn data-oper=reservereject";
-				str += "data-rno='" + result[i].ReservationDTO.rno + "' data-bno='" + result[i].BookDTO.bno + "'>취소</button></p></li>";		
+				str += "<div><p>" + result[i].BookDTO.bname + " " + result[i].ReservationDTO.rno + "</p>";
+				str += "<p><button id=resBtn data-oper=reserveconfirm data-rno=" + result[i].ReservationDTO.rno;
+				str += "' data-bno=" + result[i].BookDTO.bno + ">확인</button><button id=resBtn data-oper=reservereject";
+				str += "data-rno=" + result[i].ReservationDTO.rno + " data-bno=" + result[i].BookDTO.bno;
+				str += ">취소</button></p></div>";		
 			}
-			$(".alarmUl").html(str);
+			$(".modal-body").html(str);
 		});
 	}
 	
 	$("#returnalarm").on("click", function(e){
-		$(".alarmUl").html("");
+		$ModalLabel.text("");
+		$ModalLabel.text("Rejected Return");
+		$modalBody.html("");
 		getReturnAlarm();
 	});
 	
 	$("#resalarm").on("click", function(e){
-		$(".alarmUl").html("");
+		$ModalLabel.text("");
+		$ModalLabel.text("Check Reservation");
+		$modalBody.html("");
 		getResAlarm();
 	});
 });	

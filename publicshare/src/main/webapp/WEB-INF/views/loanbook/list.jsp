@@ -89,7 +89,7 @@ a:hover {
 									<div class="caption">
 										<h4>${book.bname}</h4>
 										<p>${book.publisher}</p>
-
+										<p><h5>[${book.replycnt}]</h5></p>
 										<!-- choose/when 구믄을 사용해 bookDTO의 resCnt 상태에 따른 버튼 표시 -->
 										<c:choose>
 											<c:when test="${book.resCnt eq 0}">

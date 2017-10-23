@@ -13,7 +13,7 @@
 	.modal.right .modal-dialog {
 		position: fixed;
 		margin: auto;
-		width: 320px;
+		width: 35%;
 		height: 100%;
 		-webkit-transform: translate3d(0%, 0, 0);
 		    -ms-transform: translate3d(0%, 0, 0);
@@ -147,8 +147,11 @@ a:hover {
 						<!-- itemmanage에서 대여 요청에 대한 확인/거절을 누르는 modal -->
 			
 			<!-- itemmanage에서 대여 요청에 대한 확인/거절을 누르는 modal(sb) -->
-			<button data-toggle="modal" data-target="#myModal2">
+			<button id="resBtn" data-toggle="modal" data-target="#myModal2">
 				대여 요청 리스트
+			</button>
+			<button id="returnBtn" data-toggle="modal" data-target="#myModal2">
+				반납 요청 리스트
 			</button>
 				<!-- 등록 modal 요청용(sb)  -->
 				<div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
@@ -161,18 +164,7 @@ a:hover {
 							</div>
 			
 							<div class="modal-body">
-								<div>
-									<c:forEach items="${applylist}" var="apply">
-										<div>${apply.BookDTO}</div>
-										<div>${apply.ReservationDTO}</div>
-										<button class='apply-btn' data-oper='confirm'
-											data-rno='${apply.ReservationDTO.rno}'
-											data-bno='${apply.BookDTO.bno}'>확인${apply.ReservationDTO.rno}</button>
-										<button class='apply-btn' data-oper='reject'
-											data-rno='${apply.ReservationDTO.rno}'
-											data-bno='${apply.BookDTO.bno}'>취소</button>
-									</c:forEach>
-								</div>
+								
 							</div>
 			
 						</div><!-- modal-content -->
@@ -180,6 +172,7 @@ a:hover {
 				</div><!-- modal -->
 				<!-- 등록 modal 요청용 end(sb) -->
 
+				
 			<!-- 나중에 css처리 해야함 -->
 			<div class="carousel slide" id="myCarousel">
 				<div class="carousel-inner">
@@ -332,103 +325,112 @@ a:hover {
 </div>
 
 
-
-<!-- actionForm   -->
-<form id="actionForm" action="/itemmanage/view" method="get">
-	<!-- <input type="hidden" name="bno" > -->
-
-</form>
-
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
 
-<!-- 클래스 link 버튼 처리 -->
 <script type="text/javascript">
 $(document).ready(function() {
 	
-
-	$(".link").on("click", function(e) {
-		e.preventDefault();
-		console.log($(this));
-
-		var $actionForm = $(actionForm);
-
-		$actionForm.submit();
-
-	});
-	
-	
-	
-	
-	$('.apply-btn').click(function(e){
-		e.stopPropagation();
-		var $this = $(this)
-		var data = {
-				bno: $this.attr('data-bno'), 
-			  	rno: $this.attr('data-rno'),
-			  };
-				
-			$.ajax({
-				url : '/reservation/'+$this.attr('data-oper'),
-				type : 'post',
-				contentType: "application/json; charset=utf-8",
-				data:JSON.stringify(data),
-				success : function(result) {
-					alert("등록 완료하였습니다.");
-					//callback하면 modal 'hide'처리 예정(sb)
-				}
-			});
-		});
-
+	var $ModalLabel = $("#myModalLabel2");
+	var $modalBody = $(".modal-body");
 	
 	function checkReturn(){
 		var str = "";
 		$.getJSON("/myreturn/check", function(result) {
 			for (var i = 0; i < result.length; i++) {
-				alert(result[i].BookDTO.bno);
 				
-				str += "<li>" + result[i].BookDTO.bno + "</li>";
-				str += "<li>" + result[i].BookDTO.bname + "</li>";
-				str += "<li>" + result[i].ReservationDTO.rno + "</li>";
-				str += "<li>" + result[i].ReservationDTO.lender + "</li>";
-				str += "<li>" + result[i].ReservationDTO.startdate + "</li>";
-				str += "<li><button data-rno=" + result[i].ReservationDTO.rno; 
-				str += " id=rejBtn>REJECT</button>";
-				str += "<button data-rno=" + result[i].ReservationDTO.rno + " data-bno=" + result[i].BookDTO.bno; 
-				str += " id=accBtn>ACCEPT</button></li>";
-				$(".beModal").html(str).show("slow");
+				str += "<div><p>Title: " + result[i].BookDTO.bname + " ";
+				str += result[i].ReservationDTO.rno + "</p>";
+				str += "<p>Lender: " + result[i].ReservationDTO.lender + "</p>";
+				str += "<p>StartDate: " + result[i].ReservationDTO.startDate + "</p>";
+				str += "<p><button id=returnBtn data-oper=returnreject data-rno=" + result[i].ReservationDTO.rno;
+				str += " data-bno=" + result[i].BookDTO.bno + ">REJECT</button>";
+				str += "<button id=returnBtn data-oper=returnconfirm data-rno=" + result[i].ReservationDTO.rno;
+				str += " data-bno=" + result[i].BookDTO.bno + ">ACCEPT</button></p></div>";
+				$(".modal-body").html(str);
 			}
 		});
 	}
 	
-	checkReturn();
+	function checkApply(){
+		var str = "";
+		$.getJSON("/reservation/applylist", function(result) {
+			for (var i = 0; i < result.length; i++) {
+				
+				str += "<div><p>" + result[i].ReservationDTO.rno + " ";
+				str += "Title: " + result[i].BookDTO.bname + "</p>";
+				str += "<p>Applyer: " + result[i].ReservationDTO.lender + "</p>";
+				//str += "<p>" + result[i].ReservationDTO.startdate + "</li>";
+				str += "<p><button id=resBtn data-oper=reject data-rno=" + result[i].ReservationDTO.rno;
+				str += " data-bno=" + result[i].BookDTO.bno + ">REJECT</button>";
+				str += "<button id=resBtn data-oper=confirm data-rno=" + result[i].ReservationDTO.rno; 
+				str += " data-bno=" + result[i].BookDTO.bno + ">ACCEPT</button></p></div>";
+				$(".modal-body").html(str);
+			}
+		});
+	}
 	
-	$(".beModal").on("click", "#accBtn", function(e){
-
+	$("#returnBtn").on("click", function(e){
+		$ModalLabel.text("");
+		$ModalLabel.text("Return request");
+		$modalBody.html("");
+		checkReturn();
+	});
+	
+	$("#resBtn").on("click", function(e){
+		$ModalLabel.text("");
+		$ModalLabel.text("Loan request");
+		$modalBody.html("");
+		checkApply();
+	});
+	
+	$modalBody.on("click", "#resBtn", function(e){
+		var $this = $(this);
+		
 		var data = {
-				bno: $(this).attr("data-bno"),
-				rno: $(this).attr("data-rno")
-		}
+				bno: $this.attr("data-bno"),
+				rno: $this.attr("data-rno")
+			}
 		
 		$.ajax({
-			url : "/myreturn/returnconfirm",
+			url : "/reservation/" + $this.attr("data-oper") ,
 			type : 'post',
 			contentType: "application/json; charset=utf-8",
 			data:JSON.stringify(data),
 			success : function(result) {
-				alert("반납처리 완료");
-				$(".beModal").hide("slow");
-				//callback하면 modal 'hide'처리 예정(sb)
+				alert("대여 처리 성공!");
+				$modalBody.html("");
+				checkApply();
 			}
 		});
 	});
 	
-	$(".beModal").on("click", "#rejBtn", function(e){
-
-		console.log($(this).attr("data-rno"));
+	$modalBody.on("click", "#returnBtn", function(e){
+		var $this = $(this);
 		
-		var data = {rno: $(this).attr("data-rno")}
+		var data = {
+				bno: $this.attr("data-bno"),
+				rno: $this.attr("data-rno")
+			}
+		
+		$.ajax({
+			url : "/myreturn/" + $this.attr("data-oper") ,
+			type : 'post',
+			contentType: "application/json; charset=utf-8",
+			data:JSON.stringify(data),
+			success : function(result) {
+				alert("반납 처리 성공!");
+				$modalBody.html("");
+				checkReturn();
+			}
+		});
+	});
+	/* $(".beModal").on("click", "#rejBtn", function(e){
+
+		console.log($this.attr("data-rno"));
+		
+		var data = {rno: $this.attr("data-rno")}
 		
 		$.ajax({
 			url : "/myreturn/returnreject",
@@ -441,7 +443,7 @@ $(document).ready(function() {
 				//callback하면 modal 'hide'처리 예정(sb)
 			}
 		});
-	});
+	}); */
 	
 });
 var msg = "${result}";

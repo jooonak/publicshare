@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
-import org.slam.dto.MemberDTO;
 import org.slam.dto.ReservationDTO;
 
 
@@ -14,7 +13,7 @@ import org.slam.dto.ReservationDTO;
 public interface ResBookMapper {
 	//status 확인 필요(sb)
 	@Insert("insert into db_96.tbl_reservation (bno, lender, status) values (#{dto.bno} , #{mid}, #{dto.status})")
-	public void insertReservation(@Param("dto")ReservationDTO dto, @Param("mid")String mid);	//멤버정보는 강제로 집어 넣음(sb)
+	public void insertReservation(@Param("dto")ReservationDTO dto, @Param("mid")String mid);
 	
 	
 	//소유주가 대여 요청에 대한 완료 처리를 해주는 쿼리(sb)
@@ -39,7 +38,11 @@ public interface ResBookMapper {
 	@Update("update tbl_book set rescnt = rescnt-1 where bno = #{bno}")
 	public void updateResCntDown(int bno);
 
-	
+	//내가 예약했던 책이 내 차례가 되었을 때의 리스트를 불러오는 쿼리
 	public List<Map<String, Object>> getOnApplyReadyList(String lender);
+	
+	//소유주의 물건에 등록 신청을 했을 경우에 생기는 쿼리(뉴)
+	public List<Map<String, Object>> getApplyList(String owner);
+
 
 }

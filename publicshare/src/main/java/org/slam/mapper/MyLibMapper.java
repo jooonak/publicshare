@@ -1,8 +1,6 @@
 package org.slam.mapper;
 
 import java.util.List;
-import java.util.Map;
-
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -10,7 +8,6 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.slam.dto.BookDTO;
 import org.slam.dto.Criteria;
-import org.slam.dto.MemberDTO;
 
 public interface MyLibMapper {
 
@@ -30,8 +27,4 @@ public interface MyLibMapper {
 	@Delete("delete from tbl_book where bno = #{bno}")
 	public void remove(int bno);
 	
-
-	//소유주의 물건에 등록 신청을 했을 경우에 생기는 쿼리(뉴)
-	public List<Map<String, Object>> getApplyList(String owner);
-
 }

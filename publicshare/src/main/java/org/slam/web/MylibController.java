@@ -27,7 +27,6 @@ public class MylibController {
 	public void getList(@ModelAttribute("cri") Criteria cri, Model model, @SessionAttribute("member") MemberDTO member) {
 		//test용 아이디 "testOwner" 삽입(sb)
 		model.addAttribute("list", service.list(cri, member.getMid()));
-		model.addAttribute("applylist", service.ApplyList(member.getMid()));
 	}
 
 	// 나의 물품 등록 페이지

@@ -16,4 +16,5 @@ public interface ResBookService {
 
 	public List<Map<String, Object>> onApplyReadyList(String lender);
 
+	public List<Map<String, Object>> ApplyList(String owner);
 }

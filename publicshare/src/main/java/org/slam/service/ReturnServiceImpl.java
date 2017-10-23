@@ -63,4 +63,9 @@ public class ReturnServiceImpl implements ReturnService{
 		return returnMapper.checkReturn(mid);
 	}
 
+	@Override
+	public void checkReject(int rno) {
+		returnMapper.checkReject(rno);
+	}
+
 }

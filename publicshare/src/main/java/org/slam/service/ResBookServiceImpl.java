@@ -41,4 +41,9 @@ public class ResBookServiceImpl implements ResBookService {
 		return mapper.getOnApplyReadyList(lender);
 	}
 
+	//대여 요청온 물품 리스트를 가져오는 임플(sb)
+	public List<Map<String, Object>> ApplyList(String owner) {
+		return mapper.getApplyList(owner);
+	}
+
 }

@@ -100,6 +100,7 @@
 						<!-- BookDTO, MemberDTO, Criteria 필요 -->
 						<h3>Book Information</h3>
 						</br>
+						
 						<p>
 							책제목<input type="text" value="${book.bname}" readonly="readonly">
 						</p>
@@ -192,7 +193,7 @@
 		$(".loanBook").on("click", function() {
 			console.log($(this).val());
 			var data = {bno: ${book.bno}, 
-					  	mid: "testUser",
+					  	mid: ${member.mid},
 					  	status: $(this).val()
 					  };
 			$.ajax({ //문제발생

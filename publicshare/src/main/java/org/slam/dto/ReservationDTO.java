@@ -21,6 +21,6 @@ public class ReservationDTO {
 	private Date startDate;
 	private Date returnDate;
 	private Date resDate;
-	private int lateFee;	
+	private int lateFee;
 	
 }
