@@ -33,6 +33,34 @@ a:hover {
 	text-decoration: none;
 }
 
+#divPaging {
+	clear: both;
+	margin: 0 auto;
+	margin-top: 10px;
+	width: 40%;
+	height: 50px;
+}
+
+#divPaging li {
+	list-style: none;
+	float: left;
+	margin: 15 auto;
+	text-align: center;
+}
+
+#divPaging>li>a, #divPaging>li>span {
+	border-radius: 50% !important;
+	margin: 0 5px;
+}
+
+a:hover {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	/* IE 8 */
+	filter: alpha(opacity = 50); /* IE7 */
+	opacity: 0.6;
+	text-decoration: none;
+}
+
 .thumbnails li>.fff .caption {
 	background: #fff !important;
 	padding: 10px
@@ -86,7 +114,7 @@ a:hover {
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<h1>Public Share</h1>
+				<h1>PUBLIC SHARE</h1>
 			</div>
 		</div>
 		<!--/row -->
@@ -99,86 +127,94 @@ a:hover {
 <section id="portfolio" name="portfolio"></section>
 <div id="portfoliowrap">
 	<div class="container">
-	<button id="returnalarm" style="float: right;" data-toggle="modal" data-target="#myModal">Return Alarm</button>
-	<button id="resalarm" style="float: right;" data-toggle="modal" data-target="#myModal">Reservation Alarm</button>
+	<button id="returnalarm" style="float: right;" data-toggle="modal"
+		data-target="#myModal">Return Alarm</button>
+	<button id="resalarm" style="float: right;" data-toggle="modal"
+		data-target="#myModal">Reservation Alarm</button>
+	
 		<div class="row">
 			<!--reigster btn  -->
 			<h1>BOOKS</h1>
-			
-			<div class="carousel slide" id="myCarousel">
-				<div class="carousel-inner">
-					<div class="item active">
+			<!-- Modal -->
+			<div class="modal right fade" id="myModal" tabindex="-1"
+				role="dialog" aria-labelledby="myModalLabel2">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
 
-						<!-- Modal -->
-						<div class="modal right fade" id="myModal" tabindex="-1"
-							role="dialog" aria-labelledby="myModalLabel2">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close">
-											<span aria-hidden="true">×</span>
-										</button>
-										<h4 class="modal-title" id="myModalLabel2">Right Sidebar</h4>
-									</div>
-
-									<div class="modal-body">
-										
-									</div>
-
-								</div>
-								<!-- modal-content -->
-							</div>
-							<!-- modal-dialog -->
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel2">Right Sidebar</h4>
 						</div>
-						<!-- modal -->
 
+						<div class="modal-body"></div>
+					</div>
+					<!-- modal-content -->
+				</div>
+				<!-- modal-dialog -->
+			</div>
+			<!-- modal -->
 
-						<c:forEach items="${list}" var="data">
-							<div class="col-sm-3 col-xs-12 desc">
-								<div class="project-wrapper">
-									<div class="project">
-										<div class="photo-wrapper">
-											<div class="photo">
-												<img src="/resources/assets/img/portfolio/port01.jpg" alt="">
-											</div>
-											<div class="caption">
-												<h4>${data.BookDTO.bname}</h4>
-												<p>${data.BookDTO.publisher}</p>
-												<p>${data.BookDTO.owner}</p>
-												<button data-rno="${data.ReservationDTO.rno}" id="returnBtn">반납하기</button>
-												<p></p>
-											</div>														
-											<div class="overlay"></div>
+			<c:choose>
+
+				<c:when test="${empty list}">
+					<div style="text-align: center; margin: 30% auto;"><h1>대여한 게시물이 없습니다</h1></div>
+				</c:when>
+
+				<c:when test="${!empty list}">
+				<div style="width: 100%; height: 85%">
+					<c:forEach items="${list}" var="data">
+						<div class="col-sm-3 col-xs-12 desc">
+							<div class="project-wrapper">
+								<div class="project">
+									<div class="photo-wrapper">
+										<div class="photo">
+											<img src="/resources/assets/img/portfolio/port01.jpg" alt="">
 										</div>
+										<div class="caption">
+											<h4>${data.BookDTO.bname}</h4>
+											<p>${data.BookDTO.publisher}</p>
+											<p>${data.BookDTO.owner}</p>
+											<button data-rno="${data.ReservationDTO.rno}" id="returnBtn">반납하기</button>
+											<p></p>
+										</div>
+										<div class="overlay"></div>
 									</div>
 								</div>
 							</div>
-						</c:forEach>
-					</div>
+						</div>
+					</c:forEach>
 				</div>
-				<nav>
-				<ul class="control-box pager">
-					<li><a data-slide="prev" href="#myCarousel" class=""><i
-							class="glyphicon glyphicon-chevron-left"></i></a></li>
-					<li><a data-slide="next" href="#myCarousel" class=""><i
-							class="glyphicon glyphicon-chevron-right"></i></a></li>
-				</ul>
-				</nav>
-			</div>
-			<!--/container -->
+				</c:when>
+
+			</c:choose>
 		</div>
-		<!--/Portfoliowrap -->
+		<ul id="divPaging">
+		</ul>
 	</div>
 </div>
+
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
-<!-- 클래스 link 버튼 처리 -->
+<script type="text/javascript" src="/resources/js/pageMaker.js?ver=1"></script>
 <script type="text/javascript">
+
+var pageStr = PageMaker({
+    total: ${cri.total},
+    current: ${cri.page},
+    showCount: 8,
+    liCount: 5,
+    url: "/return/list" 
+});
+console.log(${cri.total});
+
+$("#divPaging").html(pageStr);
+
 $(document).ready(function() {
 	
 	
@@ -197,7 +233,7 @@ $(document).ready(function() {
 			success: function(result){
 				
 				alert("Return Request Success");
-	 			
+				location.reload();
 			} 
 		});
 	});

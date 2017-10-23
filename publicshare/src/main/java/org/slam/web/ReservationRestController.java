@@ -71,14 +71,19 @@ public class ReservationRestController {
 	}
 
 	@GetMapping("/applyreadylist")
-	public List<Map<String, Object>> applyreadylist(@SessionAttribute("member") MemberDTO dto) {
+
+	public List<Map<String, Object>> applyreadylist(
+			@SessionAttribute(value = "member", required = false) MemberDTO dto) {
 		// 대여자가 예약한 물품 중 앞서 예약한 사람이 예약을 취소하여 자신의 차례가 되었을 때 예약을 할 것인지에 대한 여부를 물어보기 위한 동작
+
 		return service.onApplyReadyList(dto.getMid());
 	}
 
 	@GetMapping("/applylist")
-	public List<Map<String, Object>> applylist(@SessionAttribute("member") MemberDTO dto) {
+
+	public List<Map<String, Object>> applylist(@SessionAttribute(value = "member", required = false) MemberDTO dto) {
 		// 내 책에 대한 대여 요청에 대한 리스트를 불러오는 메서드
+
 		return service.ApplyList(dto.getMid());
 	}
 

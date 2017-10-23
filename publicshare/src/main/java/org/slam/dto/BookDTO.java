@@ -13,6 +13,7 @@ public class BookDTO {
 	private String bname;
 	private String publisher;
 	private String owner;
+	private String contents;
 	private Date regDate;
 	private int lateFee;
 	private int resCnt; //¼öÁ¤(sb)

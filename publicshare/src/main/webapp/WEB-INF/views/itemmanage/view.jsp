@@ -54,7 +54,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<h1>Public Share</h1>
+				<h1>PUBLIC SHARE</h1>
 			</div>
 		</div>
 		<!--/row -->
@@ -68,7 +68,7 @@
 
 <div id="portfoliowrap">
 
-	<h1>SOME OF MY LATEST WORKS</h1>
+	<h1>Book Reservation</h1>
 	<div id="aboutwrap">
 		<div class="container">
 			<div class="row">
@@ -83,17 +83,10 @@
 					<div class="col-md-6">
 						<!-- BookDTO, MemberDTO, Criteria 필요 -->
 						<h3>글쓴이, 등록일, 조회수</h3>
+						<h3>${book.bname }</h3>
+						<h3>${book.publisher}</h3>
+						<h3>${book.owner}</h3>
 
-						<p>
-							책제목<input type="text" readonly="readonly" value="${book.bname }">
-						</p>
-						<p>
-							출판사<input type="text" readonly="readonly"
-								value="${book.publisher }">
-						</p>
-						<p>
-							날짜정보<input type="text" readonly="readonly" value="${book.owner }">
-						</p>
 						<div>
 							<!-- 수정/삭제 div 호출(대여 페이지에서 이동할 경우 표시되는 버튼) -->
 							<input class="modBtn" type="button" name="대여" value="수정/삭제">

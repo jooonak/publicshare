@@ -35,6 +35,7 @@ public class MylibServiceImpl implements MylibService {
 	//리스트 서비스 임플
 	@Override
 	public List<BookDTO> list(Criteria cri,String mid) {
+		cri.setTotal(mapper.getTotal(mid));
 		return mapper.list(cri, mid);
 	}
 

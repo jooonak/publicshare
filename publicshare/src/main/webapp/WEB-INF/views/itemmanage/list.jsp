@@ -8,56 +8,53 @@
 <!-- 왜 상대경로만 되는지... -->
 <html>
 <style>
-/* <!-- modal style for reservation status(jn) --> */
-	.modal.left .modal-dialog,
-	.modal.right .modal-dialog {
-		position: fixed;
-		margin: auto;
-		width: 35%;
-		height: 100%;
-		-webkit-transform: translate3d(0%, 0, 0);
-		    -ms-transform: translate3d(0%, 0, 0);
-		     -o-transform: translate3d(0%, 0, 0);
-		        transform: translate3d(0%, 0, 0);
-	}
+/* modal style for reservation status(jn) */
+.modal.left .modal-dialog, .modal.right .modal-dialog {
+	position: fixed;
+	margin: auto;
+	width: 35%;
+	height: 100%;
+	-webkit-transform: translate3d(0%, 0, 0);
+	-ms-transform: translate3d(0%, 0, 0);
+	-o-transform: translate3d(0%, 0, 0);
+	transform: translate3d(0%, 0, 0);
+}
 
-	.modal.left .modal-content,
-	.modal.right .modal-content {
-		height: 100%;
-		overflow-y: auto;
-	}
-	
-	.modal.left .modal-body,
-	.modal.right .modal-body {
-		padding: 15px 15px 80px;
-	}
+.modal.left .modal-content, .modal.right .modal-content {
+	height: 100%;
+	overflow-y: auto;
+}
+
+.modal.left .modal-body, .modal.right .modal-body {
+	padding: 15px 15px 80px;
+}
 
 /*Right*/
-	.modal.right.fade .modal-dialog {
-		right: -320px;
-		-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
-		   -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
-		     -o-transition: opacity 0.3s linear, right 0.3s ease-out;
-		        transition: opacity 0.3s linear, right 0.3s ease-out;
-	}
-	
-	.modal.right.fade.in .modal-dialog {
-		right: 0;
-	}
+.modal.right.fade .modal-dialog {
+	right: -320px;
+	-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+	-moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+	-o-transition: opacity 0.3s linear, right 0.3s ease-out;
+	transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog {
+	right: 0;
+}
 
 /* ----- MODAL STYLE ----- */
-	.modal-content {
-		border-radius: 0;
-		border: none;
-	}
+.modal-content {
+	border-radius: 0;
+	border: none;
+}
 
-	.modal-header {
-		border-bottom-color: #EEEEEE;
-		background-color: #FAFAFA;
-	}
-/* <!-- modal style for reservation status end(jn) --> */
+.modal-header {
+	border-bottom-color: #EEEEEE;
+	background-color: #FAFAFA;
+}
+/* modal style for reservation status end(jn) */
 
-/* <!-- modal style for alert(hb)--> */
+/* modal style for alert(hb) */
 .modal {
 	padding-right: 0px;
 	background-color: rgba(4, 4, 4, 0.3);
@@ -83,10 +80,15 @@
 	color: white;
 	padding: 10px;
 }
-/* <!-- modal style for alert end(hb)--> */
+/* modal style for alert end(hb) */
 </style>
 
 <style>
+.thumbnails li>.fff .caption {
+	background: #fff !important;
+	padding: 10px
+}
+/* modal style for alert end (jn) */
 .project-wrapper {
 	border-radius: 5px;
 	text-align: center;
@@ -112,11 +114,26 @@ a:hover {
 	text-decoration: none;
 }
 
-.thumbnails li>.fff .caption {
-	background: #fff !important;
-	padding: 10px
+#divPaging {
+	clear: both;
+	margin: 0 auto;
+	margin-left: 30%;
+	margin-top: 2%;
+	width: 40%;
+	height: 50px;
 }
-<!-- modal style for alert end(jn)-->
+
+#divPaging li {
+	list-style: none;
+	float: left;
+	margin: 15 auto;
+	text-align: center;
+}
+
+#divPaging>li>a, #divPaging>li>span {
+	border-radius: 50% !important;
+	margin: 0 5px;
+}
 </style>
 
 
@@ -134,168 +151,99 @@ a:hover {
 </div>
 <!--/headerwrap -->
 
+
+<div class="modal right fade" id="myModal2" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel2">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel2"></h4>
+			</div>
+
+			<div class="modal-body"></div>
+
+		</div>
+		<!-- modal-content -->
+	</div>
+	<!-- modal-dialog -->
+</div>
+<!-- modal -->
+
+
 <!-- PORTFOLIO SECTION -->
 <section id="portfolio" name="portfolio"></section>
 <div id="portfoliowrap">
 	<div class="container">
+		<button style="float: left;">
+			<a href="http://localhost:8080/itemmanage/register">register</a>
+		</button>
+		
+		<!-- itemmanage에서 대여 요청에 대한 확인/거절을 누르는 modal -->
+
+		<!-- itemmanage에서 대여 요청에 대한 확인/거절을 누르는 modal(sb) -->
+		<button style="float: right;" id="resBtn" data-toggle="modal"
+			data-target="#myModal2">대여 요청 리스트</button>
+		<button style="float: right;" id="returnBtn" data-toggle="modal"
+			data-target="#myModal2">반납 요청 리스트</button>
 		<div class="row">
-			<!--reigster btn  -->
 			<h1>BOOKS</h1>
-			<button>
-				<a href="http://localhost:8080/itemmanage/register">register</a>
-			</button>
-						<!-- itemmanage에서 대여 요청에 대한 확인/거절을 누르는 modal -->
-			
-			<!-- itemmanage에서 대여 요청에 대한 확인/거절을 누르는 modal(sb) -->
-			<button id="resBtn" data-toggle="modal" data-target="#myModal2">
-				대여 요청 리스트
-			</button>
-			<button id="returnBtn" data-toggle="modal" data-target="#myModal2">
-				반납 요청 리스트
-			</button>
-				<!-- 등록 modal 요청용(sb)  -->
-				<div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-			
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-								<h4 class="modal-title" id="myModalLabel2">Right Sidebar</h4>
-							</div>
-			
-							<div class="modal-body">
-								
-							</div>
-			
-						</div><!-- modal-content -->
-					</div><!-- modal-dialog -->
-				</div><!-- modal -->
-				<!-- 등록 modal 요청용 end(sb) -->
-
-				
 			<!-- 나중에 css처리 해야함 -->
-			<div class="carousel slide" id="myCarousel">
-				<div class="carousel-inner">
-					<div class="item active">
+			<c:choose>
+				<c:when test="${empty list}">
+					<div style="text-align: center; margin: 30% auto;">
+						<h1>대여한 게시물이 없습니다</h1>
+					</div>
+				</c:when>
 
-						<c:forEach items="${list}" var="book">
-							<div class="col-sm-3 col-xs-12 desc">
-								<div class="project-wrapper">
-									<div class="project">
-										<div class="photo-wrapper">
-											<a href="/itemmanage/view?bno=${book.bno}">
-												<div class="photo">
-													<img src="/resources/assets/img/portfolio/port01.jpg"
-														alt="">
-												</div>
-												<div class="caption">
-													<h4>${book.bname}</h4>
-													<p>${book.publisher}</p>
-													<c:choose>
-														<c:when test="${book.resCnt eq '0'}">
-															<input type="button" value="대여 가능">
-														</c:when>
-														<c:when test="${book.resCnt ne '0'}">
-															<input type="button" value="대여중">
-														</c:when>
-													</c:choose>
-													<p></p>
-												</div>
-												<div class="overlay"></div>
-											</a>
-										</div>
+				<c:when test="${!empty list}">
+				<div class="container" style="height: 80%">
+					<c:forEach items="${list}" var="book">
+						<div class="col-sm-3 col-xs-12 desc">
+							<div class="project-wrapper">
+								<div class="project">
+									<div class="photo-wrapper">
+										<a href="/itemmanage/view?bno=${book.bno}">
+											<div class="photo">
+												<img src="/resources/assets/img/portfolio/port01.jpg" alt="">
+											</div>
+											<div class="caption">
+												<h4>${book.bname}</h4>
+												<p>${book.publisher}</p>
+												<c:choose>
+													<c:when test="${book.resCnt eq '0'}">
+														<input type="button" value="대여 가능">
+													</c:when>
+													<c:when test="${book.resCnt ne '0'}">
+														<input type="button" value="대여중">
+													</c:when>
+												</c:choose>
+												<p></p>
+											</div>
+											<div class="overlay"></div>
+										</a>
 									</div>
 								</div>
 							</div>
-						</c:forEach>
-
-
-					</div>
-					<!-- /Slide1 -->
-					<div class="item">
-						<c:forEach items="${list}" var="book">
-							<div class="col-sm-3 col-xs-12 desc">
-								<div class="project-wrapper">
-									<div class="project">
-										<div class="photo-wrapper">
-											<a href="/itemmanage/view?bno=${book.bno}">
-												<div class="photo">
-													<img src="/resources/assets/img/portfolio/port01.jpg"
-														alt="">
-
-												</div>
-												<div class="caption">
-													<h4>${book.bname}</h4>
-													<p>${book.publisher}</p>
-													<c:choose>
-														<c:when test="${book.resCnt eq '0'}">
-															<input type="button" value="대여 가능">
-														</c:when>
-														<c:when test="${book.resCnt ne '0'}">
-															<input type="button" value="대여중">
-														</c:when>
-													</c:choose>
-													<p></p>
-												</div>
-												<div class="overlay"></div>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</c:forEach>
-
-
-
-					</div>
-					<!-- /Slide2 -->
-					<div class="item">
-
-						<c:forEach items="${list}" var="book">
-							<div class="col-sm-3 col-xs-12 desc">
-								<div class="project-wrapper">
-									<div class="project">
-										<div class="photo-wrapper">
-											<a href="/itemmanage/view?bno=${book.bno}">
-												<div class="photo">
-													<img src="/resources/assets/img/portfolio/port01.jpg"
-														alt="">
-
-												</div>
-												<div class="caption">
-													<h4>${book.bname}</h4>
-													<p>${book.publisher}</p>
-													<c:choose>
-														<c:when test="${book.resCnt eq '0'}">
-															<input type="button" value="대여 가능">
-														</c:when>
-														<c:when test="${book.resCnt ne '0'}">
-															<input type="button" value="대여중">
-														</c:when>
-													</c:choose>
-													<p></p>
-												</div>
-												<div class="overlay"></div>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</c:forEach>
-					</div>
-					<!-- /Slide3 -->
+						</div>
+					</c:forEach>
+					<!-- list 출력을 위한 forEach 끝 -->
 				</div>
+				</c:when>
 				
-				<nav>
-				<ul class="control-box pager">
-					<li><a data-slide="prev" href="#myCarousel" class=""><i
-							class="glyphicon glyphicon-chevron-left"></i></a></li>
-					<li><a data-slide="next" href="#myCarousel" class=""><i
-							class="glyphicon glyphicon-chevron-right"></i></li>
-				</ul>
-				</nav>
-				<!-- register 성공시  뜨는 modal -->
-		<!-- 		<div class="row text-center" style="padding: 50px;">
+			</c:choose>
+		</div>
+
+		<ul id="divPaging">
+		</ul>
+	</div>
+</div>
+	<!-- register 성공시  뜨는 modal -->
+	<!-- 		<div class="row text-center" style="padding: 50px;">
 					<div class="modal modalDialogA fade in ">
 						<div class="modal-dialog_a modal-lg">
 							<div class="modal-content_a">
@@ -309,27 +257,24 @@ a:hover {
 						</div>
 					</div>
 				</div> -->
-				
-				
-				
-				<div class="beModal" style="display: none; background-color: blue;">
-					<ul class="returnUl">
-					</ul>
-				</div>
-				
-			</div>
-			<!--/container -->
-		</div>
-		<!--/Portfoliowrap -->
-	</div>
-</div>
-
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
-
+<script type="text/javascript" src="/resources/js/pageMaker.js?ver=1"></script>
 <script type="text/javascript">
+
+var pageStr = PageMaker({
+    total: ${cri.total},
+    current: ${cri.page},
+    showCount: 8,
+    liCount: 5,
+    url: "/itemmanage/list" 
+});
+console.log(${cri.total});
+
+$("#divPaging").html(pageStr);
+
 $(document).ready(function() {
 	
 	var $ModalLabel = $("#myModalLabel2");
@@ -426,32 +371,14 @@ $(document).ready(function() {
 			}
 		});
 	});
-	/* $(".beModal").on("click", "#rejBtn", function(e){
 
-		console.log($this.attr("data-rno"));
-		
-		var data = {rno: $this.attr("data-rno")}
-		
-		$.ajax({
-			url : "/myreturn/returnreject",
-			type : 'post',
-			contentType: "application/json; charset=utf-8",
-			data:JSON.stringify(data),
-			success : function(result) {
-				alert("반납거부 완료");
-				$(".beModal").hide("slow");
-				//callback하면 modal 'hide'처리 예정(sb)
-			}
-		});
-	}); */
-	
 });
 var msg = "${result}";
 
 if (msg === "success") {
 
 	alert("등록되었습니다.");
-}
+}		
 </script>
 
 <%@include file="../include/footer.jsp"%>

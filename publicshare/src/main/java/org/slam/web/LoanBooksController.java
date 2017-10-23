@@ -22,7 +22,7 @@ public class LoanBooksController {
 
 	@GetMapping("/list")
 	// test¿ë testOwner »ðÀÔ (hb)
-	public void getBookList(Model model, @ModelAttribute("cri") Criteria cri, @SessionAttribute("member") MemberDTO member) {
+	public void getBookList(Model model, @ModelAttribute("cri") Criteria cri, @SessionAttribute(value="member", required=false) MemberDTO member) {
 		model.addAttribute("booklist", service.getBookList(cri, member.getMid()));
 	}
 

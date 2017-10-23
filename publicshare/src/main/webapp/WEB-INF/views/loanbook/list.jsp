@@ -45,7 +45,7 @@ a:hover {
 #divPaging li {
 	list-style: none;
 	float: left;
-	margin: 5 auto;
+	margin: 15 auto;
 	text-align: center;
 }
 
@@ -77,40 +77,51 @@ a:hover {
 		<div class="row">
 			<h1>SOME OF MY LATEST WORKS</h1>
 			<!-- list 출력을 위한 forEach 시작 -->
-			<c:forEach items="${booklist}" var="book">
-				<div class="col-sm-3 col-xs-12 desc">
-					<div class="project-wrapper">
-						<div class="project">
-							<div class="photo-wrapper">
-								<a href="/loanbook/view?bno=${book.bno}&page=${cri.page}">
-									<div class="photo">
-										<img src="/resources/assets/img/portfolio/port01.jpg" alt="">
-									</div>
-									<div class="caption">
-										<h4>${book.bname}</h4>
-										<p>${book.publisher}</p>
-										<p><h5>[${book.replycnt}]</h5></p>
-										<!-- choose/when 구믄을 사용해 bookDTO의 resCnt 상태에 따른 버튼 표시 -->
-										<c:choose>
-											<c:when test="${book.resCnt eq 0}">
-												<input type="button" value="대여 가능">
-											</c:when>
-											<c:when test="${book.resCnt ne 0}">
-												<input type="button" value="대여중">
-											</c:when>
-										</c:choose>
+			
+			<c:choose>
 
-										<p></p>
+				<c:when test="${empty booklist}">
+					<div style="text-align: center; margin: 30% auto;"><h1>대여한 게시물이 없습니다</h1></div>
+				</c:when>
+
+				<c:when test="${!empty booklist}">
+				<div class="container">
+					<c:forEach items="${booklist}" var="book">
+						<div class="col-sm-3 col-xs-12 desc">
+							<div class="project-wrapper">
+								<div class="project">
+									<div class="photo-wrapper">
+										<a href="/loanbook/view?bno=${book.bno}&page=${cri.page}">
+											<div class="photo">
+												<img src="/resources/assets/img/portfolio/port01.jpg" alt="">
+											</div>
+											<div class="caption">
+												<h4>${book.bname}</h4>
+												<p>${book.publisher}</p>
+												<h5>[${book.replycnt}]</h5>
+												<!-- choose/when 구믄을 사용해 bookDTO의 resCnt 상태에 따른 버튼 표시 -->
+												<c:choose>
+													<c:when test="${book.resCnt eq 0}">
+														<input type="button" value="대여 가능">
+													</c:when>
+													<c:when test="${book.resCnt ne 0}">
+														<input type="button" value="대여중">
+													</c:when>
+												</c:choose>
+												<p></p>
+											</div>
+											<div class="overlay"></div>
+										</a>
 									</div>
-									<div class="overlay"></div>
-								</a>
+								</div>
 							</div>
 						</div>
-					</div>
+					</c:forEach>
+					<!-- list 출력을 위한 forEach 끝 -->
 				</div>
-			</c:forEach>
-			<!-- list 출력을 위한 forEach 끝 -->
-
+				</c:when>
+				
+			</c:choose>
 		</div>
 
 		<ul id="divPaging">
@@ -122,14 +133,15 @@ a:hover {
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
-<script type="text/javascript" src="/resources/js/pageMaker.js?ver=2"></script>
+<script type="text/javascript" src="/resources/js/pageMaker.js?ver=1"></script>
 <script type="text/javascript">
 
 	var pageStr = PageMaker({
 	    total: ${cri.total},
 	    current: ${cri.page},
 	    showCount: 8,
-	    liCount: 5
+	    liCount: 5,
+	    url: "/loanbook/list" 
 	});
 	
 	$("#divPaging").html(pageStr);

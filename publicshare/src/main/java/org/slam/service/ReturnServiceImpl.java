@@ -24,7 +24,8 @@ public class ReturnServiceImpl implements ReturnService{
 	
 	@Override
 	public List<Map<String, Object>> getList(Criteria cri, String mid) {
-		return returnMapper.getList(cri,mid);
+		cri.setTotal(returnMapper.getTotal(mid));
+		return returnMapper.getList(cri, mid);
 	}
 
 	@Override

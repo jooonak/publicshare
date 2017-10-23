@@ -39,7 +39,7 @@ public class ReplyController {
 
 	// ´ñ±Û »ý¼º
 	@PostMapping("/new")
-	public void addReply(@RequestBody ReplyDTO dto , @SessionAttribute("member") MemberDTO member) {
+	public void addReply(@RequestBody ReplyDTO dto , @SessionAttribute(value="member", required=false) MemberDTO member) {
 
 		service.register(dto, member.getMid());
 	}
@@ -60,7 +60,7 @@ public class ReplyController {
 
 	// ´ë´ñ±Û ÀÔ·Â
 	@PostMapping("/rereply/{reno}")
-	public void addReReply(@RequestBody ReplyDTO dto, @SessionAttribute("member") MemberDTO member) {
+	public void addReReply(@RequestBody ReplyDTO dto, @SessionAttribute(value="member", required=false) MemberDTO member) {
 		
 		service.reReplyUpdate(dto, member.getMid());
 	}
