@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 @RestController
 @RequestMapping("/myreturn/*")
+
 public class ReturnRestController {
 
 	@Inject
@@ -36,9 +38,12 @@ public class ReturnRestController {
 	
 	
 	@PostMapping("/request")
-	public void returnRequest(@RequestBody int rno) {
+	public void returnRequest(@RequestBody ReservationDTO dto) {
 		//반납 요청이 있는지 확인하는 메서드 -JH
-		service.request(rno);
+		System.out.println("flflflflflflflflfl");
+		System.out.println(dto);
+//		System.out.println(rno+""+lateFee);
+//		service.request(rno,lateFee);
 	}
 
 	@GetMapping("/check")

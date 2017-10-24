@@ -12,7 +12,7 @@ public interface ReturnService {
 	public List<Map<String, Object>> getList(Criteria cri, String mid);
 	//내가 대여한 책의 리스트를 가져오는 메서드
 
-	public void request(int rno);
+	public void request(int rno, int lateFee);
 	//내가 대여한 책을 반납신청하는 메서드
 
 	public List<Map<String, Object>> checkItem(String mid);

@@ -29,8 +29,8 @@ public class ReturnServiceImpl implements ReturnService{
 	}
 
 	@Override
-	public void request(int rno) {
-		returnMapper.request(rno);
+	public void request(int rno, int lateFee) {
+		returnMapper.request(rno, lateFee);
 	}
 
 	@Override

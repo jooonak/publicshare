@@ -196,7 +196,7 @@ a:hover {
 			<c:choose>
 				<c:when test="${empty list}">
 					<div style="text-align: center; margin: 30% auto;">
-						<h1>대여한 게시물이 없습니다</h1>
+						<h1>등록한 도서가 없습니다</h1>
 					</div>
 				</c:when>
 
