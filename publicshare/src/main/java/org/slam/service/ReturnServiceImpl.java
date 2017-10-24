@@ -30,6 +30,9 @@ public class ReturnServiceImpl implements ReturnService{
 
 	@Override
 	public void request(ReservationDTO dto) {
+		if(dto.getStatus().equals("onapply") || dto.getStatus().equals("onres")) {
+			resBookMapper.updateResCntDown(dto.getBno());
+		}
 		returnMapper.request(dto);
 	}
 

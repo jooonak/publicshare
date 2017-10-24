@@ -14,9 +14,8 @@ public interface ReturnMapper {
 
 	public List<Map<String, Object>> getList(@Param("skip") int skip, @Param("status") String status, @Param("mid") String mid);
 
-	@Update("update tbl_reservation set status = #{status} where rno = #{rno}")
+	@Update("update tbl_reservation set status = #{status}, latefee = #{lateFee} where rno = #{rno}")
 	public void request(ReservationDTO dto);
-	//대여 신청, 대여 중, 예약 중 등등..
 	
 	public List<Map<String, Object>> getOnApplyReadyList(String lender);
 

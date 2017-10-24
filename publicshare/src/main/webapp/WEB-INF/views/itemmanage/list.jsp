@@ -397,7 +397,7 @@ var msg = "${result}";
 if (msg === "success") {
 
 	alert("등록되었습니다.");
-}		
+}
 </script>
 
 <%@include file="../include/footer.jsp"%>

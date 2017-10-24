@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -176,9 +177,12 @@ a:hover {
 						data-target="#myModal" class="btn btn-default">Return Alarm</button></li>
 					<li><button id="resalarm" style="float: right;" data-toggle="modal"
 						data-target="#myModal" class="btn btn-default">Reservation Alarm</button></li>
+					<li><button id="none" style="float: right;" data-toggle="modal"
+						data-target="#myModal" class="btn btn-default">Arrears Alarm</button></li>
 				</ul>
 			</div><hr/>
-			
+		
+			<h1 class="dataP">BOOKS</h1>
 			<!-- Modal -->
 			<div class="modal right fade" id="myModal" tabindex="-1"
 				role="dialog" aria-labelledby="myModalLabel2">
@@ -204,7 +208,11 @@ a:hover {
 			<%-- <c:choose>
 
 				<c:when test="${empty list}">
+<<<<<<< HEAD
 					<div style="text-align: center; margin: 20% auto;"><h1>대여한 도서가 없습니다</h1></div>
+=======
+					<div style="text-align: center; margin: 30% auto;"><h1>대여한 도서가 없습니다</h1></div>
+>>>>>>> refs/remotes/origin/master
 				</c:when>
 
 				<c:when test="${!empty list}">
@@ -216,10 +224,19 @@ a:hover {
 										<div class="photo">
 											<img src="/upload/thumb/${data.BookDTO.img}" alt="" onerror="this.src='/resources/assets/img/default.jpg'">
 										</div>
+<<<<<<< HEAD
 										<div class="caption">
 											<h4>${data.BookDTO.bname}</h4>
 											<p>${data.BookDTO.owner} | ${data.BookDTO.publisher}</p>
 											<button data-rno="${data.ReservationDTO.rno}" id="returnBtn" class="btn btn-warning">반납하기</button>
+=======
+										<div class="caption item"  >
+										 	<h4 >${data.BookDTO.bname}</h4>
+											<p>${data.BookDTO.publisher}</p>
+											<p>${data.BookDTO.owner }</p>
+											<p class="time" data-time="${data.ReservationDTO.startDate}"></p>
+											<button data-rno="${data.ReservationDTO.rno}" id="returnBtn" data-fee="0">반납하기</button>
+>>>>>>> refs/remotes/origin/master
 											<p></p>
 										</div>
 										<div class="overlay"></div>
@@ -264,7 +281,14 @@ $(document).ready(function() {
 	
 /* 	$(".row").on("click", "#returnBtn", function(e){
 		
+<<<<<<< HEAD
 		var data = $(this).attr("data-rno");
+=======
+		var lateFee = $(this).attr("data-fee");
+		var rno = $(this).attr("data-rno");
+		var data = {rno:rno, 
+					lateFee:lateFee};
+>>>>>>> refs/remotes/origin/master
 		console.log(data);
 		$.ajax({
 			url:'/myreturn/request',
@@ -275,7 +299,7 @@ $(document).ready(function() {
 				
 				alert("Return Request Success");
 				location.reload();
-			} 
+			}  
 		});
 	}); */
 		
@@ -387,8 +411,9 @@ $(document).ready(function() {
 					str += "<img src='/upload/thumb/${data.BookDTO.img}' alt='' onerror=this.src='/resources/assets/img/default.jpg'>";
 					str += "</div><div class='caption'><h4>" + result[i].BookDTO.bname + "</h4>";
 					str += "<p>" + result[i].BookDTO.owner + " | " + result[i].BookDTO.publisher + "</p>";
-					str += "<button data-rno=" + result[i].ReservationDTO.rno + " id='btnStatus'"
-					str += " data-status='" + url.split("/")[3] + "' class='btn btn-warning'>" + text + "</button>";
+					str += "<p class='time' data-time=" + result[i].ReservationDTO.startDate + "></p>";
+					str += "<button data-rno=" + result[i].ReservationDTO.rno + " id='btnStatus' data-fee='0'";
+					str += " data-status='" + url.split("/")[3] + "' class='btn btn-warning' data-bno=" + result[i].BookDTO.bno + ">" + text + "</button>";
 					str += "<p></p></div><div class='overlay'></div></div></div></div></div>";
 				}
 			} else {
@@ -406,9 +431,10 @@ $(document).ready(function() {
 		var $this = $(this);
 		var data = { 
 			  	rno: $this.attr('data-rno'),
-			  	status: $this.attr('data-status')
+			  	status: $this.attr('data-status'),
+			  	lateFee: $this.attr("data-fee")
 			  };
-		console.log($this.attr("data-status"));
+		console.log(data);
 		
 		$.ajax({
 			url : '/myreturn/request',
@@ -419,6 +445,47 @@ $(document).ready(function() {
 				location.reload();
 			}
 		});
+	});
+	
+
+	//연체금 계산 (hb)
+	$(".time").each(function (arr){
+		
+		//현재 시간
+		var timeStamp = new Date();
+		//console.log(timeStamp.getTime());
+		
+		//도서 대여 시작한 시간
+		var startDate = $(this).attr("data-time");
+		//포멧 변경(달에 대한 처리 다시 해야함)
+		var arr1 = startDate.split(" ");
+		if(arr1[1] =="Oct"){
+			arr1[1]= "9";
+		}
+		var dt1= new Date(arr1[5],arr1[1],arr1[2]);
+		//console.log(dt1.getTime());
+		
+		//두 날의 차이를 구함
+		var betweenDay =Math.floor((timeStamp.getTime()- dt1.getTime())/1000/60/60/24)-1;  
+		//console.log(betweenDay);
+		
+		//날짜에 따른 연체금 리스트에 표기
+		var lateFee = "";
+		if(betweenDay > 7){
+			
+			lateFee = ((betweenDay-7)*100);
+			$("#returnBtn").attr("data-fee",lateFee);
+			str ="<input type=hidden value='"+lateFee+"'>";
+			
+			$(this).html("연체금은 "+lateFee+"원 입니다.");
+			
+			
+		}else if(betweenDay < 7){
+			var endDate = 7-betweenDay;
+			$(this).html("반납일까지 "+endDate+"일 남았습니다.");
+		}else{
+			$(this).html("반납일입니다.");
+		}
 	});
 });	
 </script>
