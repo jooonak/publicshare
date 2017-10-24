@@ -40,6 +40,7 @@
 			<id property="bname" column="bname" />
 			<id property="publisher" column="publisher" />
 			<id property="owner" column="owner" />
+			<id property="img" column="img" />
 		</collection>
 		<collection property="ReservationDTO" ofType="ReservationDTO">
 			<id property="rno" column="rno" />
@@ -52,7 +53,7 @@
 		select
 		tbl_reservation.rno rno, tbl_reservation.bno bno,
 		tbl_reservation.lender, tbl_reservation.status,
-		tbl_book.bname bname,
+		tbl_book.bname bname, tbl_book.img img,
 		tbl_book.publisher publisher, tbl_book.owner
 		from
 		(
@@ -67,7 +68,7 @@
 		)
 		tbl_reservation, tbl_book
 
-		where tbl_reservation.bno = tbl_book.bno;
+		where tbl_reservation.bno = tbl_book.bno
 	</select>
 	
 	<resultMap type="map" id="detailedApplyMap">
@@ -75,6 +76,7 @@
 			<id property="bno" column="bno" />
 			<id property="bname" column="bname" />
 			<id property="publisher" column="publisher" />
+			<id property="img" column="img" />
 		</collection>
 		<collection property="ReservationDTO" ofType="ReservationDTO">
 			<id property="rno" column="rno" />
@@ -85,7 +87,7 @@
 
 	<select id="getApplyList" resultMap="detailedApplyMap">
 		select
-		tbl_book.bno,
+		tbl_book.bno, tbl_book.img,
 		tbl_book.bname ,tbl_book.publisher, tbl_reservation.rno ,tbl_reservation.resdate,
 		tbl_reservation.lender lender
 		from

@@ -36,7 +36,8 @@ a:hover {
 #divPaging {
 	clear: both;
 	margin: 0 auto;
-	margin-top: 10px;
+	margin-left: 30%;
+	margin-top: 5%;
 	width: 40%;
 	height: 50px;
 }
@@ -48,7 +49,7 @@ a:hover {
 	text-align: center;
 }
 
-#divPaging>li>a, #divPaging>li>span {
+#divPaging>li>a #divPaging>li>span {
 	border-radius: 50% !important;
 	margin: 0 5px;
 }
@@ -108,7 +109,42 @@ a:hover {
 	border-bottom-color: #EEEEEE;
 	background-color: #FAFAFA;
 }
+#alarm>img {
+	width: 20%; 
+	height: 20%;
+	float: left;
+}
+#alarm>p {
+	overflow: hidden;
+	margin-left: 22%;
+}
+
+#alarm>p>button {
+	float: right;
+}
+#alarm:hover { 
+    background-color: #d3d3d3;
+}
+
+.conditions {
+	margin-left: 0;
+	height: 35px;
+	
+}
+.conditions>.left>li {
+	list-style: none;
+	float: left;
+	margin-left: 2%;
+	border-right: 1px thin black;
+}
+.conditions>.right>li {
+	list-style: none;
+	float: right;
+	margin-left: 2%;
+	border-right: 1px thin black;
+}
 </style>
+
 <section id="home" name="home"></section>
 <div id="headerwrap">
 	<div class="container">
@@ -127,14 +163,22 @@ a:hover {
 <section id="portfolio" name="portfolio"></section>
 <div id="portfoliowrap">
 	<div class="container">
-	<button id="returnalarm" style="float: right;" data-toggle="modal"
-		data-target="#myModal">Return Alarm</button>
-	<button id="resalarm" style="float: right;" data-toggle="modal"
-		data-target="#myModal">Reservation Alarm</button>
-	
 		<div class="row">
 			<!--reigster btn  -->
-			<h1>BOOKS</h1>
+			<div class="conditions">
+				<ul class="left">
+					<li><a type="button" href="#"><span data-oper="onloan">Rented Books</span></a></li>
+					<li><a type="button" href="#"><span data-oper="onapply">Apply For Rental</span></a></li>
+					<li><a type="button" href="#"><span data-oper="onres">Booking Books</span></a></li>
+				</ul>
+				<ul class="right">
+					<li><button id="returnalarm" style="float: right;" data-toggle="modal"
+						data-target="#myModal" class="btn btn-default">Return Alarm</button></li>
+					<li><button id="resalarm" style="float: right;" data-toggle="modal"
+						data-target="#myModal" class="btn btn-default">Reservation Alarm</button></li>
+				</ul>
+			</div><hr/>
+			
 			<!-- Modal -->
 			<div class="modal right fade" id="myModal" tabindex="-1"
 				role="dialog" aria-labelledby="myModalLabel2">
@@ -156,28 +200,26 @@ a:hover {
 				<!-- modal-dialog -->
 			</div>
 			<!-- modal -->
-
-			<c:choose>
+			<div id="listDiv" class="container" style="height: 80%">
+			<%-- <c:choose>
 
 				<c:when test="${empty list}">
-					<div style="text-align: center; margin: 30% auto;"><h1>대여한 게시물이 없습니다</h1></div>
+					<div style="text-align: center; margin: 20% auto;"><h1>대여한 도서가 없습니다</h1></div>
 				</c:when>
 
 				<c:when test="${!empty list}">
-				<div style="width: 100%; height: 85%">
 					<c:forEach items="${list}" var="data">
 						<div class="col-sm-3 col-xs-12 desc">
 							<div class="project-wrapper">
 								<div class="project">
 									<div class="photo-wrapper">
 										<div class="photo">
-											<img src="/resources/assets/img/portfolio/port01.jpg" alt="">
+											<img src="/upload/thumb/${data.BookDTO.img}" alt="" onerror="this.src='/resources/assets/img/default.jpg'">
 										</div>
 										<div class="caption">
 											<h4>${data.BookDTO.bname}</h4>
-											<p>${data.BookDTO.publisher}</p>
-											<p>${data.BookDTO.owner}</p>
-											<button data-rno="${data.ReservationDTO.rno}" id="returnBtn">반납하기</button>
+											<p>${data.BookDTO.owner} | ${data.BookDTO.publisher}</p>
+											<button data-rno="${data.ReservationDTO.rno}" id="returnBtn" class="btn btn-warning">반납하기</button>
 											<p></p>
 										</div>
 										<div class="overlay"></div>
@@ -186,10 +228,10 @@ a:hover {
 							</div>
 						</div>
 					</c:forEach>
-				</div>
 				</c:when>
 
-			</c:choose>
+			</c:choose> --%>
+			</div>
 		</div>
 		<ul id="divPaging">
 		</ul>
@@ -211,7 +253,6 @@ var pageStr = PageMaker({
     liCount: 5,
     url: "/return/list" 
 });
-console.log(${cri.total});
 
 $("#divPaging").html(pageStr);
 
@@ -221,10 +262,10 @@ $(document).ready(function() {
 	var $ModalLabel = $("#myModalLabel2");
 	var $modalBody = $(".modal-body");
 	
-	$(".item").on("click", "#returnBtn", function(e){
+/* 	$(".row").on("click", "#returnBtn", function(e){
 		
 		var data = $(this).attr("data-rno");
-		
+		console.log(data);
 		$.ajax({
 			url:'/myreturn/request',
 			type:'POST',
@@ -236,7 +277,7 @@ $(document).ready(function() {
 				location.reload();
 			} 
 		});
-	});
+	}); */
 		
 	$modalBody.on("click", '#resBtn', function(){
 		var $this = $(this)
@@ -280,9 +321,11 @@ $(document).ready(function() {
 		var str = "";
 		$.getJSON("/myreturn/checkReturn", function(result) {
 			for (var i = 0; i < result.length; i++) {
-				str += "<div><p>Title: " + result[i].BookDTO.bname + " " + result[i].ReservationDTO.rno + "</p>"; 
+				str += "<div id=alarm><img src=/upload/thumb/" + result[i].BookDTO.img + " onerror=this.src='/resources/assets/img/default.jpg'>";
+				str += "<p>" + result[i].BookDTO.bname + " | " + result[i].BookDTO.publisher + "</p>";
+				str += "<p>" + result[i].BookDTO.owner + " - 반납 거부</p><p> 상세 내용은 작성자와 상의하세요</p>";
 				str += "<p><button id=checkReject data-rno=" + result[i].ReservationDTO.rno
-				str += " data-bno=" + result[i].BookDTO.bno + ">확인</button></p></div>";		
+				str += " data-bno=" + result[i].BookDTO.bno + " class='btn btn-primary'>CONFIRM</button></p></div><hr/>";		
 			}
 			$(".modal-body").html(str);
 		});
@@ -292,11 +335,13 @@ $(document).ready(function() {
 		var str = "";
 		$.getJSON("/reservation/applyreadylist", function(result) {
 			for (var i = 0; i < result.length; i++) {
-				str += "<div><p>" + result[i].BookDTO.bname + " " + result[i].ReservationDTO.rno + "</p>";
+				str += "<div id=alarm><img src=/upload/thumb/" + result[i].BookDTO.img + " onerror=this.src='/resources/assets/img/default.jpg'>";
+				str += "<p>" + result[i].BookDTO.bname + " | " + result[i].BookDTO.publisher + "</p>";
+				str += "<p>" + result[i].BookDTO.owner + " | " + result[i].ReservationDTO.resDate + "</p>";
 				str += "<p><button id=resBtn data-oper=reserveconfirm data-rno=" + result[i].ReservationDTO.rno;
-				str += " data-bno=" + result[i].BookDTO.bno + ">확인</button><button id=resBtn data-oper=reservereject";
-				str += " data-rno=" + result[i].ReservationDTO.rno + " data-bno=" + result[i].BookDTO.bno;
-				str += ">취소</button></p></div>";		
+				str += " data-bno=" + result[i].BookDTO.bno + " class='btn btn-success'>ACCEPT</button>";
+				str += "<button id=resBtn data-oper=reservereject data-rno=" + result[i].ReservationDTO.rno;
+				str += "data-bno=" + result[i].BookDTO.bno + " class='btn btn-danger'>CANCEL</button></p></div><hr/>";		
 			}
 			$(".modal-body").html(str);
 		});
@@ -314,6 +359,66 @@ $(document).ready(function() {
 		$ModalLabel.text("Check Reservation");
 		$modalBody.html("");
 		getResAlarm();
+	});
+	
+	$(".left").on("click", function(e){
+		$url = $(e.target).attr("data-oper");
+		onLoanList("/myreturn/list/"+ $url +"/"+${cri.page});
+	});
+	
+	function onLoanList(url){
+		var str = "";
+		var text = "";
+		if(url.split("/")[3] == "onloan"){
+			text = "반납하기";
+		} else if (url.split("/")[3] == "onapply") {
+			text = "대여 취소";
+		} else if (url.split("/")[3] == "onres") {
+			text = "예약 취소";
+		}
+		
+		$.getJSON(url, function(result){
+			
+			if(result.length != 0){
+				for (i = 0; i < result.length; i++) {
+					str += "<div class='col-sm-3 col-xs-12 desc'>";
+					str += "<div class='project-wrapper'><div class='project'>";
+					str += "<div class='photo-wrapper'><div class='photo'>";
+					str += "<img src='/upload/thumb/${data.BookDTO.img}' alt='' onerror=this.src='/resources/assets/img/default.jpg'>";
+					str += "</div><div class='caption'><h4>" + result[i].BookDTO.bname + "</h4>";
+					str += "<p>" + result[i].BookDTO.owner + " | " + result[i].BookDTO.publisher + "</p>";
+					str += "<button data-rno=" + result[i].ReservationDTO.rno + " id='btnStatus'"
+					str += " data-status='" + url.split("/")[3] + "' class='btn btn-warning'>" + text + "</button>";
+					str += "<p></p></div><div class='overlay'></div></div></div></div></div>";
+				}
+			} else {
+				str += "<div style='text-align: center; margin: 20% auto;'><h1>대여한 도서가 없습니다</h1></div>";
+			}
+			
+			$("#listDiv").html(str);
+		});
+	}
+
+	onLoanList("/myreturn/list/onloan/"+${cri.page});
+	
+	$("#listDiv").on("click", "#btnStatus", function(e){
+		
+		var $this = $(this);
+		var data = { 
+			  	rno: $this.attr('data-rno'),
+			  	status: $this.attr('data-status')
+			  };
+		console.log($this.attr("data-status"));
+		
+		$.ajax({
+			url : '/myreturn/request',
+			type : 'post',
+			contentType: "application/json; charset=utf-8",
+			data:JSON.stringify(data),
+			success : function(result) {
+				location.reload();
+			}
+		});
 	});
 });	
 </script>

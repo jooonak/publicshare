@@ -118,7 +118,7 @@ a:hover {
 	clear: both;
 	margin: 0 auto;
 	margin-left: 30%;
-	margin-top: 2%;
+	margin-top: 5%;
 	width: 40%;
 	height: 50px;
 }
@@ -133,6 +133,23 @@ a:hover {
 #divPaging>li>a, #divPaging>li>span {
 	border-radius: 50% !important;
 	margin: 0 5px;
+}
+
+#alarm>img {
+	width: 20%; 
+	height: 20%;
+	float: left;
+}
+#alarm>p {
+	overflow: hidden;
+	margin-left: 22%;
+}
+
+#alarm>p>button {
+	float: right;
+}
+#alarm:hover { 
+    background-color: #d3d3d3;
 }
 </style>
 
@@ -179,29 +196,31 @@ a:hover {
 <section id="portfolio" name="portfolio"></section>
 <div id="portfoliowrap">
 	<div class="container">
-		<button style="float: left;">
-			<a href="http://localhost:8080/itemmanage/register">register</a>
-		</button>
+		<a href="http://localhost:8080/itemmanage/register">
+			<button style="float: left;" class="btn btn-primary">register</button>
+		</a>
 		
 		<!-- itemmanage에서 대여 요청에 대한 확인/거절을 누르는 modal -->
 
 		<!-- itemmanage에서 대여 요청에 대한 확인/거절을 누르는 modal(sb) -->
 		<button style="float: right;" id="resBtn" data-toggle="modal"
-			data-target="#myModal2">대여 요청 리스트</button>
+			data-target="#myModal2" class="btn btn-default">대여 요청 리스트</button>
 		<button style="float: right;" id="returnBtn" data-toggle="modal"
-			data-target="#myModal2">반납 요청 리스트</button>
+			data-target="#myModal2" class="btn btn-default">반납 요청 리스트</button>
 		<div class="row">
 			<h1>BOOKS</h1>
 			<!-- 나중에 css처리 해야함 -->
+			
+			<div class="container" style="height: 80%">
 			<c:choose>
 				<c:when test="${empty list}">
-					<div style="text-align: center; margin: 30% auto;">
-						<h1>대여한 게시물이 없습니다</h1>
+					<div style="text-align: center; margin: 20% auto;">
+						<h1>등록한 도서가 없습니다</h1>
 					</div>
 				</c:when>
 
 				<c:when test="${!empty list}">
-				<div class="container" style="height: 80%">
+				
 					<c:forEach items="${list}" var="book">
 						<div class="col-sm-3 col-xs-12 desc">
 							<div class="project-wrapper">
@@ -209,17 +228,18 @@ a:hover {
 									<div class="photo-wrapper">
 										<a href="/itemmanage/view?bno=${book.bno}">
 											<div class="photo">
-												<img src="/resources/assets/img/portfolio/port01.jpg" alt="">
+												<img src="/upload/thumb/${book.img}" alt="" onerror="this.src='/resources/assets/img/default.jpg'">
 											</div>
 											<div class="caption">
 												<h4>${book.bname}</h4>
-												<p>${book.publisher}</p>
+												<p>${book.owner} | ${book.publisher}</p>
+												<h5>[${book.replycnt}]</h5>
 												<c:choose>
 													<c:when test="${book.resCnt eq '0'}">
-														<input type="button" value="대여 가능">
+														<button class="btn btn-success">대여 가능</button>
 													</c:when>
 													<c:when test="${book.resCnt ne '0'}">
-														<input type="button" value="대여중">
+														<button class="btn btn-danger">대여중</button>
 													</c:when>
 												</c:choose>
 												<p></p>
@@ -232,10 +252,11 @@ a:hover {
 						</div>
 					</c:forEach>
 					<!-- list 출력을 위한 forEach 끝 -->
-				</div>
+				
 				</c:when>
 				
 			</c:choose>
+			</div>
 		</div>
 
 		<ul id="divPaging">
@@ -285,14 +306,13 @@ $(document).ready(function() {
 		$.getJSON("/myreturn/check", function(result) {
 			for (var i = 0; i < result.length; i++) {
 				
-				str += "<div><p>Title: " + result[i].BookDTO.bname + " ";
-				str += result[i].ReservationDTO.rno + "</p>";
-				str += "<p>Lender: " + result[i].ReservationDTO.lender + "</p>";
-				str += "<p>StartDate: " + result[i].ReservationDTO.startDate + "</p>";
-				str += "<p><button id=returnBtn data-oper=returnreject data-rno=" + result[i].ReservationDTO.rno;
-				str += " data-bno=" + result[i].BookDTO.bno + ">REJECT</button>";
-				str += "<button id=returnBtn data-oper=returnconfirm data-rno=" + result[i].ReservationDTO.rno;
-				str += " data-bno=" + result[i].BookDTO.bno + ">ACCEPT</button></p></div>";
+				str += "<div id=alarm><img src=/upload/thumb/" + result[i].BookDTO.img + " onerror=this.src='/resources/assets/img/default.jpg'>";
+				str += "<p>" + result[i].BookDTO.bname + " | " + result[i].BookDTO.publisher + "</p>";
+				str += "<p>" + result[i].ReservationDTO.lender + result[i].ReservationDTO.startDate + "</p>";
+				str += "<p><button class='btn btn-default' id=returnBtn data-oper=returnconfirm data-rno=" + result[i].ReservationDTO.rno;
+				str += " data-bno=" + result[i].BookDTO.bno + ">ACCEPT</button>";
+				str += "<button class='btn btn-default' id=returnBtn data-oper=returnreject data-rno=" + result[i].ReservationDTO.rno;
+				str += " data-bno=" + result[i].BookDTO.bno + ">REJECT</button></p></div><hr/>";
 				$(".modal-body").html(str);
 			}
 		});
@@ -303,14 +323,13 @@ $(document).ready(function() {
 		$.getJSON("/reservation/applylist", function(result) {
 			for (var i = 0; i < result.length; i++) {
 				
-				str += "<div><p>" + result[i].ReservationDTO.rno + " ";
-				str += "Title: " + result[i].BookDTO.bname + "</p>";
-				str += "<p>Applyer: " + result[i].ReservationDTO.lender + "</p>";
-				//str += "<p>" + result[i].ReservationDTO.startdate + "</li>";
-				str += "<p><button id=resBtn data-oper=reject data-rno=" + result[i].ReservationDTO.rno;
-				str += " data-bno=" + result[i].BookDTO.bno + ">REJECT</button>";
-				str += "<button id=resBtn data-oper=confirm data-rno=" + result[i].ReservationDTO.rno; 
-				str += " data-bno=" + result[i].BookDTO.bno + ">ACCEPT</button></p></div>";
+				str += "<div id=alarm><img src=/upload/thumb/" + result[i].BookDTO.img + " onerror=this.src='/resources/assets/img/default.jpg'>";
+				str += "<p>" + result[i].BookDTO.bname + " | " + result[i].BookDTO.publisher + "</p>";
+				str += "<p>" + result[i].ReservationDTO.lender + " | " + result[i].ReservationDTO.resDate + "</p>";
+				str += "<p><button class='btn btn-default' id=resBtn data-oper=confirm data-rno=" + result[i].ReservationDTO.rno; 
+				str += " data-bno=" + result[i].BookDTO.bno + ">ACCEPT</button>";
+				str += "<button class='btn btn-warning' id=resBtn data-oper=reject data-rno=" + result[i].ReservationDTO.rno;
+				str += " data-bno=" + result[i].BookDTO.bno + ">REJECT</button></p></div><hr/>";
 				$(".modal-body").html(str);
 			}
 		});

@@ -41,7 +41,7 @@ public class UploadController {
 	public byte[] showThumb(@PathVariable("thumbName") String thumbName) {
 		log.info("showThumb: "+ thumbName);
 		try {
-		File file = new File("D:\\publicshare\\s_"+thumbName);
+			File file = new File("D:\\publicshare\\s_"+thumbName);
 			return FileUtils.readFileToByteArray(file);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -53,7 +53,7 @@ public class UploadController {
 	public byte[] showIamge(@PathVariable("image") String image) {
 		log.info("showimage: "+ image);
 		try {
-		File file = new File("D:\\publicshare\\"+image);
+			File file = new File("D:\\publicshare\\"+image);
 			return FileUtils.readFileToByteArray(file);
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -37,7 +37,8 @@ a:hover {
 #divPaging {
 	clear: both;
 	margin: 0 auto;
-	margin-top: 10px;
+	margin-left: 30%;
+	margin-top: 5%;
 	width: 40%;
 	height: 50px;
 }
@@ -53,6 +54,7 @@ a:hover {
 	border-radius: 50% !important;
 	margin: 0 5px;
 }
+
 </style>
 
 <section id="home" name="home"></section>
@@ -77,15 +79,15 @@ a:hover {
 		<div class="row">
 			<h1>SOME OF MY LATEST WORKS</h1>
 			<!-- list 출력을 위한 forEach 시작 -->
-			
+			<div class="container" style="height: 80%">
 			<c:choose>
 
 				<c:when test="${empty booklist}">
-					<div style="text-align: center; margin: 30% auto;"><h1>대여한 게시물이 없습니다</h1></div>
+					<div style="text-align: center; margin: 20% auto;"><h1>대여 가능한 도서가 없습니다</h1></div>
 				</c:when>
 
 				<c:when test="${!empty booklist}">
-				<div class="container">
+				
 					<c:forEach items="${booklist}" var="book">
 						<div class="col-sm-3 col-xs-12 desc">
 							<div class="project-wrapper">
@@ -93,19 +95,19 @@ a:hover {
 									<div class="photo-wrapper">
 										<a href="/loanbook/view?bno=${book.bno}&page=${cri.page}">
 											<div class="photo">
-												<img src="/resources/assets/img/portfolio/port01.jpg" alt="">
+												<img src="/upload/thumb/${book.img}" alt="" onerror="this.src='/resources/assets/img/default.jpg'">
 											</div>
 											<div class="caption">
 												<h4>${book.bname}</h4>
-												<p>${book.publisher}</p>
+												<p>${book.owner} | ${book.publisher}</p>
 												<h5>[${book.replycnt}]</h5>
 												<!-- choose/when 구믄을 사용해 bookDTO의 resCnt 상태에 따른 버튼 표시 -->
 												<c:choose>
-													<c:when test="${book.resCnt eq 0}">
-														<input type="button" value="대여 가능">
+													<c:when test="${book.resCnt eq '0'}">
+														<button class="btn btn-success">대여 가능</button>
 													</c:when>
-													<c:when test="${book.resCnt ne 0}">
-														<input type="button" value="대여중">
+													<c:when test="${book.resCnt ne '0'}">
+														<button class="btn btn-danger">대여중</button>
 													</c:when>
 												</c:choose>
 												<p></p>
@@ -118,10 +120,11 @@ a:hover {
 						</div>
 					</c:forEach>
 					<!-- list 출력을 위한 forEach 끝 -->
-				</div>
+				
 				</c:when>
 				
 			</c:choose>
+			</div>
 		</div>
 
 		<ul id="divPaging">

@@ -13,7 +13,7 @@ import org.slam.dto.ReservationDTO;
 
 public interface ResBookMapper {
 	//status 확인 필요(sb)
-	@Insert("insert into tbl_reservation (bno, lender, status) values (#{dto.bno} , #{mid}, 'onapply')")//#{dto.status}
+	@Insert("insert into tbl_reservation (bno, lender, status) values (#{dto.bno} , #{mid}, #{dto.status})")//#{dto.status}
 	public void insertReservation(@Param("dto")ReservationDTO dto, @Param("mid")String mid);
 	
 	
@@ -45,7 +45,7 @@ public interface ResBookMapper {
 	//소유주의 물건에 등록 신청을 했을 경우에 생기는 쿼리(뉴)
 	public List<Map<String, Object>> getApplyList(String owner);
 
-
+	//대여 신청할 때 해당 책에 대한 예약 카운트 (대여자 수)를 가져오는 쿼리
 	@Select("select rescnt from tbl_book where bno = #{bno}")
 	public int bookCheck(int bno);
 

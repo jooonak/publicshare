@@ -25,11 +25,13 @@ public class ResBookServiceImpl implements ResBookService {
 		// transaction 처리 필요(sb)
 		mapper.insertReservation(dto, mid);
 		mapper.updateResCntUp(dto.getBno());
+		//대여할 때 실행하는 메서드
 	}
 
 	@Override
 	public void confirmBookReserve(ReservationDTO dto) {
 		mapper.confirmUpdateResData(dto.getRno());
+		//대여 신청에 대해서 수락하는 메서드
 	}
 
 	@Transactional
@@ -37,22 +39,25 @@ public class ResBookServiceImpl implements ResBookService {
 	public void rejectBookReserve(ReservationDTO dto) {
 		mapper.rejectUpdateResData(dto);
 		mapper.updateResCntDown(dto.getBno());
+		//대여 신청에 대해서 취소하는 메서드
 	}
 
 	@Override
 	public List<Map<String, Object>> onApplyReadyList(String lender) {
 		return mapper.getOnApplyReadyList(lender);
+		//예약했던 책이 내 차례가 됐을 때 예약하는 메서드
 	}
 
-	// 대여 요청온 물품 리스트를 가져오는 임플(sb)
+	
 	public List<Map<String, Object>> ApplyList(String owner) {
 		return mapper.getApplyList(owner);
+		//내 도서에 대한 대여 신청목록을 불러오는 메서드(sb)
 	}
 
 	@Override
 	public int bookCheck(int bno) {
 		return mapper.bookCheck(bno);
-		
+		//대여 신청할 때 해당 책에 대한 예약 카운트 (대여자 수)를 가져오는 메서드
 	}
 
 }

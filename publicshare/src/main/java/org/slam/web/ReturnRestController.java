@@ -27,18 +27,16 @@ public class ReturnRestController {
 	@Inject
 	ReturnService service;
 	
-//	//리스트에 대한 처리 컨트롤러에서  rest컨트롤러로 옮겨옴(hb)
-//	@GetMapping("/list")
-//	public void getList(@ModelAttribute("cri") Criteria cri, Model model, @SessionAttribute("member") MemberDTO member) {
-//		model.addAttribute("list",service.getList(cri, member.getMid()));
-//	}
-
-	
-	
 	@PostMapping("/request")
-	public void returnRequest(@RequestBody int rno) {
-		//반납 요청이 있는지 확인하는 메서드 -JH
-		service.request(rno);
+	public void returnRequest(@RequestBody ReservationDTO dto) {
+		//반납 요청하는 메서드 -JH
+		System.out.println(dto);
+		if(dto.getStatus().equals("onapply") || dto.getStatus().equals("onres")) {
+			dto.setStatus("cancel");
+		} else {
+			dto.setStatus("onreturn");
+		}
+		service.request(dto);
 	}
 
 	@GetMapping("/check")
@@ -80,4 +78,11 @@ public class ReturnRestController {
 	public void checkReject(@RequestBody ReservationDTO dto) {
 		service.checkReject(dto.getRno());
 	}
+	
+	@GetMapping("/list/{status}/{page}")
+	public List<Map<String, Object>> List(@PathVariable("page") int page, @PathVariable("status") String status,
+			@SessionAttribute(value = "member", required = false) MemberDTO member){
+		return service.getList(page, status, member.getMid());
+	}
+	
 }

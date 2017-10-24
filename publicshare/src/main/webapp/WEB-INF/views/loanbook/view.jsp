@@ -264,11 +264,10 @@
 				success : function(result) {		
 					
 					if (result === "true") {
-
 						alert("success");
+						location.reload();
 					}else{
 						alert("이 책은 이미 대여됬습니다.");
-						
 						location.reload();
 					}
 					//$(".modal").modal("show");
@@ -290,7 +289,7 @@
 				success : function(result) {		
 					
 						alert("success");
-				
+						location.reload();
 				}
 			});
 		});
@@ -319,7 +318,7 @@ getReplyList();
 //댓글 등록
 $(".regBtn").on("click",function(e){
 	
-	var data = {reply:$("#reply").val() ,bno: ${book.bno} };
+	var data = {reply:$("#reply").val() ,bno: ${book.bno}};
 			
  	$.ajax({
 		url:'/reply/new',

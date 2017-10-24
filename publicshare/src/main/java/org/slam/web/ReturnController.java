@@ -21,11 +21,8 @@ public class ReturnController {
 
 	// 대여 물품 리스트 페이지
 	@GetMapping("/list")
-	public void getList(@ModelAttribute("cri") Criteria cri, Model model,
-			@SessionAttribute(value = "member", required = false) MemberDTO member) {
-		System.out.println("리스트" + service.getList(cri, member.getMid()));
-		model.addAttribute("list", service.getList(cri, member.getMid()));
-
+	public void getList(Criteria cri, @SessionAttribute(value = "member", required = false) MemberDTO member, Model model) {
+		model.addAttribute("cri", service.setCri(cri, member.getMid()));
 	}
 
 }
