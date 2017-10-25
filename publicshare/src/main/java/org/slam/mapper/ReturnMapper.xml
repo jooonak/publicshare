@@ -12,15 +12,15 @@
 		tbl_book book, tbl_reservation res 
 		where res.bno = book.bno 
 		and lender = #{mid} 
-		<choose>
+		<!--<choose> 
 			<when test="status = 'onloan'">
 			and status like #{status} order by startdate asc
 			</when>
-			<otherwise >
-			and status like #{status} 
-			</otherwise>
+			<otherwise > -->
+			and status = #{status} 
+		<!-- 	</otherwise>
 		</choose>
-		limit #{skip},8
+		limit #{skip},8 -->
 	</select>
 	
 	<resultMap type="map" id="getMyLoanList">
