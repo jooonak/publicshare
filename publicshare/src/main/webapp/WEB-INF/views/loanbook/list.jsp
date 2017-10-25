@@ -55,6 +55,10 @@ a:hover {
 	margin: 0 5px;
 }
 
+/*search form 전용 css(sb)*/
+body{
+    margin-top:20px;
+}
 </style>
 
 <section id="home" name="home"></section>
@@ -65,9 +69,40 @@ a:hover {
 				<h1>PUBLIC SHARE</h1>
 			</div>
 		</div>
+		<!--container 검색용 elements https://bootsnipp.com/snippets/featured/search-panel-with-filters -->
+		<form class = 'searchaction'action="/loanbook/list" method="get">
+		<div class="container" style="margin-bottom: 50px">
+		<!--row -->
+		    <div class="row">    
+		        <div class="col-xs-8 col-xs-offset-2">
+				    <div class="input-group">
+		                <div style="opacity:0.9" class="input-group-btn search-panel">
+		                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+		                    	<span id="search_concept">bname</span><span class="caret"></span>
+		                    </button>
+		                    <ul style="opacity:0.9" class="dropdown-menu" role="menu">
+		                      <li><a>bname</a></li>
+		                      <li><a>publisher</a></li>
+		                      <li><a>owner</a></li>
+		                      <li><a>bookname+contents</a></li>
+		                      
+		                    </ul>
+		                </div>
+		                <input type="hidden" class="searchconcept" name = "searchConcept" value = "bname"> 
+			            <input style="opacity:0.7" type="text" class="form-control condition" name="condition" placeholder="Search term...">
+		                <span  class="input-group-btn">
+		                    <button style="height:34px;opacity:0.9" class="btn btn-default searchconform" type="button"><span class="glyphicon glyphicon-search"></span></button>
+		                </span>
+		            </div>
+		        </div>
+			</div>
 		<!--/row -->
+		</div>
+		
+	</form>
+	<!--/container container 검색용 elements  -->	
 	</div>
-	<!--/container -->
+	
 </div>
 
 <!--/headerwrap -->
@@ -129,7 +164,6 @@ a:hover {
 
 		<ul id="divPaging">
 		</ul>
-
 	</div>
 </div>
 
@@ -138,18 +172,47 @@ a:hover {
 	crossorigin="anonymous"></script>
 <script type="text/javascript" src="/resources/js/pageMaker.js?ver=1"></script>
 <script type="text/javascript">
-
-	var pageStr = PageMaker({
-	    total: ${cri.total},
-	    current: ${cri.page},
-	    showCount: 8,
-	    liCount: 5,
-	    url: "/loanbook/list" 
+	
+	//search test
+	$('.search-panel .dropdown-menu').find('a').click(function(e) {
+		e.preventDefault();
+		var concept = $(this).text();
+		$('.search-panel span#search_concept').text(concept);
+		$('.searchconcept').val(concept);
 	});
+	
+	var url = new URL(window.location.href);
+	var condition = url.searchParams.get("condition");
+	var searchConcept = url.searchParams.get("searchConcept");
+	
+	var pageProperty = {
+		    total: ${cri.total},
+		    current: ${cri.page},
+		    showCount: 8,
+		    liCount: 5,
+		    url: "/loanbook/list" 
+		};
+	
+	if(condition != null){
+		pageProperty.condition = '&condition='+condition;
+		pageProperty.searchConcept = '&searchConcept='+searchConcept;
+    };	
+    
+    console.log(pageProperty);
+
+	var pageStr = PageMaker(pageProperty);
+	
 	
 	$("#divPaging").html(pageStr);
 	
-	console.log("${result}");
+ 	$(".searchconform").on("click", function(e){
+ 		e.stopPropagation();
+		e.preventDefault();
+		$(".searchaction").submit();
+	});
+
+	
+	
 </script>
 
 <%@include file="../include/footer.jsp"%>

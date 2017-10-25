@@ -220,9 +220,13 @@ a:hover {
 
 				<c:when test="${empty list}">
 <<<<<<< HEAD
+					<div style="text-align: center; margin: 30% auto;"><h1>대여한 도서가 없습니다</h1></div>
+=======
+<<<<<<< HEAD
 					<div style="text-align: center; margin: 20% auto;"><h1>대여한 도서가 없습니다</h1></div>
 =======
 					<div style="text-align: center; margin: 30% auto;"><h1>대여한 도서가 없습니다</h1></div>
+>>>>>>> refs/remotes/origin/master
 >>>>>>> refs/remotes/origin/master
 				</c:when>
 

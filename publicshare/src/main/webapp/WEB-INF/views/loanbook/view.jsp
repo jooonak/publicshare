@@ -54,6 +54,15 @@
 	padding: 10px;
 }
 
+.hide {
+	display: block;
+}
+
+.show {
+	display: none;
+}
+
+
 /*댓글 창 관련 css hb  */
 .form-panel {
 	background: #f4f4f4;
@@ -78,6 +87,87 @@
 	border-radius: 4px;
 	margin: 0px;
 	float: left;
+}
+
+
+#reReplyForm{
+	width: 80%;
+	margin-left: 100px;
+	line-height: 1.42857143;
+} 
+
+.btn-position {
+	float: right;
+	margin-left: 1%;
+}
+
+.thumbview {
+	margin-top: 20px;
+	padding: 0;
+	display: flex;
+	flex-direction: row;
+	height: 80px;
+	width: 100%;
+	box-shadow: 2px 2px 2px #888888;
+	
+}
+
+.thumbcontainer {
+	position: relative;
+	width: 25%;
+	height: 90%; 
+	display : inline-block;
+	/* or */
+	float: left;
+	margin-top:1px;
+	margin-left:5px;
+	
+}
+
+.thumbimg {
+	position: relative;
+	opacity: 1;
+	display: block;
+	height: 100%;
+	width: 100%;
+	transition: .5s ease;
+	backface-visibility: hidden;
+	box-shadow: 1px 1px 1px #888888;
+}
+
+.middle {
+	transition: .5s ease;
+	opacity: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%)
+}
+
+
+.mainthumb {
+	position: absolute;
+	top: 5%;
+	left: 5%;
+	height: 30px;
+	width: 30px;
+	z-index: 2;
+}
+
+.thumbcontainer:hover .thumbimg {
+	opacity: 0.3;
+}
+
+.thumbcontainer:hover .middle {
+	opacity: 1;
+}
+
+.thumbtext {
+	background-color: #4CAF50;
+	color: white;
+	font-size: 16px;
+	padding: 16px 32px;
 }
 </style>
 
@@ -104,105 +194,58 @@
 <section id="portfolio" name="portfolio"></section>
 
 <div id="portfoliowrap">
-	<h1>SOME OF MY LATEST WORKS</h1>
+	<h1>BOOK INFORMATION</h1>
 	<div id="aboutwrap">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-6 name">
+				<!--col-lg-4-->
+				<div class="col-lg-4 name">
 					<!-- 상대경로, 절대경로 참조: https://stackoverflow.com/questions/34445457/404-error-for-bootstrap-min-css-and-bootstrap-min-js -->
 					<a class="fancybox"
-						href="/resources/assets/img/portfolio/port01.jpg"> <img
-						class="img-responsive"
-						src="/resources/assets/img/portfolio/port01.jpg"></a>
-				</div>
-				<!--/col-lg-4-->
-				<div class="col-lg-6 name-desc">
-					<div class="col-md-6">
-						<!-- BookDTO, MemberDTO, Criteria 필요 -->
-						<h3>Book Information</h3>
-						</br>
-						
-						<p>
-							책제목<input type="text" value="${book.bname}" readonly="readonly">
-						</p>
-						<p>
-							출판사<input type="text" value="${book.publisher}"
-								readonly="readonly">
-						</p>
-						<p>
-							주인장<input type="text" value="${book.owner}" readonly="readonly">
-						</p>
-						<p>
-							날짜정보:
-							<fmt:formatDate value="${book.regDate}" pattern="yyyy-MM-dd"></fmt:formatDate>
-						</p>
-						<div>
-
-							<!-- choose/when구문을 사용해서 해당 bookDTO의 available상태에 따른 노출값이 다를 수 있도록 구현 -->
-
-
-							<hr>
-							<c:choose>
-								<c:when test="${book.resCnt ne 0}">
-									<input type="button" data-toggle="modal"
-										data-target=".modalDialogB" value="예약">
-								</c:when>
-								<c:when test="${book.resCnt eq 0}">
-									<input type="button" data-toggle="modal"
-										data-target=".modalDialogA" value="대여">
-								</c:when>
-							</c:choose>
-
-							<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
-							<a href="/loanbook/list?page=${cri.page}" class="btn">뒤로가기</a>
-
-
-
-
-							<!-- bookDTO의 available이 T(대여 가능)일 경우 나타나는 모달 -->
-							<div class="row text-center" style="padding: 50px;">
-								<div class="modal fade modalDialogA " tabindex="-1"
-									role="dialogA" aria-labelledby="modalLabelA">
-									<div class="modal-dialog_a modal-lg">
-										<div class="modal-content_a">
-											<div class="modal-body_a  ">
-												<h2>신청 페이지</h2>
-												<h4>대여 하시겠습니까?</h4>
-												<input type="hidden" name="bno" value="${book.bno}">
-												<p>
-													<button id="rentBook" value="onapply">대여하기</button>
-												</p>
-											</div>
-										</div>
-									</div>
-								</div>
+						href="/upload/image/${book.img}"><img
+						class="img-responsive" src="/upload/thumb/${book.img}"
+						style="margin-top: 10px; box-shadow: 2px 2px 2px #888888"></a>
+					<div class="container thumbview">
+						<c:forEach items="${book.imgFiles}" var="img">
+						<!-- fileUpload용 div -->
+							<div class = 'thumbcontainer'>
+								<img class='thumbimg' data-uploadName= "${img}" src = "/upload/thumb/${img}" >
 							</div>
-
-							<!-- bookDTO의 available이 F(False)일 경우 나타나는 모달 -->
-							<div class="row text-center" style="padding: 50px;">
-								<div class="modal fade modalDialogB " tabindex="-1"
-									role="dialogB" aria-labelledby="modalLabelB">
-									<div class="modal-dialog_b modal-lg">
-										<div class="modal-content_b">
-											<div class="modal-body_b  ">
-												<h2>신청 페이지</h2>
-												<h4>예약 하시겠습니까?</h4>
-												<input type="hidden" name="bno" value="${book.bno}">
-												<p>
-													<button id="reserveBook" value="onres">예약하기</button>
-												</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-
-
-						</div>
+						</c:forEach>
 					</div>
 				</div>
+				<!--/col-lg-4-->
+				<!--col-lg-8-->
+				<div class="col-lg-8 name-desc">
+					<!-- BookDTO, MemberDTO, Criteria 필요 -->
+					<h1 style="margin:15px;font-weight: bold;">${book.bname}</h1>
+					<h4 style="text-align: right"><b>publisher:</b> ${book.publisher} | <b>owner:</b> ${book.owner}</h4>
+					<hr style="margin-bottom: 0px">
+					<blockquote>
+				      <p>${book.contents}</p> 
+				    </blockquote>
+				</div>
 				<!--/col-lg-8-->
+				<hr>
+				<div style="margin-top:2%;">
+					<c:choose>
+						<c:when test="${book.resCnt ne 0}">
+							<button type="button" class = "btn btn-default btn-position modBtn"  data-toggle="modal"
+								data-target=".modalDialogB" >reservation</button>
+						</c:when>
+						<c:when test="${book.resCnt eq 0}">
+							<button type="button" class = "btn btn-default btn-position modBtn"  data-toggle="modal"
+								data-target=".modalDialogA" >loan</button>
+						</c:when>
+					</c:choose>
+					<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
+					<a href="/loanbook/list?page=${cri.page}">
+					<button type="button" class = "btn btn-default btn-position" id="listBtn" name="list" >
+					back</button></a>
+				</a>
+				</div>
+				<br>
+				<!-- /row -->
 				<!-- INPUT MESSAGES (hb)-->
 				<div class="row mt">
 					<div class="col-lg-12">
@@ -214,7 +257,6 @@
 									<input class="form-replycontrol" name="reply" id="reply">
 									<input style="float: right;" class="regBtn" type="button"
 										value="등록">
-
 								</div>
 							</h4>
 							<hr>
@@ -234,6 +276,47 @@
 					<!-- /col-lg-12 -->
 				</div>
 				<!-- /row -->
+				
+				<!-- choose/when구문을 사용해서 해당 bookDTO의 available상태에 따른 노출값이 다를 수 있도록 구현 -->
+					<!-- bookDTO의 available이 T(대여 가능)일 경우 나타나는 모달 -->
+					<div class="row text-center" style="padding: 50px;">
+						<div class="modal fade modalDialogA " tabindex="-1"
+							role="dialogA" aria-labelledby="modalLabelA">
+							<div class="modal-dialog_a modal-lg">
+								<div class="modal-content_a">
+									<div class="modal-body_a  ">
+										<h2>신청 페이지</h2>
+										<h4>대여 하시겠습니까?</h4>
+										<input type="hidden" name="bno" value="${book.bno}">
+										<p>
+											<button id="rentBook" value="onapply">대여하기</button>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- bookDTO의 available이 F(False)일 경우 나타나는 모달 -->
+					<div class="row text-center" style="padding: 50px;">
+						<div class="modal fade modalDialogB " tabindex="-1"
+							role="dialogB" aria-labelledby="modalLabelB">
+							<div class="modal-dialog_b modal-lg">
+								<div class="modal-content_b">
+									<div class="modal-body_b  ">
+										<h2>신청 페이지</h2>
+										<h4>예약 하시겠습니까?</h4>
+										<input type="hidden" name="bno" value="${book.bno}">
+										<p>
+											<button id="reserveBook" value="onres">예약하기</button>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
 				<!-- INPUT MESSAGES -->
 			</div>
 			<!-- /row -->
