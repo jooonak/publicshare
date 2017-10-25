@@ -10,6 +10,6 @@ public interface LoanBookService {
 
 	public List<BookDTO> getBookList(Criteria cri, String mid);
 	
-	public BookDTO getBook(int bno);
+	public BookDTO getBook(BookDTO dto);
 	
 }

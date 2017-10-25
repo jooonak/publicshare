@@ -40,10 +40,12 @@ public class MylibServiceImpl implements MylibService {
 	}
 
 	//뷰 서비스 임플
+	@Transactional
 	@Override
-	public BookDTO get(int bno) {
-		
-		return mapper.getById(bno);
+	public BookDTO get(BookDTO dto) {
+		dto = mapper.getById(dto.getBno());
+		dto.setImgFiles(fileMapper.getImgListById(dto.getBno()));
+		return dto;
 		
 	}
 
@@ -51,9 +53,9 @@ public class MylibServiceImpl implements MylibService {
 	@Transactional
 	@Override
 	public void modify(BookDTO dto, Criteria cri) {
-		log.info(""+dto);
 		mapper.update(dto);
-		
+		fileMapper.delete(dto.getBno());
+		fileMapper.modifyImgFileList(dto.getImgFiles(), dto.getBno());
 	}
 
 	//삭제 서비스 임플
@@ -61,6 +63,11 @@ public class MylibServiceImpl implements MylibService {
 	public void remove(int bno) {
 		mapper.remove(bno);
 		
+	}
+
+	@Override
+	public String[] getImgList(int bno) {
+		return fileMapper.getImgListById(bno);
 	}
 
 

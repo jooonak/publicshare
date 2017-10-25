@@ -82,7 +82,6 @@ public class ReservationRestController {
 	
 	@PostMapping("/gethistory")
 	public List<Map<String, Object>> historyList(@RequestBody BookDTO dto, @SessionAttribute(value = "member", required = false) MemberDTO member){
-		System.out.println(member);
 		return service.getHistory(dto, member);
 	}
 

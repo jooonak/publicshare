@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.slam.mapper.LoanBookMapper">
+	<select id="getBookList" parameterType="map" resultType="BookDTO">
+		select * from tbl_book 
+		<where>
+			owner != #{mid}
+			<if test="cri.searchConcept != null">
+				<choose>
+				    <when test="cri.searchConcept == 'bookname+contents'">
+				      and bname like #{cri.condition} and contents like #{cri.condition}
+				    </when>
+				    <otherwise>
+				      and ${cri.searchConcept} like #{cri.condition} 
+				    </otherwise>
+				</choose>
+			</if>
+		</where>
+		order by bno desc limit #{cri.skip},8
+	</select>
+	
+	
+	<select id="getTotal" resultType="integer">
+		select count(*) from tbl_book 
+		<where>
+			owner != #{mid}
+			<if test="cri.searchConcept != null">
+				<choose>
+				    <when test="cri.searchConcept == 'bookname+contents'">
+				      and bname like #{cri.condition} and contents like #{cri.condition}
+				    </when>
+				    <otherwise>
+				      and ${cri.searchConcept} like #{cri.condition}
+				    </otherwise>
+				</choose>
+			</if>
+		</where>
+	</select>
+</mapper>

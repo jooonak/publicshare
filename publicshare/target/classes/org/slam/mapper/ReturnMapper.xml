@@ -12,7 +12,9 @@
 		tbl_book book, tbl_reservation res 
 		where res.bno = book.bno 
 		and lender = #{mid} 
-		and status = #{status}
+		
+			and status = #{status} 
+			
 		limit #{skip},8
 	</select>
 	
@@ -41,6 +43,17 @@
         and status = 'returnrejected'
 	</select>
 	
+	<!-- 나의 대여 이력 가져오는 쿼리-hb-->
+	<select id="loanHistoryList" resultMap="checkMyReturn">
+		select
+        rno, book.bno, bname, publisher, owner, img, returndate, status, res.latefee latefee
+        from
+        tbl_book book, tbl_reservation res
+        where book.bno = res.bno
+        and lender = #{mid}
+        and status = 'returned'
+	</select>
+	
 	<resultMap type="map" id="checkMyReturn">
 		<collection property="BookDTO" ofType="BookDTO">
 			<id property="bno" column="bno" />
@@ -54,6 +67,7 @@
 			<id property="startDate" column="startdate" />
 			<id property="lateFee" column="latefee" />
 			<id property="status" column="status" />
+			<id property="returnDate" column="returndate" />
 		</collection>
 	</resultMap>
 	<!-- /내가 반납신청 했으나 거절된 책의 정보를 가져오는 쿼리 -->

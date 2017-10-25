@@ -87,4 +87,10 @@ public class ReturnRestController {
 		return service.getList(page, status, member.getMid());
 	}
 	
+	@GetMapping("/loanHistoryList")
+	public List<Map<String, Object>> loanHistoryList(@SessionAttribute(value = "member", required = false) MemberDTO dto) {
+		// 사용자의 과거 대여 이력(반납이 완료된 책에 대한 히스토리)_hb
+		return service.loanHistoryList(dto.getMid());
+	}
+
 }

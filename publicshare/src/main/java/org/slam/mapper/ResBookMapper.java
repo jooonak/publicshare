@@ -42,7 +42,7 @@ public interface ResBookMapper {
 	//내가 예약했던 책이 내 차례가 되었을 때의 리스트를 불러오는 쿼리
 	public List<Map<String, Object>> getOnApplyReadyList(String lender);
 	
-	//소유주의 물건에 등록 신청을 했을 경우에 생기는 쿼리(뉴)
+	//소유주의 물건에 등록 신청을 했을 경우에 생기는 쿼리(sb)
 	public List<Map<String, Object>> getApplyList(String owner);
 
 	//대여 신청할 때 해당 책에 대한 예약 카운트 (대여자 수)를 가져오는 쿼리
@@ -55,6 +55,9 @@ public interface ResBookMapper {
 
 	@Select("select * from tbl_reservation res, tbl_book book where res.bno = book.bno and book.bno = #{bno} order by rno desc")
 	public List<Map<String, Object>> getBookHistory(int bno);
+	
+	//사용자의 과거 대여 이력
+	public List<Map<String, Object>> loanHistoryList(String mid);
 
 
 }

@@ -35,4 +35,7 @@ public interface ReturnService {
 
 	public List<Map<String, Object>> getList(int page, String status, String mid);
 
+	//사용자의 대여 이력(hb)
+	public List<Map<String, Object>> loanHistoryList(String mid);
+
 }

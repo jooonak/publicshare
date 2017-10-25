@@ -13,12 +13,15 @@ public interface MylibService {
 	public List<BookDTO> list(Criteria cri, String mid);
 
 	//뷰 서비스
-	public BookDTO get(int bno);
+	public BookDTO get(BookDTO dto);
 
 	//수정 서비스
 	public void modify(BookDTO dto, Criteria cri);
 
 	//삭제 서비스
 	public void remove(int bno);
+	
+	//image리스트 
+	public String[] getImgList(int bno);
 	
 }

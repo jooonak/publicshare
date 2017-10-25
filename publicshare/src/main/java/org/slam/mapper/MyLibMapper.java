@@ -21,7 +21,7 @@ public interface MyLibMapper {
 	@Select("select * from tbl_book where bno = #{bno}")
 	public BookDTO getById(int bno);
 
-	@Update("update tbl_book set  bname = #{bname}, publisher = #{publisher}, owner = #{owner}, contents = #{contents} where bno = #{bno}")
+	@Update("update tbl_book set  bname = #{bname}, publisher = #{publisher}, owner = #{owner}, contents = #{contents}, img = #{img} where bno = #{bno}")
 	public void update(BookDTO dto);
 
 	@Delete("delete from tbl_book where bno = #{bno}")

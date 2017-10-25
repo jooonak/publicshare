@@ -176,9 +176,10 @@
 			<div class="row">
 				<div class="col-lg-4 name">
 					<!-- 상대경로, 절대경로 참조: https://stackoverflow.com/questions/34445457/404-error-for-bootstrap-min-css-and-bootstrap-min-js -->
-					<a class="fancybox"	href="/resources/assets/img/portfolio/port04.jpg">
-						<img class="img-responsive" src="/resources/assets/img/pic.png"	style="margin-top: 80px; box-shadow: 2px 2px 2px #888888">
-					</a>
+					<a class="fancybox"
+						href="/resources/assets/img/camera.png"><img
+						class="img-responsive" src="/resources/assets/img/camera.png"
+						style="margin-top: 80px; box-shadow: 2px 2px 2px #888888"></a>
 					<hr>
 				</div>
 				<!--/col-lg-4-->
