@@ -7,15 +7,15 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.slam.dto.Criteria;
+import org.slam.dto.ReservationDTO;
 
 public interface ReturnMapper {
 	
 
-	public List<Map<String, Object>> getList(@Param("cri") Criteria cri, @Param("mid") String mid);
+	public List<Map<String, Object>> getList(@Param("skip") int skip, @Param("status") String status, @Param("mid") String mid);
 
-	@Update("update tbl_reservation set status = 'onreturn' where rno = #{rno}")
-	public void request(int rno);
-	//대여 신청, 대여 중, 예약 중 등등..
+	@Update("update tbl_reservation set status = #{status}, latefee = #{lateFee} where rno = #{rno}")
+	public void request(ReservationDTO dto);
 	
 	public List<Map<String, Object>> getOnApplyReadyList(String lender);
 

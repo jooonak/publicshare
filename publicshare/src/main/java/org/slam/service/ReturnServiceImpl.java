@@ -23,14 +23,17 @@ public class ReturnServiceImpl implements ReturnService{
 	ResBookMapper resBookMapper;
 	
 	@Override
-	public List<Map<String, Object>> getList(Criteria cri, String mid) {
+	public Criteria setCri(Criteria cri, String mid) {
 		cri.setTotal(returnMapper.getTotal(mid));
-		return returnMapper.getList(cri, mid);
+		return cri;
 	}
 
 	@Override
-	public void request(int rno) {
-		returnMapper.request(rno);
+	public void request(ReservationDTO dto) {
+		if(dto.getStatus().equals("onapply") || dto.getStatus().equals("onres")) {
+			resBookMapper.updateResCntDown(dto.getBno());
+		}
+		returnMapper.request(dto);
 	}
 
 	@Override
@@ -70,6 +73,12 @@ public class ReturnServiceImpl implements ReturnService{
 	@Override
 	public void checkReject(int rno) {
 		returnMapper.checkReject(rno);
+	}
+
+	@Override
+	public List<Map<String, Object>> getList(int page, String status, String mid) {
+		int skip = (page - 1) * 8;
+		return returnMapper.getList(skip, status, mid);
 	}
 
 }

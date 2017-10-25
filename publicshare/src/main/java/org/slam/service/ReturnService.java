@@ -9,10 +9,10 @@ import org.slam.dto.ReservationDTO;
 
 public interface ReturnService {
 
-	public List<Map<String, Object>> getList(Criteria cri, String mid);
+	public Criteria setCri(Criteria cri, String mid);
 	//내가 대여한 책의 리스트를 가져오는 메서드
 
-	public void request(int rno);
+	public void request(ReservationDTO dto);
 	//내가 대여한 책을 반납신청하는 메서드
 
 	public List<Map<String, Object>> checkItem(String mid);
@@ -32,5 +32,7 @@ public interface ReturnService {
 	//내 반납신청에 대해 거절된 리스트를 가져오는 메서드
 
 	public void checkReject(int rno);
+
+	public List<Map<String, Object>> getList(int page, String status, String mid);
 
 }
