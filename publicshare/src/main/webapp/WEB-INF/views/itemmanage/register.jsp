@@ -154,16 +154,16 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<h1>Public Share</h1>
+				<h1>PUBLIC SHARE</h1>
 			</div>
 		</div>
-		<! --/row -->
+		<!--/row -->
 	</div>
-	<! --/container -->
+	<!--/container -->
 </div>
-<! --/headerwrap -->
+<!--/headerwrap -->
 
-<! -- PORTFOLIO SECTION -->
+<!-- PORTFOLIO SECTION -->
 <section id="portfolio" name="portfolio"></section>
 
 <div id="portfoliowrap">
@@ -177,8 +177,8 @@
 				<div class="col-lg-4 name">
 					<!-- 상대경로, 절대경로 참조: https://stackoverflow.com/questions/34445457/404-error-for-bootstrap-min-css-and-bootstrap-min-js -->
 					<a class="fancybox"
-						href="/resources/assets/img/portfolio/port04.jpg"><img
-						class="img-responsive" src="/resources/assets/img/pic.png"
+						href="/resources/assets/img/camera.png"><img
+						class="img-responsive" src="/resources/assets/img/camera.png"
 						style="margin-top: 80px; box-shadow: 2px 2px 2px #888888"></a>
 					<hr>
 				</div>
@@ -209,7 +209,7 @@
 					</form>
 					<div class="col-md-6"></div>
 				</div>
-				<! --/col-lg-8-->
+				<!--/col-lg-8-->
 
 			</div>
 			<div>
@@ -250,201 +250,139 @@
 	</div>
 	<!-- /aboutwrap -->
 </div>
-<! --/Portfoliowrap -->
+<!--/Portfoliowrap -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
 
 <script>
-	$(document)
-			.ready(
-					function() {
+	$(document).ready(function() {
 
-						var isFirstThumb = true;
+		var isFirstThumb = true;
 
-						//최종 등록용 jquery, 파일 데이터도 전송하기 위해 코드 추가(sb)
-						$("#regBtn")
-								.on(
-										"click",
-										function(e) {
-											e.preventDefault();
-											//추가되는 부분
-											var $register = $(".register");
-											var mainThumb = $(
-													".thumbview .thumbcontainer .mainthumb")
-													.attr("data-uploadName");
-											console.log(mainThumb);
-											if (mainThumb === undefined) {
-												alert("이미지를 최소 1개 이상 등록하고 썸네일을 지정해주세요");
-												return;
-											}
+		//최종 등록용 jquery, 파일 데이터도 전송하기 위해 코드 추가(sb)
+		$("#regBtn").on("click", function(e) {
+			e.preventDefault();
+			//추가되는 부분
+			var $register = $(".register");
+			var mainThumb = $(
+					".thumbview .thumbcontainer .mainthumb")
+					.attr("data-uploadName");
+			console.log(mainThumb);
+			if (mainThumb === undefined) {
+				alert("이미지를 최소 1개 이상 등록하고 썸네일을 지정해주세요");
+				return;
+			}
 
-											$(
-													".thumbview .thumbcontainer .thumbimg")
-													.each(
-															function(idx) {
-																var fileName = $(
-																		this)
-																		.attr(
-																				"data-uploadName");
-																console
-																		.log(fileName);
-																var str = "<input type='hidden' name='imgFiles' value='" + fileName + "'>";
-																$register
-																		.append(str);
-															});
+			$(".thumbview .thumbcontainer .thumbimg").each(function(idx) {
+				var fileName = $(this).attr("data-uploadName");
+				console.log(fileName);
+				var str = "<input type='hidden' name='imgFiles' value='" + fileName + "'>";
+				$register.append(str);
+			});
 
-											$register
-													.append("<input type='hidden' name='img' value='" + mainThumb + "'>");
+			$register.append("<input type='hidden' name='img' value='" + mainThumb + "'>");
 
-											var input = $(
-													".input[name='bname']")
-													.val();
+			var input = $(".input[name='bname']").val();
 
-											if ($(".input[name='bname']").val() === "") {
-												alert("책 제목을 입력해주세요.");
-												return;
-											} else if ($(
-													".input[name='publisher']")
-													.val() === "") {
-												alert("출판사를 입력해주세요.");
-												return;
-											} else if ($(".input[name='owner']")
-													.val() === "") {
-												alert("책 주인을 입력해주세요.");
-												return;
-											}
-											$register.submit();
-										});
+			if ($(".input[name='bname']").val() === "") {
+				alert("책 제목을 입력해주세요.");
+				return;
+			} else if ($(".input[name='publisher']").val() === "") {
+				alert("출판사를 입력해주세요.");
+				return;
+			} else if ($(".input[name='owner']").val() === "") {
+				alert("책 주인을 입력해주세요.");
+				return;
+			}
+			$register.submit();
+		});
 
-						$(".uploadBtn")
-								.on(
-										"click",
-										function(e) {
-											console.log(isFirstThumb);
-											var formData = new FormData();
-											formData
-													.append(
-															"file",
-															$("#uploadForm")[0].files[0]);
+		$(".uploadBtn").on("click",function(e) {
+			console.log(isFirstThumb);
+			var formData = new FormData();
+			formData.append("file",$("#uploadForm")[0].files[0]);
+		
+			$.ajax({
+				url : "/upload/new",
+				data : formData,
+				datatype : 'json',
+				processData : false,
+				contentType : false,
+				type : 'POST',
+				success : function(response) {
+					console.log(response);
+					if (response === "") {
+						alert("image파일이 아닙니다");
+					} else {
+						alert("등록 성공");
+					}
+			
+					document.querySelector(".thumbview").innerHTML += "<div class = 'thumbcontainer' >"
+							+ "<img class='thumbimg' alt='Avatar' data-uploadName=" + response.uploadName + "" +
+			                           " src = '/upload/thumb/" + response.uploadName + "'>"
+							+ "<div class = 'middle'>"
+							+ "<div class = 'text'>select thumbnail</div>"
+							+ "</div>"
+							+ "<img class = 'delete' src = '/resources/assets/img/delete.png'>"
+							+ ((isFirstThumb) ? "<img class = 'mainthumb' src = '/resources/assets/img/check.png' data-uploadName=" + response.uploadName + ">"
+									: "")
+							+ "</div>";
+			
+					if (isFirstThumb) {
+						$(".fancybox").attr("href","/upload/image/"+ response.uploadName);
+						$(".img-responsive").attr("src","/upload/thumb/"+ response.uploadName);
+						isFirstThumb = false;
+					}
+									/* 
+									"<img data-uploadName="+response.uploadName+
+			" data-thumbName="+response.thumbName+
+			" src = '/upload/thumb/"+response.thumbName+"'>";  */
+				}
+			});
+			
+		});
 
-											$
-													.ajax({
-														url : "/upload/new",
-														data : formData,
-														datatype : 'json',
-														processData : false,
-														contentType : false,
-														type : 'POST',
-														success : function(
-																response) {
-															console
-																	.log(response);
-															if (response === "") {
-																alert("image파일이 아닙니다");
-															} else {
-																alert("등록 성공");
-															}
+		//이미지 삭제 ajax(sb)
+		//동적으로 생성된 elements에 event를 등록할 때는 .on을 쓴다
+		//참조: https://www.tutorialrepublic.com/faq/how-to-bind-click-event-to-dynamically-added-elements-in-jquery.php
+		$(".thumbview").on("click",".delete",function(e) {
+			e.stopPropagation();
 
-															document
-																	.querySelector(".thumbview").innerHTML += "<div class = 'thumbcontainer' >"
-																	+ "<img class='thumbimg' alt='Avatar' data-uploadName=" + response.uploadName + "" +
-                                        " src = '/upload/thumb/" + response.uploadName + "'>"
-																	+ "<div class = 'middle'>"
-																	+ "<div class = 'text'>select thumbnail</div>"
-																	+ "</div>"
-																	+ "<img class = 'delete' src = '/resources/assets/img/delete.png'>"
-																	+ ((isFirstThumb) ? "<img class = 'mainthumb' src = '/resources/assets/img/check.png' data-uploadName=" + response.uploadName + ">"
-																			: "")
-																	+ "</div>";
+			var $target = $(e.target);
+			console.log($target
+					.siblings('.thumbimg'));
+			console.log($target.siblings(
+					'.thumbimg').attr(
+					"data-uploadName"));
+			var data = {
+				origin : $target.siblings('.thumbimg').attr("data-uploadName")
+			};
 
-															if (isFirstThumb) {
-																$(".fancybox")
-																		.attr(
-																				"href",
-																				"/upload/image/"
-																						+ response.uploadName);
-																$(
-																		".img-responsive")
-																		.attr(
-																				"src",
-																				"/upload/thumb/"
-																						+ response.uploadName);
-																isFirstThumb = false;
-															}
-															/* 
-															"<img data-uploadName="+response.uploadName+
-									" data-thumbName="+response.thumbName+
-									" src = '/upload/thumb/"+response.thumbName+"'>";  */
-														}
-													});
+			$.ajax({ //문제발생
+				url : '/upload/delete',
+				type : 'DELETE',
+				contentType : "application/json; charset=utf-8", // = 띄우면 안됨
+				data : JSON.stringify(data),
+				success : function(result) {
+					console.log("delete ok");
+					$target.parent().remove();
+				}
+			});
+		});
 
-										});
+		//메인 썸네일을 설정하는 이벤트이다. 메인 썸네일은 하나만 가능하므로 라디오 옵션 동작방식을 참조하여 구현하였다.
+		$(".thumbview").on("click", ".thumbimg", function(e) {
+			e.stopPropagation();
+			var fileName = $(e.target).attr("data-uploadName");
+			var str = "<img class = 'mainthumb' src = '/resources/assets/img/check.png' data-uploadName=" + fileName + ">";
+			$(".mainthumb").remove();
+			$(e.target).parent().append(str);
 
-						//이미지 삭제 ajax(sb)
-						//동적으로 생성된 elements에 event를 등록할 때는 .on을 쓴다
-						//참조: https://www.tutorialrepublic.com/faq/how-to-bind-click-event-to-dynamically-added-elements-in-jquery.php
-						$(".thumbview")
-								.on(
-										"click",
-										".delete",
-										function(e) {
-											e.stopPropagation();
+			$(".fancybox").attr("href","/upload/image/"+ fileName);
+			$(".img-responsive").attr("src","/upload/thumb/"+ fileName);
+		});
 
-											var $target = $(e.target);
-											console.log($target
-													.siblings('.thumbimg'));
-											console.log($target.siblings(
-													'.thumbimg').attr(
-													"data-uploadName"));
-											var data = {
-												origin : $target.siblings(
-														'.thumbimg').attr(
-														"data-uploadName")
-											};
-
-											$
-													.ajax({ //문제발생
-														url : '/upload/delete',
-														type : 'DELETE',
-														contentType : "application/json; charset=utf-8", // = 띄우면 안됨
-														data : JSON
-																.stringify(data),
-														success : function(
-																result) {
-															console
-																	.log("delete ok");
-															$target.parent()
-																	.remove();
-														}
-													});
-										});
-
-						//메인 썸네일을 설정하는 이벤트이다. 메인 썸네일은 하나만 가능하므로 라디오 옵션 동작방식을 참조하여 구현하였다.
-						$(".thumbview")
-								.on(
-										"click",
-										".thumbimg",
-										function(e) {
-											e.stopPropagation();
-											var fileName = $(e.target).attr(
-													"data-uploadName");
-											var str = "<img class = 'mainthumb' src = '/resources/assets/img/check.png' data-uploadName=" + fileName + ">";
-											$(".mainthumb").remove();
-											$(e.target).parent().append(str);
-
-											$(".fancybox")
-													.attr(
-															"href",
-															"/upload/image/"
-																	+ fileName);
-											$(".img-responsive")
-													.attr(
-															"src",
-															"/upload/thumb/"
-																	+ fileName);
-										});
-
-					});
+	});
 </script>
 <%@include file="../include/footer.jsp"%>

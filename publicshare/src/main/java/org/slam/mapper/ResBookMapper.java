@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.slam.dto.ReservationDTO;
 
@@ -12,7 +13,7 @@ import org.slam.dto.ReservationDTO;
 
 public interface ResBookMapper {
 	//status 확인 필요(sb)
-	@Insert("insert into db_96.tbl_reservation (bno, lender, status) values (#{dto.bno} , #{mid}, #{dto.status})")
+	@Insert("insert into tbl_reservation (bno, lender, status) values (#{dto.bno} , #{mid}, 'onapply')")//#{dto.status}
 	public void insertReservation(@Param("dto")ReservationDTO dto, @Param("mid")String mid);
 	
 	
@@ -43,6 +44,10 @@ public interface ResBookMapper {
 	
 	//소유주의 물건에 등록 신청을 했을 경우에 생기는 쿼리(뉴)
 	public List<Map<String, Object>> getApplyList(String owner);
+
+
+	@Select("select rescnt from tbl_book where bno = #{bno}")
+	public int bookCheck(int bno);
 
 
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.slam.dto.BookDTO;
 import org.slam.dto.MemberDTO;
 import org.slam.dto.ReservationDTO;
 import org.slam.mapper.ResBookMapper;
@@ -46,6 +47,12 @@ public class ResBookServiceImpl implements ResBookService {
 	// 대여 요청온 물품 리스트를 가져오는 임플(sb)
 	public List<Map<String, Object>> ApplyList(String owner) {
 		return mapper.getApplyList(owner);
+	}
+
+	@Override
+	public int bookCheck(int bno) {
+		return mapper.bookCheck(bno);
+		
 	}
 
 }

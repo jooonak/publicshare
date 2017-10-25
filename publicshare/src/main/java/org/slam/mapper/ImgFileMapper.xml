@@ -11,4 +11,12 @@
         (LAST_INSERT_ID(), #{img})
     	</foreach>
 	</insert>
+	
+	<insert id="modifyImgFileList" >
+		insert into tbl_image (bno, imgname) values
+		<foreach item="img" collection="imgFiles" separator=",">   
+        (#{bno}, #{img})
+    	</foreach>
+	</insert>
 </mapper>
+

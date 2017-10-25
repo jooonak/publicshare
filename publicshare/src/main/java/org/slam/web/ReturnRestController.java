@@ -5,10 +5,15 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.slam.dto.Criteria;
 import org.slam.dto.MemberDTO;
+import org.slam.dto.ReplyDTO;
 import org.slam.dto.ReservationDTO;
 import org.slam.service.ReturnService;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +26,15 @@ public class ReturnRestController {
 
 	@Inject
 	ReturnService service;
+	
+//	//리스트에 대한 처리 컨트롤러에서  rest컨트롤러로 옮겨옴(hb)
+//	@GetMapping("/list")
+//	public void getList(@ModelAttribute("cri") Criteria cri, Model model, @SessionAttribute("member") MemberDTO member) {
+//		model.addAttribute("list",service.getList(cri, member.getMid()));
+//	}
 
+	
+	
 	@PostMapping("/request")
 	public void returnRequest(@RequestBody int rno) {
 		//반납 요청이 있는지 확인하는 메서드 -JH
@@ -29,7 +42,7 @@ public class ReturnRestController {
 	}
 
 	@GetMapping("/check")
-	public List<Map<String, Object>> checkOnReturn(@SessionAttribute("member") MemberDTO dto){
+	public List<Map<String, Object>> checkOnReturn(@SessionAttribute(value="member", required=false) MemberDTO dto){
 		//내 소유의 책에 대해 반납 신청이 있는지 체크하고, 있을 때 그 책의 정보를 가져오는 메서드 -JH 
 		return service.checkItem(dto.getMid());
 	}
@@ -58,7 +71,7 @@ public class ReturnRestController {
 	}
 	
 	@GetMapping("/checkReturn")
-	public List<Map<String, Object>> checkReturn(@SessionAttribute("member") MemberDTO dto){
+	public List<Map<String, Object>> checkReturn(@SessionAttribute(value="member", required=false) MemberDTO dto){
 		//내가 반납 신청 했으나, 상대방에 의해 거절된 정보를 가져오는 메서드 -JH
 		return service.checkReturn(dto.getMid());
 	}

@@ -15,6 +15,7 @@
 		and lender = #{mid}
 		and status = 'onloan'
 		order by startdate asc, rno desc
+		limit #{cri.skip},8
 	</select>
 	
 	<resultMap type="map" id="getMyLoanList">

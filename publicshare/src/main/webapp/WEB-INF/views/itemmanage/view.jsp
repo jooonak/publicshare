@@ -47,6 +47,80 @@
 	margin-left: 100px;
 	line-height: 1.42857143;
 } 
+
+.btn-position {
+	float: right;
+	margin-left: 1%;
+}
+
+.thumbview {
+	margin-top: 20px;
+	padding: 0;
+	display: flex;
+	flex-direction: row;
+	height: 80px;
+	width: 100%;
+	box-shadow: 2px 2px 2px #888888;
+	
+}
+
+.thumbcontainer {
+	position: relative;
+	width: 25%;
+	height: 90%; 
+	display : inline-block;
+	/* or */
+	float: left;
+	margin-top:1px;
+	margin-left:5px;
+	
+}
+
+.thumbimg {
+	position: relative;
+	opacity: 1;
+	display: block;
+	height: 100%;
+	width: 100%;
+	transition: .5s ease;
+	backface-visibility: hidden;
+	box-shadow: 1px 1px 1px #888888;
+}
+
+.middle {
+	transition: .5s ease;
+	opacity: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%)
+}
+
+
+.mainthumb {
+	position: absolute;
+	top: 5%;
+	left: 5%;
+	height: 30px;
+	width: 30px;
+	z-index: 2;
+}
+
+.thumbcontainer:hover .thumbimg {
+	opacity: 0.3;
+}
+
+.thumbcontainer:hover .middle {
+	opacity: 1;
+}
+
+.thumbtext {
+	background-color: #4CAF50;
+	color: white;
+	font-size: 16px;
+	padding: 16px 32px;
+}
 </style>
 
 <section id="home" name="home"></section>
@@ -54,7 +128,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<h1>Public Share</h1>
+				<h1>PUBLIC SHARE</h1>
 			</div>
 		</div>
 		<!--/row -->
@@ -68,39 +142,51 @@
 
 <div id="portfoliowrap">
 
-	<h1>Book Reservation</h1>
+	<h1>BOOK INFORMATION</h1>
 	<div id="aboutwrap">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-4 name">
 					<!-- 상대경로, 절대경로 참조: https://stackoverflow.com/questions/34445457/404-error-for-bootstrap-min-css-and-bootstrap-min-js -->
 					<a class="fancybox"
-						href="/resources/assets/img/portfolio/port04.jpg"><img
-						class="img-responsive" src="/resources/assets/img/pic.png"></a>
+						href="/upload/image/${book.img}"><img
+						class="img-responsive" src="/upload/thumb/${book.img}"
+						style="margin-top: 10px; box-shadow: 2px 2px 2px #888888"></a>
+					<div class="container thumbview">
+						<c:forEach items="${book.imgFiles}" var="img">
+						<!-- fileUpload용 div -->
+							<div class = 'thumbcontainer'>
+								<img class='thumbimg' data-uploadName= "${img}" src = "/upload/thumb/${img}" >
+							</div>
+						</c:forEach>
+					</div>
 				</div>
 				<!--/col-lg-4-->
 				<div class="col-lg-8 name-desc">
-					<div class="col-md-6">
-						<!-- BookDTO, MemberDTO, Criteria 필요 -->
-						<h3>글쓴이, 등록일, 조회수</h3>
-						<h3>${book.bname }</h3>
-						<h3>${book.publisher}</h3>
-						<h3>${book.owner}</h3>
-
-						<div>
-							<!-- 수정/삭제 div 호출(대여 페이지에서 이동할 경우 표시되는 버튼) -->
-							<input class="modBtn" type="button" name="대여" value="수정/삭제">
-							<!-- 히스토리 div 호출(나의 물품 관리 페이지에서 이동할 경우 표시되는 버튼) -->
-							<input type="button" name="대여" value="히스토리">
-							<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
-							<a href="/itemmanage/list"><input type="button" name="list"
-								value="뒤로가기"></a>
-						</div>
-					</div>
+					<!-- BookDTO, MemberDTO, Criteria 필요 -->
+					<h1 style="margin:15px;font-weight: bold;">${book.bname}</h1>
+					<h4 style="text-align: right"><b>publisher:</b> ${book.publisher} | <b>owner:</b> ${book.owner}</h4>
+					<hr style="margin-bottom: 0px">
+					<blockquote>
+				      <p>${book.contents}</p> 
+				    </blockquote>
 				</div>
 				<!--/col-lg-8-->
 			</div>
 			<!-- /row -->
+			<hr>
+			<div style="margin-top:2%;">
+				<!-- 수정/삭제 div 호출(대여 페이지에서 이동할 경우 표시되는 버튼) -->
+				<button type="button" class = "btn btn-default btn-position modBtn" id="regBtn" name="대여" >modify</button>
+				<!-- fileUpload용 div 및 버튼-->
+				<button type="button" class = "btn btn-primary btn-position " data-toggle="modal" data-target=".modalDialogA" name="대여" >history</button>
+				<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
+				<a href="/itemmanage/list">
+					<button type="button" class = "btn btn-default btn-position" id="listBtn" name="list" >
+					back</button>
+				</a>
+			</div>
+			
 			<br>
 			<!--댓글 입력 부분 _hb  -->
 
@@ -124,7 +210,6 @@
 						<form class="form-horizontal tasi-form">
 							<div class="form-group has-success">
 								<ul class="replyUL">
-
 								</ul>
 							</div>
 						</form>
@@ -312,6 +397,16 @@ $(document).ready(function() {
 
 	});
 	
+	
+	//메인 썸네일을 설정하는 이벤트이다. 메인 썸네일은 하나만 가능하므로 라디오 옵션 동작방식을 참조하여 구현하였다.
+	$(".thumbview").on("click", ".thumbimg", function(e) {
+		e.stopPropagation();
+		var fileName = $(e.target).attr("data-uploadName");
+
+		$(".fancybox").attr("href","/upload/image/"+ fileName);
+		$(".img-responsive").attr("src","/upload/thumb/"+ fileName);
+	});
+
 	
 });	
 </script>

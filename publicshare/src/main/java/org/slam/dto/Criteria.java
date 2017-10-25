@@ -6,6 +6,17 @@ import lombok.extern.java.Log;
 public class Criteria {
 	private int page;
 	private int total;
+	private String condition; 
+	private String searchConcept;
+	
+
+	public String getSearchConcept() {
+		return searchConcept;
+	}
+
+	public void setSearchConcept(String searchConcept) {
+		this.searchConcept = searchConcept;
+	}
 
 	public Criteria() {
 		this(1);
@@ -43,6 +54,16 @@ public class Criteria {
 	public int getSkip() {
 		return (this.page - 1) * 8;
 	}
+
+	public String getCondition() {
+		return condition;
+	}
+
+	public void setCondition(String condition) {
+		this.condition = '%'+condition+'%';
+	}
+	
+	
 
 //	public String getURI() {
 //		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page).build();
