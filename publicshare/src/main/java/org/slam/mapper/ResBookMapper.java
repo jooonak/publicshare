@@ -49,5 +49,12 @@ public interface ResBookMapper {
 	@Select("select rescnt from tbl_book where bno = #{bno}")
 	public int bookCheck(int bno);
 
+	@Select("select lender, status, startdate, rescnt, res.latefee from tbl_reservation res, tbl_book book where res.bno = book.bno and book.bno = #{bno} and status != 'returned'"
+			+ " and status != 'cancel' and status != 'loanrejected'")
+	public List<Map<String, Object>> getResHistory(int bno);
+
+	@Select("select * from tbl_reservation res, tbl_book book where res.bno = book.bno and book.bno = #{bno} order by rno desc")
+	public List<Map<String, Object>> getBookHistory(int bno);
+
 
 }

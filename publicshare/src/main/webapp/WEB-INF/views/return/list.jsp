@@ -178,7 +178,8 @@ a:hover {
 					<li><button id="resalarm" style="float: right;" data-toggle="modal"
 						data-target="#myModal" class="btn btn-default">Reservation Alarm</button></li>
 					<li><button id="none" style="float: right;" data-toggle="modal"
-						data-target="#myModal" class="btn btn-default">Arrears Alarm</button></li>
+						data-target="#myModal" class="btn btn-default">Arrears Alarm
+						<span class="label label-danger">2</span></button></li>
 				</ul>
 			</div><hr/>
 		
@@ -459,10 +460,10 @@ $(document).ready(function() {
 		var startDate = $(this).attr("data-time");
 		//포멧 변경(달에 대한 처리 다시 해야함)
 		var arr1 = startDate.split(" ");
-		if(arr1[1] =="Oct"){
-			arr1[1]= "9";
+		if(arr1[1] == "Oct"){
+			arr1[1] = "9";
 		}
-		var dt1= new Date(arr1[5],arr1[1],arr1[2]);
+		var dt1 = new Date(arr1[5],arr1[1],arr1[2]);
 		//console.log(dt1.getTime());
 		
 		//두 날의 차이를 구함

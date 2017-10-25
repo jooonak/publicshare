@@ -336,8 +336,7 @@ $(document).ready(function() {
 	}
 	
 	$("#returnBtn").on("click", function(e){
-		$ModalLabel.text("");
-		$ModalLabel.text("Return request");
+		$ModalLabel.html("Return request");
 		$modalBody.html("");
 		checkReturn();
 	});

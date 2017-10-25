@@ -144,7 +144,7 @@
 							<hr>
 							<c:choose>
 								<c:when test="${book.resCnt ne 0}">
-									<input type="button" data-toggle="modal"
+									<input id="resBtn" type="button" data-toggle="modal"
 										data-target=".modalDialogB" value="예약">
 								</c:when>
 								<c:when test="${book.resCnt eq 0}">
@@ -186,11 +186,9 @@
 										<div class="modal-content_b">
 											<div class="modal-body_b  ">
 												<h2>신청 페이지</h2>
-												<h4>예약 하시겠습니까?</h4>
-												<input type="hidden" name="bno" value="${book.bno}">
-												<p>
-													<button id="reserveBook" value="onres">예약하기</button>
-												</p>
+												<h4>Loan/Reservation History</h4>
+												<div class="history"></div>
+												
 											</div>
 										</div>
 									</div>
@@ -294,135 +292,213 @@
 			});
 		});
 	
-
-// 댓글 리스트만들기
-function getReplyList() {
-
-	var str = "";
-	$.getJSON("/reply/${book.bno}/list/1", function(arr) {
-
-		for (var i = 0; i < arr.length; i++) {
-			str +="<li data-reno='"+arr[i].reno+"'><label class=col-sm-2 control-label col-lg-2 for=inputSuccess>"+arr[i].nickname+"</label>";
-			str +=arr[i].reno+"<div class=form-control id=inputSuccess >"+arr[i].reply+"</div>";
-			str +="<div class=addWindow data-addreno='"+arr[i].reno+"'></div>";
-			str +="<button class='replyModBtn'>수정</button>";
-			str +="<button class='replyDelBtn'>삭제</button>";
-			str +="<button class='reReplyBtn'>댓글 달기</button></li>";
+	
+	// 댓글 리스트만들기
+	function getReplyList() {
+	
+		var str = "";
+		$.getJSON("/reply/${book.bno}/list/1", function(arr) {
+	
+			for (var i = 0; i < arr.length; i++) {
+				str +="<li data-reno='"+arr[i].reno+"'><label class=col-sm-2 control-label col-lg-2 for=inputSuccess>"+arr[i].nickname+"</label>";
+				str +=arr[i].reno+"<div class=form-control id=inputSuccess >"+arr[i].reply+"</div>";
+				str +="<div class=addWindow data-addreno='"+arr[i].reno+"'></div>";
+				str +="<button class='replyModBtn'>수정</button>";
+				str +="<button class='replyDelBtn'>삭제</button>";
+				str +="<button class='reReplyBtn'>댓글 달기</button></li>";
+			}
+	
+			$(".replyUL").html(str);
+		});	
+	}
+	getReplyList();
+	
+	//댓글 등록
+	$(".regBtn").on("click",function(e){
+		
+		var data = {reply:$("#reply").val() ,bno: ${book.bno}};
+				
+	 	$.ajax({
+			url:'/reply/new',
+			type:'POST',
+			contentType:"application/json; charset=utf-8",
+			data:JSON.stringify(data),
+			success: function(result){
+				alert("register success");
+	 			$("#reply").val("");
+	 			getReplyList();
+			} 
+		});
+	 });
+	
+	//댓글 삭제
+	$(".replyUL").on("click", ".replyDelBtn", function(e){
+		
+		e.preventDefault();
+		
+		var reno = $(this).parent().attr("data-reno");
+		
+		$.ajax({
+			url:'/reply/'+reno,
+			type:'DELETE',
+			contentType:"application/json; charset=utf-8",
+			success: function(result){
+				alert("delete success");	
+				getReplyList();
+			}
+		});
+		
+	});
+	
+	// 댓글 수정 창 띄우기 (나중에 모달로 바꿔야할듯)
+	$(".replyUL").on("click",".replyModBtn",function(e){
+		
+		e.preventDefault();
+		
+		var reno = $(this).parent().attr("data-reno");
+		
+		var str ="<div class=modWindow><textarea id=modReply rows=1 cols=80 ></textarea><input class='modWindowBtn' type=button value=댓글수정></div>";
+	
+		$(".addWindow[data-addreno='"+reno+"']").html(str);
+			 
+	});
+	
+	
+	// 댓글 수정	
+	$(".replyUL").on("click",".modWindowBtn", function(e){
+		
+		e.preventDefault();
+		
+		var reno = $(this).parent().parent().parent().attr("data-reno");
+		
+		var data = {reno : reno , reply:$("#modReply").val()};
+				
+		$.ajax({
+			url:'/reply/'+reno,
+			type:'PUT',
+			data:JSON.stringify(data),
+			contentType:"application/json; charset=utf-8",
+			success: function(result){
+				alert("mod success");
+				$("#modReply").val("");
+				getReplyList();
+			} 
+		});		
+	});
+	
+	// 대댓글 창 띄우기
+	$(".replyUL").on("click",".reReplyBtn",function(e){
+		
+		e.preventDefault();
+		
+		var reno = $(this).parent().attr("data-reno");
+		
+		var str ="<div class=rereplyWindow><textarea id=reReply rows=1 cols=60 ></textarea><input class='rereplyWindowBtn' type=button value=댓글달기></div>";
+	
+		$(".addWindow[data-addreno='"+reno+"']").html(str);
+			 
+	});
+	
+	// 대댓글 달기	
+	$(".replyUL").on("click",".rereplyWindowBtn", function(e){
+		
+		e.preventDefault();
+		
+		var reno = $(this).parent().parent().parent().attr("data-reno");
+		
+		var data = {reno : reno , reply:$("#reReply").val(), bno: ${book.bno}};
+		console.log(data);
+		
+	 	$.ajax({
+			url:'/reply/rereply/'+reno,
+			type:'POST',
+			contentType:"application/json; charset=utf-8",
+			data:JSON.stringify(data),
+			success: function(result){
+				alert("rereply register success");
+	 			$("#reReply").val("");
+	 			getReplyList();
+			} 
+		});
+	});
+	
+	//예약하기 버튼을 눌렀을 때 나타나는 Modal에 현재 책의 예약현황을 보여주기위한 이벤트 처리
+	$("#resBtn").on("click", function(e){
+		
+		var data = {
+				bno: ${book.bno},
+				owner: '${book.owner}'
+				};
+		console.log(data);
+		
+		$.ajax({
+			url:"/reservation/gethistory",
+			type:"post",
+			contentType:"application/json; charset=utf-8",
+			data:JSON.stringify(data),
+			success: function(result){
+				console.log(result);
+				
+				var checkUser = 0;
+				var exist = false;
+				//해당 책의 예약 목록에 유저가 있는지 확인하기 위해 사용하는 변수
+				
+				var date = new Date();
+				
+				for (var i = 0; i < result.length; i++) {
+					if(result[0].startdate == null){
+						result[0].startdate = date.getTime();
+					}
+					if(result[i].lender === '${member.mid}'){
+						checkUser = i;
+						exist = true;
+						//리턴받은 리스트의 i번째의 유저 id가 현재 유저 id와 같다면 위 변수에 i값을 담는다
+					}
+				}
+				
+				var endDate = result[0].startdate + 604800000;
+				//반납 날짜 (기본 7일로 잡았기 때문에 7일을 더해서 계산)
+				var late = endDate > date.getTime() ? true : false;
+				//반납 날짜가 현재 날짜보다 크면 연체중, 아니면 연체가 아님
+				var expect = 
+					late ? 
+						exist ? date.getTime() + (checkUser * 604800000) :
+							date.getTime() + (result[0].rescnt * 604800000) :
+						exist ? date.getTime() - endDate + (checkUser * 604800000) :
+							date.getTime() - endDate + (result[0].rescnt * 604800000);
+				//예상 대여 가능 날짜 - 현재 대여자가 연체중일때에는 현재 날짜 + (예약자수 * 7) 
+				//현재 대여자가 연체중이 아닐때에는 현재날짜 - 반납 날짜 + (예약자 수 * 7)
+				result[0].endDate = endDate;
+				result[0].late = late;
+				result[0].expect = expect;
+				result[0].exist = exist;
+				result[0].checkUser = checkUser;
+				//컨트롤러에서 반환반은 값에 속성 추가
+				
+				var time = new Date(result[0].startdate);
+				time = (time.getFullYear()+"-"+(time.getMonth() + 1)+"-"+time.getDate());
+				result[0].startdate = time;
+				
+				time = new Date(expect);
+				time = (time.getFullYear()+"-"+(time.getMonth() + 1)+"-"+time.getDate());
+				result[0].expect = time;
+				$(".history").html(getHistory(result[0]));
+			} 
+		});
+	});
+	
+	
+	function getHistory(result){
+		var str = "";
+		str += "<div><p>Lender: " + result.lender + " | StartDate: " + result.startdate + "</p>";
+		str += "<p>Reservation Count: " + result.checkUser + " | Expected Wait Date: " + result.expect + "</p>";
+		if(result.exist){
+			str += "<p><button id='reserveBook' value='onres'>예약취소</button></p>";
+		} else {
+			str += "<p><button id='reserveBook' value='onres'>예약하기</button></p></div>";
 		}
-
-		$(".replyUL").html(str);
-	});	
-}
-getReplyList();
-
-//댓글 등록
-$(".regBtn").on("click",function(e){
-	
-	var data = {reply:$("#reply").val() ,bno: ${book.bno}};
-			
- 	$.ajax({
-		url:'/reply/new',
-		type:'POST',
-		contentType:"application/json; charset=utf-8",
-		data:JSON.stringify(data),
-		success: function(result){
-			alert("register success");
- 			$("#reply").val("");
- 			getReplyList();
-		} 
-	});
- });
-
-//댓글 삭제
-$(".replyUL").on("click", ".replyDelBtn", function(e){
-	
-	e.preventDefault();
-	
-	var reno = $(this).parent().attr("data-reno");
-	
-	$.ajax({
-		url:'/reply/'+reno,
-		type:'DELETE',
-		contentType:"application/json; charset=utf-8",
-		success: function(result){
-			alert("delete success");	
-			getReplyList();
-		}
-	});
-	
-});
-
-// 댓글 수정 창 띄우기 (나중에 모달로 바꿔야할듯)
-$(".replyUL").on("click",".replyModBtn",function(e){
-	
-	e.preventDefault();
-	
-	var reno = $(this).parent().attr("data-reno");
-	
-	var str ="<div class=modWindow><textarea id=modReply rows=1 cols=80 ></textarea><input class='modWindowBtn' type=button value=댓글수정></div>";
-
-	$(".addWindow[data-addreno='"+reno+"']").html(str);
-		 
-});
-
-
-// 댓글 수정	
-$(".replyUL").on("click",".modWindowBtn", function(e){
-	
-	e.preventDefault();
-	
-	var reno = $(this).parent().parent().parent().attr("data-reno");
-	
-	var data = {reno : reno , reply:$("#modReply").val()};
-			
-	$.ajax({
-		url:'/reply/'+reno,
-		type:'PUT',
-		data:JSON.stringify(data),
-		contentType:"application/json; charset=utf-8",
-		success: function(result){
-			alert("mod success");
-			$("#modReply").val("");
-			getReplyList();
-		} 
-	});		
-});
-
-// 대댓글 창 띄우기
-$(".replyUL").on("click",".reReplyBtn",function(e){
-	
-	e.preventDefault();
-	
-	var reno = $(this).parent().attr("data-reno");
-	
-	var str ="<div class=rereplyWindow><textarea id=reReply rows=1 cols=60 ></textarea><input class='rereplyWindowBtn' type=button value=댓글달기></div>";
-
-	$(".addWindow[data-addreno='"+reno+"']").html(str);
-		 
-});
-
-// 대댓글 달기	
-$(".replyUL").on("click",".rereplyWindowBtn", function(e){
-	
-	e.preventDefault();
-	
-	var reno = $(this).parent().parent().parent().attr("data-reno");
-	
-	var data = {reno : reno , reply:$("#reReply").val(), bno: ${book.bno}};
-	console.log(data);
-	
- 	$.ajax({
-		url:'/reply/rereply/'+reno,
-		type:'POST',
-		contentType:"application/json; charset=utf-8",
-		data:JSON.stringify(data),
-		success: function(result){
-			alert("rereply register success");
- 			$("#reReply").val("");
- 			getReplyList();
-		} 
-	});
-});
+		return str;
+	}
 });	
 	
 

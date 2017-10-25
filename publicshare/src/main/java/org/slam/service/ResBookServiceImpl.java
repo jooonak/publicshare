@@ -60,4 +60,12 @@ public class ResBookServiceImpl implements ResBookService {
 		//대여 신청할 때 해당 책에 대한 예약 카운트 (대여자 수)를 가져오는 메서드
 	}
 
+	@Override
+	public List<Map<String, Object>> getHistory(BookDTO dto, MemberDTO member) {
+		if(dto.getOwner().equals(member.getMid())) {
+			return mapper.getBookHistory(dto.getBno());
+		}
+		return mapper.getResHistory(dto.getBno());
+	}
+
 }

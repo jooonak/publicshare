@@ -83,7 +83,7 @@
 					<div class="col-md-6">
 						<!-- BookDTO, MemberDTO, Criteria 필요 -->
 						<h3>글쓴이, 등록일, 조회수</h3>
-						<h3>${book.bname }</h3>
+						<h3>${book.bname}</h3>
 						<h3>${book.publisher}</h3>
 						<h3>${book.owner}</h3>
 
