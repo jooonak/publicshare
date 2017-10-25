@@ -85,5 +85,5 @@ public class ReservationRestController {
 
 		return service.ApplyList(dto.getMid());
 	}
-
+	
 }

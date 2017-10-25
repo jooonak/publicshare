@@ -169,8 +169,12 @@ function getReplyList() {
 		for (var i = 0; i < arr.length; i++) {
 			if(arr[i].reno == arr[i].replytree){
 				
+				var regdate = new Date(arr[i].replydate);
+				
+				regdate = (regdate.getFullYear()+"-"+(regdate.getMonth() + 1)+"-"+regdate.getDate());
+				
 				str +="<li data-reno='"+arr[i].reno+"'><label class=col-sm-2 control-label col-lg-2 for=inputSuccess>"+arr[i].nickname+"</label>";
-				str +=arr[i].reno+"<div class=form-control id=inputSuccess >"+arr[i].reply+"</div>";
+				str +=arr[i].reno +" "+ regdate+"<div class=form-control id=inputSuccess >"+arr[i].reply+"</div>";
 				str +="<div class=addWindow data-addreno='"+arr[i].reno+"'></div>";
 				str +="<button class='replyModBtn'>수정</button>";
 				str +="<button class='replyDelBtn'>삭제</button>";

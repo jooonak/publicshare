@@ -33,4 +33,7 @@ public interface ReturnMapper {
 	
 	@Select("select count(*) from tbl_reservation where lender = #{mid} and status = 'onloan'")
 	public int getTotal(String mid);
+
+	//사용자의 대여 이력 (hb)
+	public List<Map<String, Object>> loanHistoryList(String mid);
 }

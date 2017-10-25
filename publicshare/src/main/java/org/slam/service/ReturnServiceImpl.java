@@ -33,6 +33,7 @@ public class ReturnServiceImpl implements ReturnService{
 		if(dto.getStatus().equals("onapply") || dto.getStatus().equals("onres")) {
 			resBookMapper.updateResCntDown(dto.getBno());
 		}
+		System.out.println(dto);
 		returnMapper.request(dto);
 	}
 
@@ -79,6 +80,12 @@ public class ReturnServiceImpl implements ReturnService{
 	public List<Map<String, Object>> getList(int page, String status, String mid) {
 		int skip = (page - 1) * 8;
 		return returnMapper.getList(skip, status, mid);
+	}
+
+	@Override
+	public List<Map<String, Object>> loanHistoryList(String mid) {
+		
+		return returnMapper.loanHistoryList(mid);
 	}
 
 }

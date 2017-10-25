@@ -9,7 +9,7 @@ public class ReplyDTO {
 
 	private int reno;
 	private String reply,replyer;
-	private Date regdate;
+	private Date replydate;
 	private int bno;// book rno와 연결?
 	
 	//대댓글 관련 추가
