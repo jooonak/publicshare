@@ -172,11 +172,11 @@ a:hover {
 			<!--reigster btn  -->
 			<div class="conditions">
 				<ul class="left">
-					<li><a type="button" href="#"><span data-oper="onloan">Rented
+					<li><a class="btn" href="#"><span class="status" data-oper="onloan">Rented
 								Books</span></a></li>
-					<li><a type="button" href="#"><span data-oper="onapply">Apply
+					<li><a class="btn" href="#"><span class="status" data-oper="onapply">Apply
 								For Rental</span></a></li>
-					<li><a type="button" href="#"><span data-oper="onres">Booking
+					<li><a class="btn" href="#"><span class="status" data-oper="onres">Booking
 								Books</span></a></li>
 				</ul>
 				<ul class="right">
@@ -230,7 +230,7 @@ a:hover {
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
-<script type="text/javascript" src="/resources/js/pageMaker.js?ver=1"></script>
+<script type="text/javascript" src="/resources/js/pageMaker.js?ver=2"></script>
 <script type="text/javascript">
 var pageStr = PageMaker({
     total: ${cri.total},
@@ -255,8 +255,8 @@ $(document).ready(function() {
 			  	rno: $this.attr('data-rno')
 			  };
 		
-		console.log("click....");
-		console.log(data);
+		
+		//console.log(data);
 		$.ajax({
 			url : '/myreturn/' + $this.attr('data-oper'),
 			type : 'post',
@@ -292,10 +292,12 @@ $(document).ready(function() {
 		var str = "";
 		$.getJSON("/myreturn/checkReturn", function(result) {
 			for (var i = 0; i < result.length; i++) {
+				
 				str += "<div id=alarm><img src=/upload/thumb/" + result[i].BookDTO.img + " onerror=this.src='/resources/assets/img/default.jpg'>";
-				str += "<p>" + result[i].BookDTO.bname + " | " + result[i].BookDTO.publisher + "</p>";
-				str += "<p>" + result[i].BookDTO.owner + " - 반납 거부</p><p> 상세 내용은 작성자와 상의하세요</p>";
-				str += "<p><button id=checkReject data-rno=" + result[i].ReservationDTO.rno
+				str += "<p>반납 거부 됨 - 책의 소유주에게 문의 바람</p>";
+				str += "<p>Book title: " + result[i].BookDTO.bname  +"</p>";
+				str += "<p>Book owner: " + result[i].BookDTO.owner + "";
+				str += "<button id=checkReject data-rno=" + result[i].ReservationDTO.rno
 				str += " data-bno=" + result[i].BookDTO.bno + " class='btn btn-primary'>CONFIRM</button></p></div><hr/>";		
 			}
 			$(".modal-body").html(str);
@@ -305,11 +307,13 @@ $(document).ready(function() {
 	function getResAlarm(){
 		var str = "";
 		$.getJSON("/reservation/applyreadylist", function(result) {
+			console.log(result);
 			for (var i = 0; i < result.length; i++) {
 				str += "<div id=alarm><img src=/upload/thumb/" + result[i].BookDTO.img + " onerror=this.src='/resources/assets/img/default.jpg'>";
-				str += "<p>" + result[i].BookDTO.bname + " | " + result[i].BookDTO.publisher + "</p>";
-				str += "<p>" + result[i].BookDTO.owner + " | " + result[i].ReservationDTO.resDate + "</p>";
-				str += "<p><button id=resBtn data-oper=reserveconfirm data-rno=" + result[i].ReservationDTO.rno;
+				str += "<p>Book title: " + result[i].BookDTO.bname + "</p>";
+				str += "<p>Book owner: " + result[i].BookDTO.owner + "</p>";
+				str += "<p>Reservation time: " + getTime(result[i]) + "";
+				str += "<button id=resBtn data-oper=reserveconfirm data-rno=" + result[i].ReservationDTO.rno;
 				str += " data-bno=" + result[i].BookDTO.bno + " class='btn btn-success'>ACCEPT</button>";
 				str += "<button id=resBtn data-oper=reservereject data-rno=" + result[i].ReservationDTO.rno;
 				str += " data-bno=" + result[i].BookDTO.bno + " class='btn btn-danger'>CANCEL</button></p></div><hr/>";		
@@ -324,16 +328,10 @@ $(document).ready(function() {
 			
 			for (var i = 0; i < result.length; i++) {
 				
-				var time = new Date(result[i].ReservationDTO.returnDate);
-				
-				var dateString = (time.getFullYear()+"-"+(time.getMonth() + 1)+"-"+time.getDate()+" "+
-						time.getHours()+":"+time.getMinutes()+":"+time.getSeconds());
-				
 				str += "<div id=alarm><img src=/upload/thumb/" + result[i].BookDTO.img + " onerror=this.src='/resources/assets/img/default.jpg'>";
-				str += "<p>book Title :" + result[i].BookDTO.bname +"</p>";
-				str += "<p>Book Owner :" + result[i].BookDTO.owner +"</p>";
-				str += "<p>ReturnDate :" + dateString + "</p>";
-				str += "<hr>" 
+				str += "<p>Book title: " + result[i].BookDTO.bname +"</p>";
+				str += "<p>Book owner: " + result[i].BookDTO.owner +"</p>";
+				str += "<p>Return time: " + getTime(result[i]) + "</p></div><hr/>";
 				
 			}
 			$(".modal-body").html(str);
@@ -361,7 +359,7 @@ $(document).ready(function() {
 		getHistoryAlarm();
 	});
 	
-	$(".left").on("click", function(e){
+	$(".status").on("click", function(e){
 		$url = $(e.target).attr("data-oper");
 		onLoanList("/myreturn/list/"+ $url +"/"+${cri.page});
 	});
@@ -426,7 +424,7 @@ $(document).ready(function() {
 			  	status: $this.attr('data-status'),
 			  	lateFee: $this.attr("data-fee")
 			  };
-		console.log(data);
+		//console.log(data);
 		
 		$.ajax({
 			url : '/myreturn/request',
@@ -441,7 +439,7 @@ $(document).ready(function() {
 	
 	//연체금 계산 함수
 	function lateFee(result){
-		console.log(result);
+		//console.log(result);
 		//현재 시간
 		var timeStamp = new Date();
 		timeStamp=timeStamp.getTime();
@@ -454,7 +452,7 @@ $(document).ready(function() {
 		
 		//두 날의 차이를 구함
 		var betweenDay =Math.floor((timeStamp-startDate)/1000/60/60/24);
-		console.log(betweenDay);
+		//console.log(betweenDay);
 		
 		//날짜에 따른 연체금 리스트에 표기
 		var str = "";
@@ -482,6 +480,23 @@ $(document).ready(function() {
 			lateFee:lateFee
 		};
 	}	
+	
+	//시간 구하는 함수(hb)
+	function getTime(result){
+		
+		console.log(result);
+		
+		if(result.ReservationDTO.resDate != null ){
+			var time = new Date(result.ReservationDTO.resDate);
+		}else{
+			var time = new Date(result.ReservationDTO.returnDate);
+		}
+		
+		var timeString = (time.getFullYear()+"-"+(time.getMonth() + 1)+"-"+time.getDate()+" "+
+				time.getHours()+":"+time.getMinutes());
+		
+		return timeString;
+	}
 });	
 </script>
 

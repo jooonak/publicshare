@@ -52,6 +52,7 @@ public class ReplyServiceImpl implements ReplyService {
 	@Override
 	public void reReplyUpdate(ReplyDTO dto, String mid) {
 		mapper.reReplycreate(dto, mid);
+		bookMapper.updateReplyCnt(dto.getBno());
 		
 	}
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -42,11 +43,11 @@
 	float: left;
 }
 
-#reReplyForm{
+#reReplyForm {
 	width: 80%;
 	margin-left: 100px;
 	line-height: 1.42857143;
-} 
+}
 
 .btn-position {
 	float: right;
@@ -61,19 +62,17 @@
 	height: 80px;
 	width: 100%;
 	box-shadow: 2px 2px 2px #888888;
-	
 }
 
 .thumbcontainer {
 	position: relative;
 	width: 25%;
-	height: 90%; 
-	display : inline-block;
+	height: 90%;
+	display: inline-block;
 	/* or */
 	float: left;
-	margin-top:1px;
-	margin-left:5px;
-	
+	margin-top: 1px;
+	margin-left: 5px;
 }
 
 .thumbimg {
@@ -96,7 +95,6 @@
 	transform: translate(-50%, -50%);
 	-ms-transform: translate(-50%, -50%)
 }
-
 
 .mainthumb {
 	position: absolute;
@@ -154,15 +152,15 @@
 			<div class="row">
 				<div class="col-lg-4 name">
 					<!-- 상대경로, 절대경로 참조: https://stackoverflow.com/questions/34445457/404-error-for-bootstrap-min-css-and-bootstrap-min-js -->
-					<a class="fancybox"
-						href="/upload/image/${book.img}"><img
+					<a class="fancybox" href="/upload/image/${book.img}"><img
 						class="img-responsive" src="/upload/thumb/${book.img}"
 						style="margin-top: 10px; box-shadow: 2px 2px 2px #888888"></a>
 					<div class="container thumbview">
 						<c:forEach items="${book.imgFiles}" var="img">
-						<!-- fileUpload용 div -->
-							<div class = 'thumbcontainer'>
-								<img class='thumbimg' data-uploadName= "${img}" src = "/upload/thumb/${img}" >
+							<!-- fileUpload용 div -->
+							<div class='thumbcontainer'>
+								<img class='thumbimg' data-uploadName="${img}"
+									src="/upload/thumb/${img}">
 							</div>
 						</c:forEach>
 					</div>
@@ -170,8 +168,10 @@
 				<!--/col-lg-4-->
 				<div class="col-lg-8 name-desc">
 					<!-- BookDTO, MemberDTO, Criteria 필요 -->
-					<h1 style="margin:15px;font-weight: bold;">${book.bname}</h1>
-					<h4 style="text-align: right"><b>publisher:</b> ${book.publisher} | <b>owner:</b> ${book.owner}</h4>
+					<h1 style="margin: 15px; font-weight: bold;">${book.bname}</h1>
+					<h4 style="text-align: right">
+						<b>publisher:</b> ${book.publisher} | <b>owner:</b> ${book.owner}
+					</h4>
 					<hr style="margin-bottom: 0px">
 					<blockquote class="content-box">
 				      <p>${book.contents}</p> 
@@ -189,8 +189,8 @@
 				<button type="button" class = "btn btn-warning btn-position modBtn" id="regBtn" name="대여" >modify</button>
 				<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
 				<a href="/itemmanage/list">
-					<button type="button" class = "btn btn-default btn-position" id="listBtn" name="list" >
-					back</button>
+					<button type="button" class="btn btn-default btn-position"
+						id="listBtn" name="list">back</button>
 				</a>
 			</div>
 			<br>
@@ -206,20 +206,23 @@
 						<div class="form-horizontal">
 							<h4>REPLIES</h4>
 							<input class="form-replycontrol" name="reply" id="reply">
-							<input style="float: right;" class="regBtn" type="button"
+							<input style="float: right;" class="regBtn btn btn-default btn-position" type="button"
 								value="등록">
 						</div>
-						<br>
-						<br>
+						<br> <br>
+
+
 
 						<!--댓글 리스트 (홍빈)  -->
 						<form class="form-horizontal tasi-form">
 							<div class="form-group has-success">
-								<ul class="replyUL">
+								<ul class="replyUL container">
 								</ul>
 							</div>
 						</form>
 						<!--댓글 리스트 (홍빈)  -->
+
+
 
 					</div>
 					<!-- /form-panel -->
@@ -228,6 +231,8 @@
 			</div>
 			<!-- /row -->
 			<!-- INPUT MESSAGES -->
+
+
 
 		</div>
 		<!-- /container -->
@@ -258,28 +263,31 @@ function getReplyList() {
 	$.getJSON("/reply/${book.bno}/list/1", function(arr) {
 
 		for (var i = 0; i < arr.length; i++) {
+			
+			var regdate = new Date(arr[i].replydate);
+			regdate = (regdate.getFullYear()+"-"+(regdate.getMonth() + 1)+"-"+regdate.getDate()+" "+
+					regdate.getHours()+":"+regdate.getMinutes());
+			
 			if(arr[i].reno == arr[i].replytree){
+			
+				str += "<div class='media'>";
+				str += "<div class='media-left'> <img src='/resources/assets/img/1196652-200.png' class='media-object' style='width:45px'></div>";
+				str += "<div class='media-body'><h5 class='media-heading'>"+arr[i].reno +" "+arr[i].nickname+" "+regdate+ "</h5>";
+				str += "<p class='addWindow' data-reno='"+arr[i].reno+"'>"+arr[i].reply+"";
+				str +="<button style = float:right; id='replyModBtn' class='btn btn-default btn-position'>수정</button>";
+				str +="<button style = float:right; id='replyDelBtn' class='btn btn-default btn-position'>삭제</button>";
+				str +="<button style = float:right; id='reReplyBtn'  class='btn btn-default btn-position'>댓글 달기</button></p>";
+				str += "</div></div></div>";
 				
-				var regdate = new Date(arr[i].replydate);
+			}else if(arr[i].reno != arr[i].replytree){
 				
-				regdate = (regdate.getFullYear()+"-"+(regdate.getMonth() + 1)+"-"+regdate.getDate());
-				
-				str +="<li data-reno='"+arr[i].reno+"'><label class=col-sm-2 control-label col-lg-2 for=inputSuccess>"+arr[i].nickname+"</label>";
-				str +=arr[i].reno +" "+ regdate+"<div class=form-control id=inputSuccess >"+arr[i].reply+"</div>";
-				str +="<div class=addWindow data-addreno='"+arr[i].reno+"'></div>";
-				str +="<button class='replyModBtn'>수정</button>";
-				str +="<button class='replyDelBtn'>삭제</button>";
-				str +="<button class='reReplyBtn'>댓글 달기</button></li>";
-				
-			} else if(arr[i].reno != arr[i].replytree){
-				
-				str +="<li ><label class=col-sm-2 id=reReplyForm control-label col-lg-2 for=inputSuccess>"+arr[i].nickname+"</label>";
-				str +=arr[i].reno+"<div class=form-control id=inputSuccess >"+arr[i].reply+"</div>";
-				str +="<div class=addWindow></div></li>";
-				
+				str += "<div style='margin-left:50px;' class='media'>";
+				str += "<div class='media-left'><img src='/resources/assets/img/1196652-200.png' class='media-object' style='width:45px'></div>";
+				str += "<div class='media-body'><h5  class='media-heading'>"+arr[i].reno +" "+arr[i].nickname+" "+regdate+ "</h5 >";
+				str += "<p class='addWindow'><h4>"+arr[i].reply+"</h4></p>";
+				str += "</div></div></div></div>";
 			}
-		}
-
+		}	
 		$(".replyUL").html(str);
 	});	
 }
@@ -304,8 +312,7 @@ $(".regBtn").on("click",function(e){
  });
 
 //댓글 삭제
-$(".replyUL").on("click", ".replyDelBtn", function(e){
-	e.preventDefault();
+$(".replyUL").on("click", "#replyDelBtn", function(e){
 	var reno = $(this).parent().attr("data-reno");
 	$.ajax({
 		url:'/reply/'+reno,
@@ -314,21 +321,21 @@ $(".replyUL").on("click", ".replyDelBtn", function(e){
 		success: function(result){
 			alert("delete success");	
 			getReplyList();
-		}
+		} 
 	});
 	
 });
 
 // 댓글 수정 창 띄우기 (나중에 모달로 바꿔야할듯)
-$(".replyUL").on("click",".replyModBtn",function(e){
+$(".replyUL").on("click","#replyModBtn",function(e){
 	
 	e.preventDefault();
 	
 	var reno = $(this).parent().attr("data-reno");
 	
-	var str ="<div class=modWindow><textarea id=modReply rows=1 cols=80 ></textarea><input class='modWindowBtn' type=button value=댓글수정></div>";
+	var str ="<div class=modWindow><textarea id=modReply rows=1 cols=90 ></textarea><input class='modWindowBtn btn btn-default btn-position' type=button value=댓글수정></div>";
 
-	$(".addWindow[data-addreno='"+reno+"']").html(str);
+	$(".addWindow[data-reno='"+reno+"']").html(str);
 		 
 });
 
@@ -338,7 +345,8 @@ $(".replyUL").on("click",".modWindowBtn", function(e){
 	
 	e.preventDefault();
 	
-	var reno = $(this).parent().parent().parent().attr("data-reno");
+	var reno = $(this).parent().parent().attr("data-reno");
+	
 	
 	var data = {reno : reno , reply:$("#modReply").val()};
 			
@@ -356,15 +364,16 @@ $(".replyUL").on("click",".modWindowBtn", function(e){
 });
 
 // 대댓글 창 띄우기
-$(".replyUL").on("click",".reReplyBtn",function(e){
+$(".replyUL").on("click","#reReplyBtn",function(e){
 	
 	e.preventDefault();
 	
 	var reno = $(this).parent().attr("data-reno");
+	console.log(reno);
 	
 	var str ="<div class=rereplyWindow><textarea id=reReply rows=1 cols=60 ></textarea><input class='rereplyWindowBtn' type=button value=댓글달기></div>";
 
-	$(".addWindow[data-addreno='"+reno+"']").html(str);
+	$(".addWindow[data-reno='"+reno+"']").html(str);
 		 
 });
 
@@ -373,8 +382,8 @@ $(".replyUL").on("click",".rereplyWindowBtn", function(e){
 	
 	e.preventDefault();
 	
-	var reno = $(this).parent().parent().parent().attr("data-reno");
-	
+	var reno = $(this).parent().parent().attr("data-reno");
+	console.log(reno);
 	var data = {reno : reno , reply:$("#reReply").val(), bno: ${book.bno}};
 	console.log(data);
 	
