@@ -255,6 +255,8 @@ $(document).ready(function() {
 			  	rno: $this.attr('data-rno')
 			  };
 		
+		console.log("click....");
+		console.log(data);
 		$.ajax({
 			url : '/myreturn/' + $this.attr('data-oper'),
 			type : 'post',
@@ -310,7 +312,7 @@ $(document).ready(function() {
 				str += "<p><button id=resBtn data-oper=reserveconfirm data-rno=" + result[i].ReservationDTO.rno;
 				str += " data-bno=" + result[i].BookDTO.bno + " class='btn btn-success'>ACCEPT</button>";
 				str += "<button id=resBtn data-oper=reservereject data-rno=" + result[i].ReservationDTO.rno;
-				str += "data-bno=" + result[i].BookDTO.bno + " class='btn btn-danger'>CANCEL</button></p></div><hr/>";		
+				str += " data-bno=" + result[i].BookDTO.bno + " class='btn btn-danger'>CANCEL</button></p></div><hr/>";		
 			}
 			$(".modal-body").html(str);
 		});
@@ -368,18 +370,18 @@ $(document).ready(function() {
 		
 		var str = "";
 		var text = "";
-		var messege = "";
+		var message = "";
 		
 		if(url.split("/")[3] == "onloan"){
-				text = "반납하기";
-				messege = "대여중인 도서가 없습니다";
-			} else if (url.split("/")[3] == "onapply") {
-				text = "대여 취소";
-				messege = "대여 신청중인 도서가 없습니다";
-			} else if (url.split("/")[3] == "onres") {
-				text = "예약 취소";
-				messege = "예약중인 도서가 없습니다";
-			} 
+            text = "반납하기";
+            message = "대여중인 도서가 없습니다";
+        } else if (url.split("/")[3] == "onapply") {
+            text = "대여 취소";
+            message = "대여 신청중인 도서가 없습니다";
+        } else if (url.split("/")[3] == "onres") {
+            text = "예약 취소";
+            message = "예약중인 도서가 없습니다";
+        }
 		
 		$.getJSON(url, function(result){
 			
@@ -389,7 +391,7 @@ $(document).ready(function() {
 					str += "<div class='col-sm-3 col-xs-12 desc'>";
 					str += "<div class='project-wrapper'><div class='project'>";
 					str += "<div class='photo-wrapper'><div class='photo'>";
-					str += "<img src='/upload/thumb/${data.BookDTO.img}' alt='' onerror=this.src='/resources/assets/img/default.jpg'>";
+					str += "<img src='/upload/thumb/" + result[i].BookDTO.img + "' alt='' onerror=this.src='/resources/assets/img/default.jpg'>";
 					str += "</div><div class='caption'><h4>" + result[i].BookDTO.bname + "</h4>";
 					str += "<p>" + result[i].BookDTO.owner + " | " + result[i].BookDTO.publisher + "</p>";
 					
@@ -405,7 +407,7 @@ $(document).ready(function() {
 					
 				}
 			} else {
-				str += "<div style='text-align: center; margin: 20% auto;'><h1>" + messege + "</h1></div>";
+				str += "<div style='text-align: center; margin: 20% auto;'><h1>" + message + "</h1></div>";
 			}
 			
 			$("#listDiv").html(str);

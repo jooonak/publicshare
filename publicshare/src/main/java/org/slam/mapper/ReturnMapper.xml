@@ -12,10 +12,18 @@
 		tbl_book book, tbl_reservation res 
 		where res.bno = book.bno 
 		and lender = #{mid} 
-		
+
+		<!-- <choose> 
+			<when test="status == 'onloan'">
+			and status like #{status} order by startdate asc
+			</when>
+			<otherwise > -->
 			and status = #{status} 
-			
-		limit #{skip},8
+			<!-- </otherwise>
+		</choose>
+		limit #{skip},8  -->
+
+
 	</select>
 	
 	<resultMap type="map" id="getMyLoanList">
@@ -24,6 +32,7 @@
 			<id property="bname" column="bname" />
 			<id property="publisher" column="publisher" />
 			<id property="owner" column="owner" />
+			<id property="img" column="img" />
 		</collection>
 		<collection property="ReservationDTO" ofType="ReservationDTO">
 			<id property="rno" column="rno" />
@@ -90,6 +99,7 @@
 			<id property="bno" column="bno" />
 			<id property="bname" column="bname" />
 			<id property="publisher" column="publisher" />
+			<id property="img" column="img" />
 		</collection>
 		<collection property="ReservationDTO" ofType="ReservationDTO">
 			<id property="rno" column="rno" />

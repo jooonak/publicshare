@@ -533,9 +533,9 @@
 						exist = true;
 						//리턴받은 리스트의 i번째의 유저 id가 현재 유저 id와 같다면 위 변수에 i값을 담는다
 					} else {
-						checkUser = result.length - 1;
-						exist = false;
-					}
+                        checkUser = result.length - 1;
+                        exist = false;
+                    }
 				}
 				
 				var endDate = result[0].startdate + 604800000;
@@ -575,6 +575,7 @@
 		str += "<div><p>Lender: " + result.lender + " | StartDate: " + result.startdate + "</p>";
 		str += "<p>Reservation Count: " + result.checkUser + " | Expected Wait Date: " + result.expect + "</p>";
 		if(result.exist){
+			str += "<p>현재 예약 중 입니다. 취소하시겠습니까?</p>";
 			str += "<p><button id='reserveBook' value='onres'>예약취소</button></p>";
 		} else {
 			str += "<p><button id='reserveBook' value='onres'>예약하기</button></p></div>";
