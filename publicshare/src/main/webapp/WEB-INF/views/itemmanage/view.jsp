@@ -121,6 +121,12 @@
 	font-size: 16px;
 	padding: 16px 32px;
 }
+
+.content-box {
+	height:230px;
+	overflow:scroll;
+	overflow-x: hidden;
+}
 </style>
 
 <section id="home" name="home"></section>
@@ -167,26 +173,26 @@
 					<h1 style="margin:15px;font-weight: bold;">${book.bname}</h1>
 					<h4 style="text-align: right"><b>publisher:</b> ${book.publisher} | <b>owner:</b> ${book.owner}</h4>
 					<hr style="margin-bottom: 0px">
-					<blockquote>
+					<blockquote class="content-box">
 				      <p>${book.contents}</p> 
 				    </blockquote>
+				    <hr>
 				</div>
 				<!--/col-lg-8-->
 			</div>
 			<!-- /row -->
-			<hr>
 			<div style="margin-top:2%;">
-				<!-- 수정/삭제 div 호출(대여 페이지에서 이동할 경우 표시되는 버튼) -->
-				<button type="button" class = "btn btn-default btn-position modBtn" id="regBtn" name="대여" >modify</button>
-				<!-- fileUpload용 div 및 버튼-->
+				<!-- history 버튼(-->
 				<button type="button" class = "btn btn-primary btn-position " data-toggle="modal" data-target=".modalDialogA" name="대여" >history</button>
+				
+				<!-- 수정/삭제 div 호출(대여 페이지에서 이동할 경우 표시되는 버튼) -->
+				<button type="button" class = "btn btn-warning btn-position modBtn" id="regBtn" name="대여" >modify</button>
 				<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
 				<a href="/itemmanage/list">
 					<button type="button" class = "btn btn-default btn-position" id="listBtn" name="list" >
 					back</button>
 				</a>
 			</div>
-			
 			<br>
 			<!--댓글 입력 부분 _hb  -->
 
@@ -299,11 +305,8 @@ $(".regBtn").on("click",function(e){
 
 //댓글 삭제
 $(".replyUL").on("click", ".replyDelBtn", function(e){
-	
 	e.preventDefault();
-	
 	var reno = $(this).parent().attr("data-reno");
-	
 	$.ajax({
 		url:'/reply/'+reno,
 		type:'DELETE',
@@ -402,7 +405,7 @@ $(document).ready(function() {
 	});
 	
 	
-	//메인 썸네일을 설정하는 이벤트이다. 메인 썸네일은 하나만 가능하므로 라디오 옵션 동작방식을 참조하여 구현하였다.
+	//메인 썸네일을 설정하는 이벤트이다.
 	$(".thumbview").on("click", ".thumbimg", function(e) {
 		e.stopPropagation();
 		var fileName = $(e.target).attr("data-uploadName");

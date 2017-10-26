@@ -76,9 +76,7 @@ public class MylibController {
 	// 나의 물품 수정/삭제 페이지
 	@PostMapping("/remove")
 	public String remove(BookDTO dto, Model model, RedirectAttributes rttr) {
-			
-		service.remove(dto.getBno());
-			
+		service.remove(dto.getBno());	
 		return "redirect:/itemmanage/list";
 	}
 

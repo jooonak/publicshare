@@ -11,12 +11,18 @@
 			owner != #{mid}
 			<if test="cri.searchConcept != null">
 				<choose>
+					<when test="cri.searchConcept == 'bname'">
+				      and bname like #{cri.condition}
+				    </when>
+				    <when test="cri.searchConcept == 'publisher'">
+				      and publisher like #{cri.condition}
+				    </when>
+				    <when test="cri.searchConcept == 'owner'">
+				      and owner like #{cri.condition}
+				    </when>
 				    <when test="cri.searchConcept == 'bookname+contents'">
 				      and bname like #{cri.condition} and contents like #{cri.condition}
 				    </when>
-				    <otherwise>
-				      and ${cri.searchConcept} like #{cri.condition} 
-				    </otherwise>
 				</choose>
 			</if>
 		</where>

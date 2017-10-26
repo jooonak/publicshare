@@ -34,9 +34,8 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-
+		
 <body data-spy="scroll" data-offset="0" data-target="#navigation">
-
 	<!-- Fixed navbar -->
 	<div id="navigation" class="navbar navbar-default navbar-fixed-top">
 		<div style="margin-left: 5%; margin-right: 5%">
@@ -61,3 +60,4 @@
 		</div>
 	</div>
 	<!-- header end  -->
+	

@@ -34,7 +34,8 @@
           jQuery(".fancybox").fancybox();
       });
 	   </script>
-
+		
   </body>
+  		
 </html>
 <!-- footer end  -->	

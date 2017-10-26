@@ -107,7 +107,11 @@ public class UploadController {
 	}
 	
 	@DeleteMapping("/delete")
-	public void upload(@RequestBody String origin) {
-		System.out.println("delete"+origin);
+	public void upload(@RequestBody Map<String, String> origin) {
+		String fileName = origin.get("origin");
+		File file = new File("D:\\publicshare\\"+fileName);
+		File ssumFile = new File("D:\\publicshare\\s_"+fileName);
+		file.delete();
+		ssumFile.delete();
 	}
 }

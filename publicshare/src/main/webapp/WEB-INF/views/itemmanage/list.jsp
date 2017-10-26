@@ -75,9 +75,9 @@
 }
 
 .modal-body_a {
-	background-color: #0f8845;
+	background-color: white;
 	border-radius: 10px;
-	color: white;
+	color: black;
 	padding: 10px;
 }
 /* modal style for alert end(hb) */
@@ -183,7 +183,6 @@ a:hover {
 			</div>
 
 			<div class="modal-body"></div>
-
 		</div>
 		<!-- modal-content -->
 	</div>
@@ -196,7 +195,7 @@ a:hover {
 <section id="portfolio" name="portfolio"></section>
 <div id="portfoliowrap">
 	<div class="container">
-		<a href="http://localhost:8080/itemmanage/register">
+		<a href="/itemmanage/register">
 			<button style="float: left;" class="btn btn-primary">register</button>
 		</a>
 		
@@ -258,26 +257,29 @@ a:hover {
 			</c:choose>
 			</div>
 		</div>
+		
+		
 
 		<ul id="divPaging">
 		</ul>
 	</div>
 </div>
-	<!-- register 성공시  뜨는 modal -->
-	<!-- 		<div class="row text-center" style="padding: 50px;">
-					<div class="modal modalDialogA fade in ">
-						<div class="modal-dialog_a modal-lg">
-							<div class="modal-content_a">
-								<div class="modal-body_a">
-									<h2>등록되었습니다.</h2>
-									<p>
-										<button>확인</button>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div> -->
+<div class="row text-center" style="padding: 50px;">
+	<div class="modal fade alert-modal" tabindex="-1"
+		role="dialogA" aria-labelledby="modalLabelA">
+		<div class="modal-dialog_a modal-lg">
+			<div class="modal-content_a">
+				<div class="modal-body_a  ">
+					<h1 class = "alert-subject">confirm</h1>
+					<h4 class = "alert-contents" style="margin-top:25px">서적이 등록되었습니다.</h4>
+					<p>
+						<button type="button" class="btn btn-default alert-close" data-dismiss="modal">close</button>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> 	
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -285,18 +287,25 @@ a:hover {
 <script type="text/javascript" src="/resources/js/pageMaker.js?ver=1"></script>
 <script type="text/javascript">
 
-var pageStr = PageMaker({
-    total: ${cri.total},
-    current: ${cri.page},
-    showCount: 8,
-    liCount: 5,
-    url: "/itemmanage/list" 
-});
-console.log(${cri.total});
-
-$("#divPaging").html(pageStr);
 
 $(document).ready(function() {
+	var pageStr = PageMaker({
+	    total: ${cri.total},
+	    current: ${cri.page},
+	    showCount: 8,
+	    liCount: 5,
+	    url: "/itemmanage/list" 
+	});
+	console.log(${cri.total});
+
+	$("#divPaging").html(pageStr);
+	var $alertModal = $(".alert-modal");
+	var $alertContents = $(".alert-contents");
+	
+	if('${result}' === "success"){
+		$(".alert-modal").modal("show");	
+	}
+	
 	
 	var $ModalLabel = $("#myModalLabel2");
 	var $modalBody = $(".modal-body");
@@ -306,7 +315,7 @@ $(document).ready(function() {
 		$.getJSON("/myreturn/check", function(result) {
 			for (var i = 0; i < result.length; i++) {
 				
-				str += "<div id=alarm><img src=/upload/thumb/" + result[i].BookDTO.img + " onerror=this.src='/resources/assets/img/default.jpg'>";
+				str += "<div id=alarm><img src='/upload/thumb/" + result[i].BookDTO.img + "' onerror=this.src='/resources/assets/img/default.jpg'>";
 				str += "<p>" + result[i].BookDTO.bname + " | " + result[i].BookDTO.publisher + "</p>";
 				str += "<p>" + result[i].ReservationDTO.lender + result[i].ReservationDTO.startDate + "</p>";
 				str += "<p><button class='btn btn-default' id=returnBtn data-oper=returnconfirm data-rno=" + result[i].ReservationDTO.rno;
@@ -323,7 +332,7 @@ $(document).ready(function() {
 		$.getJSON("/reservation/applylist", function(result) {
 			for (var i = 0; i < result.length; i++) {
 				
-				str += "<div id=alarm><img src=/upload/thumb/" + result[i].BookDTO.img + " onerror=this.src='/resources/assets/img/default.jpg'>";
+				str += "<div id=alarm><img src='/upload/thumb/" + result[i].BookDTO.img + "' onerror=this.src='/resources/assets/img/default.jpg'>";
 				str += "<p>" + result[i].BookDTO.bname + " | " + result[i].BookDTO.publisher + "</p>";
 				str += "<p>" + result[i].ReservationDTO.lender + " | " + result[i].ReservationDTO.resDate + "</p>";
 				str += "<p><button class='btn btn-default' id=resBtn data-oper=confirm data-rno=" + result[i].ReservationDTO.rno; 
@@ -362,7 +371,8 @@ $(document).ready(function() {
 			contentType: "application/json; charset=utf-8",
 			data:JSON.stringify(data),
 			success : function(result) {
-				alert("대여 처리 성공!");
+				$alertContents.html("대여 처리되었습니다.");
+				$alertModal.modal("show");
 				$modalBody.html("");
 				checkApply();
 			}
@@ -383,7 +393,8 @@ $(document).ready(function() {
 			contentType: "application/json; charset=utf-8",
 			data:JSON.stringify(data),
 			success : function(result) {
-				alert("반납 처리 성공!");
+				$alertContents.html("반납 처리되었습니다.");
+				$alertModal.modal("show");
 				$modalBody.html("");
 				checkReturn();
 			}
@@ -391,12 +402,6 @@ $(document).ready(function() {
 	});
 
 });
-var msg = "${result}";
-
-if (msg === "success") {
-
-	alert("등록되었습니다.");
-}
 </script>
 
 <%@include file="../include/footer.jsp"%>

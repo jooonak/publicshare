@@ -31,9 +31,9 @@
 }
 
 .modal-body_a {
-	background-color: #0f8845;
+	background-color: white;
 	border-radius: 10px;
-	color: white;
+	color: black;
 	padding: 10px;
 }
 
@@ -110,7 +110,8 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%)
+	-ms-transform: translate(-50%, -50%);
+	z-index: -1;
 }
 
 .delete {
@@ -120,6 +121,7 @@
 	height: 20px;
 	width: 20px;
 	z-index: 3;
+	cursor: pointer;
 }
 
 .mainthumb {
@@ -213,16 +215,15 @@
 
 			</div>
 			<div>
-				<h1 style="margin: 15px">image upload</h1>
-				
+				<h1 style="margin: 0px;margin-top: 40px">image upload</h1>
+				<!-- fileUpload용 div 및 버튼-->
+				<button style="margin-bottom:10px" type="button" class = "btn btn-primary btn-position" data-toggle="modal" data-target=".modalDialogA">file upload</button>
 			</div>
 				<!-- fileUpload용 div -->
 				<div class="container thumbview"></div>
 				<!-- 등록버튼  -->
 			<div style="margin-top:2%;">
-				<button type="button" class = "btn btn-default btn-position" id="regBtn" >Register</button>
-				<!-- fileUpload용 div 및 버튼-->
-				<button type="button" class = "btn btn-primary btn-position" data-toggle="modal" data-target=".modalDialogA">file upload</button>
+				<button type="button" class = "btn btn-primary btn-position" id="regBtn" >Register</button>
 				<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
 				<a href="/itemmanage/list">
 					<button type="button" class = "btn btn-default btn-position" id="listBtn" name="list" >
@@ -249,6 +250,22 @@
 		<!-- /container -->
 	</div>
 	<!-- /aboutwrap -->
+	<div class="row text-center" style="padding: 50px;">
+		<div class="modal fade alert-modal" tabindex="-1"
+			role="dialogA" aria-labelledby="modalLabelA">
+			<div class="modal-dialog_a modal-lg">
+				<div class="modal-content_a">
+					<div class="modal-body_a  ">
+						<h1 class = "alert-subject">confirm</h1>
+						<h4 class = "alert-contents" style="margin-top:15px">대여 신청이 완료되었습니다.</h4>
+						<p>
+							<button type="button" class="btn btn-default alert-close" data-dismiss="modal">close</button>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> 	
 </div>
 <!--/Portfoliowrap -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -257,22 +274,20 @@
 
 <script>
 	$(document).ready(function() {
-
+		var $alertModal = $(".alert-modal");
+		var $alertSubject = $(".alert-subject");
+		var $alertContents = $(".alert-contents");
 		var isFirstThumb = true;
 
 		//최종 등록용 jquery, 파일 데이터도 전송하기 위해 코드 추가(sb)
 		$("#regBtn").on("click", function(e) {
 			e.preventDefault();
+			
 			//추가되는 부분
 			var $register = $(".register");
 			var mainThumb = $(
 					".thumbview .thumbcontainer .mainthumb")
 					.attr("data-uploadName");
-			console.log(mainThumb);
-			if (mainThumb === undefined) {
-				alert("이미지를 최소 1개 이상 등록하고 썸네일을 지정해주세요");
-				return;
-			}
 
 			$(".thumbview .thumbcontainer .thumbimg").each(function(idx) {
 				var fileName = $(this).attr("data-uploadName");
@@ -284,15 +299,26 @@
 			$register.append("<input type='hidden' name='img' value='" + mainThumb + "'>");
 
 			var input = $(".input[name='bname']").val();
-
+			if (mainThumb === undefined) {
+				$alertSubject.html("check");
+				$alertContents.html("이미지를 최소 1개 이상 등록한 후 썸네일을 지정해주세요.");
+				$alertModal.modal("show");
+				return;
+			}
 			if ($(".input[name='bname']").val() === "") {
-				alert("책 제목을 입력해주세요.");
+				$alertSubject.html("check");
+				$alertContents.html("책 제목을 입력해 주세요.");
+				$alertModal.modal("show");
 				return;
 			} else if ($(".input[name='publisher']").val() === "") {
-				alert("출판사를 입력해주세요.");
+				$alertSubject.html("check");
+				$alertContents.html("출판사를 입력해 주세요.");
+				$alertModal.modal("show");
 				return;
 			} else if ($(".input[name='owner']").val() === "") {
-				alert("책 주인을 입력해주세요.");
+				$alertSubject.html("check");
+				$alertContents.html("책주인을 입력해주세요.");
+				$alertModal.modal("show");
 				return;
 			}
 			$register.submit();
@@ -313,9 +339,13 @@
 				success : function(response) {
 					console.log(response);
 					if (response === "") {
-						alert("image파일이 아닙니다");
+						$alertSubject.html("check");
+						$alertContents.html("이미지 파일이 아닙니다.");
+						$alertModal.modal("show");
 					} else {
-						alert("등록 성공");
+						$alertSubject.html("confirm");
+						$alertContents.html("이미지 등록 완료 (파일명: "+response.uploadName+")");
+						$alertModal.modal("show");
 					}
 			
 					document.querySelector(".thumbview").innerHTML += "<div class = 'thumbcontainer' >"
@@ -365,7 +395,6 @@
 				contentType : "application/json; charset=utf-8", // = 띄우면 안됨
 				data : JSON.stringify(data),
 				success : function(result) {
-					console.log("delete ok");
 					$target.parent().remove();
 				}
 			});
