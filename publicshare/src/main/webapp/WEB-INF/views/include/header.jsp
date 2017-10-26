@@ -40,9 +40,8 @@
 	}
 </style>
 </head>
-
+		
 <body data-spy="scroll" data-offset="0" data-target="#navigation">
-
 	<!-- Fixed navbar -->
 	<div id="navigation" class="navbar navbar-default navbar-fixed-top">
 		<div style="margin-left: 5%; margin-right: 5%">
@@ -69,3 +68,4 @@
 		</div>
 	</div>
 	<!-- header end  -->
+	

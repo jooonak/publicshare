@@ -40,7 +40,7 @@
 			$("#myLoan").html(${notice.applyreadycnt + notice.rejectcnt});
 		}
 	</script>
-
   </body>
+  		
 </html>
 <!-- footer end  -->	

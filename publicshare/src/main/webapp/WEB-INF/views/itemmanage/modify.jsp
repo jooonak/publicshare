@@ -29,9 +29,9 @@
 }
 
 .modal-body_a {
-	background-color: #0f8845;
+	background-color: white;
 	border-radius: 10px;
-	color: white;
+	color: black;
 	padding: 10px;
 }
 
@@ -108,7 +108,9 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%)
+	-ms-transform: translate(-50%, -50%);
+	z-index: -1;
+	
 }
 
 .delete {
@@ -118,6 +120,7 @@
 	height: 20px;
 	width: 20px;
 	z-index: 3;
+	cursor: pointer;
 }
 
 .mainthumb {
@@ -212,8 +215,10 @@
 			</div>
 			<!-- /row -->
 			<div>
-				<h1 style="margin: 15px">image upload</h1>
-				
+				<h1 style="margin: 0px;margin-top: 40px">image upload</h1>
+				<!-- upload 버튼 -->
+				<button style="margin-bottom:10px" type="button" class = " btn btn-primary btn-position" data-toggle="modal" data-target=".modalDialogA">file upload</button>
+	
 			</div>
 			<div class="container thumbview">
 				<c:forEach items="${book.imgFiles}" var="img">
@@ -229,12 +234,11 @@
 				</c:forEach>
 			</div>
 				<!-- 등록버튼  -->
-			<div style="margin-top:2%;">
-				<button type="button" class = "btn btn-default btn-position delBtn">delete</button>
-				<!-- fileUpload용 div 및 버튼-->
-				<button type="button" class = "btn btn-default btn-position modBtn">modify</button>
-				<!-- fileUpload용 div 및 버튼-->
-				<button type="button" class = "btn btn-primary btn-position" data-toggle="modal" data-target=".modalDialogA">file upload</button>
+			<div style="margin-top:2%;">	
+				<!-- 수정  btn -->
+				<button type="button" class = "btn btn-warning btn-position modBtn">modify</button>
+				<!-- 삭제 btn-->
+				<button type="button" class = "btn btn-danger btn-position delBtn">delete</button>
 				<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
 				<a href="/itemmanage/list">
 					<button type="button" class = "btn btn-default btn-position backBtn" id="listBtn" name="list" >
@@ -265,6 +269,22 @@
 		
 		<!-- /container -->
 	</div>
+	<div class="row text-center" style="padding: 50px;">
+		<div class="modal fade alert-modal" tabindex="-1"
+			role="dialogA" aria-labelledby="modalLabelA">
+			<div class="modal-dialog_a modal-lg">
+				<div class="modal-content_a">
+					<div class="modal-body_a  ">
+						<h1 class = "alert-subject">confirm</h1>
+						<h4 class = "alert-contents" style="margin-top:15px">대여 신청이 완료되었습니다.</h4>
+						<p>
+							<button type="button" class="btn btn-default alert-close" data-dismiss="modal">close</button>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> 
 	<!-- /aboutwrap -->
 </div>
 <!--/Portfoliowrap -->
@@ -282,6 +302,9 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	var $alertModal = $(".alert-modal");
+	var $alertSubject = $(".alert-subject");
+	var $alertContents = $(".alert-contents");
 	
 	//modify page 진입시 thumbnail 표시창에 썸네일 체크 표시 해주는 구문
 	(function(){
@@ -306,9 +329,13 @@ $(document).ready(function(){
 			success : function(response) {
 				console.log(response);
 				if (response === "") {
-					alert("image파일이 아닙니다");
+					$alertSubject.html("check");
+					$alertContents.html("이미지 파일이 아닙니다.");
+					$alertModal.modal("show");
 				} else {
-					alert("등록 성공");
+					$alertSubject.html("confirm");
+					$alertContents.html("이미지 등록 완료 (파일명: "+response.uploadName+")");
+					$alertModal.modal("show");
 				}
 		
 				document.querySelector(".thumbview").innerHTML += "<div class = 'thumbcontainer' >"
@@ -374,7 +401,9 @@ $(document).ready(function(){
 		var mainThumb = $(".thumbview .thumbcontainer .mainthumb").attr("data-uploadName");
 		console.log(mainThumb);
 		if (mainThumb === undefined) {
-			alert("이미지를 최소 1개 이상 등록하고 썸네일을 지정해주세요");
+			$alertSubject.html("check");
+			$alertContents.html("이미지를 최소 1개 이상 등록한 후 썸네일을 지정해주세요.");
+			$alertModal.modal("show");
 			return;
 		}
 
@@ -390,24 +419,32 @@ $(document).ready(function(){
 		var input = $(".input[name='bname']").val();
 
 		if ($(".input[name='bname']").val() === "") {
-			alert("책 제목을 입력해주세요.");
+			$alertSubject.html("check");
+			$alertContents.html("책 제목을 입력해 주세요.");
+			$alertModal.modal("show");
 			return;
 		} else if ($(".input[name='publisher']").val() === "") {
-			alert("출판사를 입력해주세요.");
+			$alertSubject.html("check");
+			$alertContents.html("출판사를 입력해 주세요.");
+			$alertModal.modal("show");
 			return;
 		} else if ($(".input[name='owner']").val() === "") {
-			alert("책 주인을 입력해주세요.");
+			$alertSubject.html("check");
+			$alertContents.html("책주인을 입력해주세요.");
+			$alertModal.modal("show");
 			return;
 		}
 		$modify.submit();
 		
 	});
 	
-	
-	
-	
-
 	$(".delBtn").on("click",function(e){
+		if(${book.resCnt} > 0){
+			$alertSubject.html("check");
+			$alertContents.html("현재 예약자가 존재하여 삭제하실 수 없습니다.");
+			$alertModal.modal("show");
+			return;
+		}
 		$("#actionForm").submit();
 	});
 	

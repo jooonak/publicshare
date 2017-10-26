@@ -46,6 +46,7 @@
 			<id property="rno" column="rno" />
 			<id property="lender" column="lender" />
 			<id property="status" column="status" />
+			<id property="resDate" column="resdate" />
 		</collection>
 	</resultMap>
 	
@@ -54,7 +55,7 @@
 		tbl_reservation.rno rno, tbl_reservation.bno bno,
 		tbl_reservation.lender, tbl_reservation.status,
 		tbl_book.bname bname, tbl_book.img img,
-		tbl_book.publisher publisher, tbl_book.owner
+		tbl_book.publisher publisher, tbl_book.owner,tbl_reservation.resdate
 		from
 		(
 		select
