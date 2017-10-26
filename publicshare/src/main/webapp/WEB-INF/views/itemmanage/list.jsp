@@ -151,6 +151,23 @@ a:hover {
 #alarm:hover { 
     background-color: #d3d3d3;
 }
+
+.conditions {
+	margin-left: 0;
+	height: 35px;
+}
+
+.conditions>.left>li {
+	list-style: none;
+	float: left;
+	margin-left: 1%;
+}
+
+.conditions>.right>li {
+	list-style: none;
+	float: right;
+	margin-left: 2%;
+}
 </style>
 
 
@@ -196,18 +213,27 @@ a:hover {
 <section id="portfolio" name="portfolio"></section>
 <div id="portfoliowrap">
 	<div class="container">
-		<a href="/itemmanage/register">
-			<button style="float: left;" class="btn btn-primary">register</button>
-		</a>
+		
 		
 		<!-- itemmanage에서 대여 요청에 대한 확인/거절을 누르는 modal -->
 
 		<!-- itemmanage에서 대여 요청에 대한 확인/거절을 누르는 modal(sb) -->
-		<button style="float: right;" id="resBtn" data-toggle="modal"
-			data-target="#myModal2" class="btn btn-default">대여 요청 리스트</button>
-		<button style="float: right;" id="returnBtn" data-toggle="modal"
-			data-target="#myModal2" class="btn btn-default">반납 요청 리스트</button>
+
 		<div class="row">
+			<div class="conditions">
+				<ul class="left">
+					<li><a href="/itemmanage/register"><button style="float: left;" class="btn btn-primary">register</button></a></li>
+				</ul>
+				<ul class="right">
+					<li><button style="float: right;" id="resBtn" data-toggle="modal"
+					data-target="#myModal2" class="btn btn-default">대여 요청 리스트
+					<span id="applycnt" class="label label-danger"></span></button></li>
+					<li><button style="float: right;" id="returnBtn" data-toggle="modal"
+					data-target="#myModal2" class="btn btn-default">반납 요청 리스트
+					<span id="returncnt" class="label label-danger"></span></button></li>
+				</ul>
+			</div>
+			<hr />
 			<h1>BOOKS</h1>
 			<!-- 나중에 css처리 해야함 -->
 			
@@ -292,7 +318,6 @@ var pageStr = PageMaker({
     liCount: 5,
     url: "/itemmanage/list" 
 });
-console.log(${cri.total});
 
 $("#divPaging").html(pageStr);
 
@@ -389,6 +414,13 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+	if(${notice.applycnt} !== 0){
+		$("#applycnt").html(${notice.applycnt});	
+	}
+	if(${notice.returncnt} !== 0){
+		$("#returncnt").html(${notice.returncnt});	
+	}
 
 });
 var msg = "${result}";

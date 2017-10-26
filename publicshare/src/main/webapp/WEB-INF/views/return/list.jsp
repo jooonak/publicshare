@@ -138,15 +138,13 @@ a:hover {
 .conditions>.left>li {
 	list-style: none;
 	float: left;
-	margin-left: 2%;
-	border-right: 1px thin black;
+	margin-left: 1%;
 }
 
 .conditions>.right>li {
 	list-style: none;
 	float: right;
 	margin-left: 2%;
-	border-right: 1px thin black;
 }
 </style>
 
@@ -172,21 +170,22 @@ a:hover {
 			<!--reigster btn  -->
 			<div class="conditions">
 				<ul class="left">
-					<li><a class="btn" href="#"><span class="status" data-oper="onloan">Rented
+					<li><a class="btn"><span class="status" data-oper="onloan">Rented
 								Books</span></a></li>
-					<li><a class="btn" href="#"><span class="status" data-oper="onapply">Apply
+					<li><a class="btn"><span class="status" data-oper="onapply">Apply
 								For Rental</span></a></li>
-					<li><a class="btn" href="#"><span class="status" data-oper="onres">Booking
+					<li><a class="btn"><span class="status" data-oper="onres">Booking
 								Books</span></a></li>
 				</ul>
 				<ul class="right">
 					<li><button id="returnalarm" style="float: right;"
 							data-toggle="modal" data-target="#myModal"
 							class="btn btn-default">Return Alarm
-							<span class="label label-danger">2</span></button></li>
+							<span id="rejectcnt" class="label label-danger"></span></button></li>
 					<li><button id="resalarm" style="float: right;"
 							data-toggle="modal" data-target="#myModal"
-							class="btn btn-default">Reservation Alarm</button></li>
+							class="btn btn-default">Reservation Alarm
+							<span id="applyreadycnt" class="label label-danger"></span></button></li>
 					<li><button id="history" style="float: right;"
 							data-toggle="modal" data-target="#myModal"
 							class="btn btn-default">Loan History</button></li>
@@ -481,7 +480,17 @@ $(document).ready(function() {
 			str: str,
 			lateFee:lateFee
 		};
-	}	
+	}
+	
+	//button 알람 표시를 위한 script
+	if(${notice.applyreadycnt} !== 0){
+		$("#applyreadycnt").html(${notice.applyreadycnt});
+	}
+	
+	if(${notice.rejectcnt} !== 0){
+		$("#rejectcnt").html(${notice.rejectcnt});
+	}
+	
 });	
 </script>
 

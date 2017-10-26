@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%@include file="../include/header.jsp"%>
@@ -121,6 +121,33 @@
 	font-size: 16px;
 	padding: 16px 32px;
 }
+
+.modal {
+	padding-right: 0px;
+	background-color: rgba(4, 4, 4, 0.3);
+}
+
+.modal-dialog_b {
+	top: 20%;
+	width: 50%;
+	position: absolute;
+	margin-left: 25%;
+}
+
+.modal-content_b {
+	border-radius: 10px;
+	border: none;
+	padding: 25px;
+	top: 40%;
+}
+
+.modal-body_b {
+	background-color: black;
+	border-radius: 10px;
+	color: white;
+	padding: 10px;
+}
+
 </style>
 
 <section id="home" name="home"></section>
@@ -168,22 +195,38 @@
 					<h4 style="text-align: right"><b>publisher:</b> ${book.publisher} | <b>owner:</b> ${book.owner}</h4>
 					<hr style="margin-bottom: 0px">
 					<blockquote>
-				      <p>${book.contents}</p> 
+				    	<p>${book.contents}</p>
 				    </blockquote>
 				</div>
 				<!--/col-lg-8-->
 			</div>
 			<!-- /row -->
+			<div class="row text-center" style="padding: 50px;">
+				<div class="modal fade modalDialogB " tabindex="-1"
+					role="dialogB" aria-labelledby="modalLabelB">
+					<div class="modal-dialog_b modal-lg">
+						<div class="modal-content_b">
+							<div class="modal-body_b  ">
+								<h2>Book History</h2>
+								<h4>${book.bname}</h4>
+								<h5>등록 날짜:   <fmt:formatDate value="${book.regDate}" pattern="yyyy-MM-dd"></fmt:formatDate>   
+								|   현재 대여/예약자 수:   ${book.resCnt}</h5>
+								<ul class="history"></ul>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			<hr>
 			<div style="margin-top:2%;">
 				<!-- 수정/삭제 div 호출(대여 페이지에서 이동할 경우 표시되는 버튼) -->
 				<button type="button" class = "btn btn-default btn-position modBtn" id="regBtn" name="대여" >modify</button>
 				<!-- fileUpload용 div 및 버튼-->
-				<button type="button" class = "btn btn-primary btn-position " data-toggle="modal" data-target=".modalDialogA" name="대여" >history</button>
+				<button id="resBtn" class = "btn btn-primary btn-position"  data-toggle="modal" data-target=".modalDialogB" >history</button>
 				<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
 				<a href="/itemmanage/list">
-					<button type="button" class = "btn btn-default btn-position" id="listBtn" name="list" >
-					back</button>
+					<button type="button" class = "btn btn-default btn-position" id="listBtn" name="list" >back</button>
 				</a>
 			</div>
 			
@@ -200,8 +243,7 @@
 						<div class="form-horizontal">
 							<h4>REPLIES</h4>
 							<input class="form-replycontrol" name="reply" id="reply">
-							<input style="float: right;" class="regBtn" type="button"
-								value="등록">
+							<input style="float: right;" class="regBtn" type="button" value="등록">
 						</div>
 						<br>
 						<br>
@@ -411,7 +453,31 @@ $(document).ready(function() {
 		$(".img-responsive").attr("src","/upload/thumb/"+ fileName);
 	});
 
-	
+	$("#resBtn").on("click", function(e){
+		
+		var data = {
+			bno : ${book.bno},
+			owner : '${book.owner}',
+			mid : '${member.mid}'
+			}
+		
+		$.ajax({
+			url:'/reservation/gethistory',
+			type:'POST',
+			contentType:"application/json; charset=utf-8",
+			data:JSON.stringify(data),
+			success: function(result){
+				var str = "";
+				
+				console.log(result);
+				for (var i = 0; i < result.length; i++) {
+					str += "<li><p><h5>대여자: " + result[i].lender + "연체금: " + result[i].latefee + "</h5></p>";
+					str += "<p><h5>대여자: " + result[i].lender + "연체금: " + result[i].latefee + "</h5></p></li>";
+				}
+	 			
+			} 
+		});
+	});
 });	
 </script>
 

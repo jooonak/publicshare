@@ -19,21 +19,27 @@
     <script src="/resources/assets/js/smoothscroll.js"></script>
 	<script src="/resources/assets/js/jquery.stellar.min.js"></script>
 	<script src="/resources/assets/js/fancybox/jquery.fancybox.js"></script> 
-		<script>
+	<script type="text/javascript">
 		$(function(){
 			$.stellar({
 				horizontalScrolling: false,
 				verticalOffset: 40
 			});
 		});
-		</script>
+		$(function() {
+		  //    fancybox
+		    jQuery(".fancybox").fancybox();
+		});
 		
-		<script type="text/javascript">
-      $(function() {
-        //    fancybox
-          jQuery(".fancybox").fancybox();
-      });
-	   </script>
+		//header 알람 표시를 위한 script
+		if(${notice.applycnt + notice.rejectcnt} !== 0){
+			$("#myLib").html(${notice.applycnt + notice.returncnt});	
+		}
+		
+		if(${notice.applyreadycnt + notice.rejectcnt} !== 0){
+			$("#myLoan").html(${notice.applyreadycnt + notice.rejectcnt});
+		}
+	</script>
 
   </body>
 </html>

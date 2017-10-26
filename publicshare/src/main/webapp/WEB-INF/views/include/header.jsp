@@ -33,6 +33,12 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+<style>
+	.label {
+		border-radius: 40%;
+	}
+</style>
 </head>
 
 <body data-spy="scroll" data-offset="0" data-target="#navigation">
@@ -52,8 +58,10 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><a class="smothscroll">${member.nickname}(${member.mname})님</a></li>
 					<li><a href="/loanbook/list" class="smothscroll">Loan page</a></li>
-					<li><a href="/itemmanage/list" class="smothscroll">My Item Manage</a></li>
-					<li><a href="/return/list" class="smothScroll">My Loan List</a></li>
+					<li><a href="/itemmanage/list" class="smothscroll">My Item Manage
+					<span id="myLib" class="label label-danger"></span></a></li>
+					<li><a href="/return/list" class="smothScroll">My Loan List
+					<span id="myLoan" class="label label-danger"></span></a></li>
 					<li><a href="/mypage" class="smothScroll">MyPage</a></li>
 				</ul>
 			</div>

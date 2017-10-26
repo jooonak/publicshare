@@ -353,11 +353,12 @@
 		});
 	
 		//예약에 대한 처리 새로 만듬(hb)
-		$(".history").on("click", "#reserveBook", function() {
-			console.log($(this).val());
-			var data = {bno: ${book.bno},
-					  	status: $(this).val()
-					  };
+		$(".history").on("click", ".reserveBook", function() {
+			
+			var data = {
+					bno: ${book.bno},
+					status: $(this).attr("data-status")
+					};
 			$.ajax({ //문제발생
 				url : '/reservation/reserve',
 				type : 'post',
@@ -370,8 +371,31 @@
 				}
 			});
 		});
-	
-	
+		
+		//뷰 페이지에서도 반납/ 예약취소 처리 할 수 있도록 구현
+		$(".history").on("click", ".cancelBtn", function() {
+			
+			var $this = $(this);
+			var data = {
+					rno: $this.attr("data-rno"),
+					status: $this.attr("data-status"),
+					latefee: $this.attr("data-fee")
+					};
+			
+			console.log(data);
+			$.ajax({ //문제발생
+				
+				url : '/myreturn/request',
+				type : 'post',
+				contentType: "application/json; charset=utf-8",
+				data:JSON.stringify(data),
+				success : function(result) {		
+					alert("성공");
+					location.reload();
+				}
+			});
+		});
+		
 	// 댓글 리스트만들기
 	function getReplyList() {
 	
@@ -508,7 +532,6 @@
 				bno: ${book.bno},
 				owner: '${book.owner}'
 				};
-		console.log(data);
 		
 		$.ajax({
 			url:"/reservation/gethistory",
@@ -516,7 +539,6 @@
 			contentType:"application/json; charset=utf-8",
 			data:JSON.stringify(data),
 			success: function(result){
-				console.log(result);
 				
 				var checkUser = 0;
 				var exist = false;
@@ -540,16 +562,17 @@
 				
 				var endDate = result[0].startdate + 604800000;
 				//반납 날짜 (기본 7일로 잡았기 때문에 7일을 더해서 계산)
-				var late = endDate > date.getTime() ? true : false;
-				//반납 날짜가 현재 날짜보다 크면 연체중, 아니면 연체가 아님
+				var late = endDate < date.getTime() ? true : false;
+				//반납 날짜가 현재 날짜보다 작으면 연체중, 아니면 연체가 아님
 				var expect = 
 					late ? 
 						exist ? date.getTime() + (checkUser * 604800000) :
 							date.getTime() + (result[0].rescnt * 604800000) :
 						exist ? date.getTime() - endDate + (checkUser * 604800000) :
 							date.getTime() - endDate + (result[0].rescnt * 604800000);
+				
 				//예상 대여 가능 날짜 - 현재 대여자가 연체중일때에는 현재 날짜 + (예약자수 * 7) 
-				//현재 대여자가 연체중이 아닐때에는 현재날짜 - 반납 날짜 + (예약자 수 * 7)
+									//현재 대여자가 연체중이 아닐때에는 현재날짜 - 반납 날짜 + (예약자 수 * 7)
 				result[0].endDate = endDate;
 				result[0].late = late;
 				result[0].expect = expect;
@@ -563,7 +586,13 @@
 				
 				time = new Date(expect);
 				time = (time.getFullYear()+"-"+(time.getMonth() + 1)+"-"+time.getDate());
-				result[0].expect = time;
+				
+				if (checkUser === 0){
+					result[0].expect = 'X';
+				} else {
+					result[0].expect = time;	
+				}
+				
 				$(".history").html(getHistory(result[0]));
 			} 
 		});
@@ -571,14 +600,30 @@
 	
 	
 	function getHistory(result){
+		console.log(result);
+		
 		var str = "";
 		str += "<div><p>Lender: " + result.lender + " | StartDate: " + result.startdate + "</p>";
 		str += "<p>Reservation Count: " + result.checkUser + " | Expected Wait Date: " + result.expect + "</p>";
-		if(result.exist){
+		
+		if (result.lender == '${member.mid}'){
+			
+			if (result.status == 'onreturn'){
+				str += "<p>반납 신청중 입니다.</p><p><button onclick=$('.modal').modal('hide')>확인</button></p>"
+			} else {
+				str += "<p>현재 대여중 입니다. 반납하시겠습니까?</p>";
+				str += "<p><button class='cancelBtn' data-status='" + result.status + "' data-rno=" + result.rno;
+				str += " data-fee=" + result.latefee + ">반납하기</button></p>";	
+			}
+		} else if (result.exist) {
+			
 			str += "<p>현재 예약 중 입니다. 취소하시겠습니까?</p>";
-			str += "<p><button id='reserveBook' value='onres'>예약취소</button></p>";
+			str += "<p><button class='cancelBtn' data-status='" + result.status + "' data-rno=" + result.rno;
+			str += " data-fee=" + result.latefee + ">반납하기</button></p>";
+			
 		} else {
-			str += "<p><button id='reserveBook' value='onres'>예약하기</button></p></div>";
+			
+			str += "<p><button class='reserveBook' data-status='" + result.status + "'>예약하기</button></p></div>";
 		}
 		return str;
 	}
