@@ -172,11 +172,11 @@ a:hover {
 			<!--reigster btn  -->
 			<div class="conditions">
 				<ul class="left">
-					<li><a type="button" href="#"><span data-oper="onloan">Rented
+					<li><a class="btn" href="#"><span class="status" data-oper="onloan">Rented
 								Books</span></a></li>
-					<li><a type="button" href="#"><span data-oper="onapply">Apply
+					<li><a class="btn" href="#"><span class="status" data-oper="onapply">Apply
 								For Rental</span></a></li>
-					<li><a type="button" href="#"><span data-oper="onres">Booking
+					<li><a class="btn" href="#"><span class="status" data-oper="onres">Booking
 								Books</span></a></li>
 				</ul>
 				<ul class="right">
@@ -359,7 +359,7 @@ $(document).ready(function() {
 		getHistoryAlarm();
 	});
 	
-	$(".left").on("click", function(e){
+	$(".status").on("click", function(e){
 		$url = $(e.target).attr("data-oper");
 		onLoanList("/myreturn/list/"+ $url +"/"+${cri.page});
 	});
