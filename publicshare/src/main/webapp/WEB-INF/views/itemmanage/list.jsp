@@ -282,7 +282,7 @@ a:hover {
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
-<script type="text/javascript" src="/resources/js/pageMaker.js?ver=1"></script>
+<script type="text/javascript" src="/resources/js/pageMaker.js?ver=2"></script>
 <script type="text/javascript">
 
 var pageStr = PageMaker({
@@ -292,7 +292,7 @@ var pageStr = PageMaker({
     liCount: 5,
     url: "/itemmanage/list" 
 });
-console.log(${cri.total});
+
 
 $("#divPaging").html(pageStr);
 
@@ -307,9 +307,10 @@ $(document).ready(function() {
 			for (var i = 0; i < result.length; i++) {
 				
 				str += "<div id=alarm><img src='/upload/thumb/" + result[i].BookDTO.img + "' onerror=this.src='/resources/assets/img/default.jpg'>";
-				str += "<p>" + result[i].BookDTO.bname + " | " + result[i].BookDTO.publisher + "</p>";
-				str += "<p>" + result[i].ReservationDTO.lender + result[i].ReservationDTO.startDate + "</p>";
-				str += "<p><button class='btn btn-default' id=returnBtn data-oper=returnconfirm data-rno=" + result[i].ReservationDTO.rno;
+				str += "<p>Book title: " + result[i].BookDTO.bname + "</p>";
+				str += "<p>Applicant for return: " + result[i].ReservationDTO.lender +"</p>";
+				str += "<p>Application time: "+getTime(result[i])+"";
+				str += "<button class='btn btn-default' id=returnBtn data-oper=returnconfirm data-rno=" + result[i].ReservationDTO.rno;
 				str += " data-bno=" + result[i].BookDTO.bno + ">ACCEPT</button>";
 				str += "<button class='btn btn-default' id=returnBtn data-oper=returnreject data-rno=" + result[i].ReservationDTO.rno;
 				str += " data-bno=" + result[i].BookDTO.bno + ">REJECT</button></p></div><hr/>";
@@ -324,9 +325,10 @@ $(document).ready(function() {
 			for (var i = 0; i < result.length; i++) {
 				
 				str += "<div id=alarm><img src='/upload/thumb/" + result[i].BookDTO.img + "' onerror=this.src='/resources/assets/img/default.jpg'>";
-				str += "<p>" + result[i].BookDTO.bname + " | " + result[i].BookDTO.publisher + "</p>";
-				str += "<p>" + result[i].ReservationDTO.lender + " | " + result[i].ReservationDTO.resDate + "</p>";
-				str += "<p><button class='btn btn-default' id=resBtn data-oper=confirm data-rno=" + result[i].ReservationDTO.rno; 
+				str += "<p>Book title: " + result[i].BookDTO.bname + "</p>";
+				str += "<p>Applicant for loan: " + result[i].ReservationDTO.lender + "</p>";
+				str += "<p>Application time: "+getTime(result[i])+"";
+				str += "<button class='btn btn-default' id=resBtn data-oper=confirm data-rno=" + result[i].ReservationDTO.rno; 
 				str += " data-bno=" + result[i].BookDTO.bno + ">ACCEPT</button>";
 				str += "<button class='btn btn-warning' id=resBtn data-oper=reject data-rno=" + result[i].ReservationDTO.rno;
 				str += " data-bno=" + result[i].BookDTO.bno + ">REJECT</button></p></div><hr/>";
@@ -390,6 +392,20 @@ $(document).ready(function() {
 		});
 	});
 
+	//시간 구하는 함수(hb)
+	function getTime(result){
+		
+		if(result.ReservationDTO.startDate != null ){
+			var time = new Date(result.ReservationDTO.startDate);
+		}else{
+			var time = new Date(result.ReservationDTO.resDate);
+		}
+		
+		var timeString = (time.getFullYear()+"-"+(time.getMonth() + 1)+"-"+time.getDate()+" "+
+				time.getHours()+":"+time.getMinutes());
+		
+		return timeString;
+	}
 });
 var msg = "${result}";
 
