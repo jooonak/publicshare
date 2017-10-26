@@ -51,7 +51,7 @@
 		</interceptor> 
 		
 		<interceptor>
-			 <mapping path="/*/*"/>
+			<mapping path="/*/*"/>
 			<mapping path="/*"/>
 			<exclude-mapping path="/join"/>
 			<exclude-mapping path="/login"/> 

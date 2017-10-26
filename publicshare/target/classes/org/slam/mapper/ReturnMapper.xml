@@ -12,7 +12,6 @@
 		tbl_book book, tbl_reservation res 
 		where res.bno = book.bno 
 		and lender = #{mid} 
-
 		<!-- <choose> 
 			<when test="status == 'onloan'">
 			and status like #{status} order by startdate asc
@@ -22,7 +21,6 @@
 			<!-- </otherwise>
 		</choose>
 		limit #{skip},8  -->
-
 
 	</select>
 	
@@ -126,4 +124,23 @@
 	</update>
 	<!-- /내 소유의 책에 반납 신청이 있고, 내가 수락 했을 때 데이터를 업데이트하는 쿼리 -JH -->
 	
+	<!-- parameter로 받은 status값에 따라 현재 상황에 맞는 status로 업데이트 하는 쿼리 -JH -->
+	<update id="request">
+		update 
+		tbl_reservation 
+		set 
+		status = #{status}, 
+		latefee = #{lateFee}
+		<where>
+			<choose>
+				<when test="rno != 0">
+					rno like #{rno}
+				</when>
+				<otherwise>
+					bno like #{bno} and lender like #{lender}					
+				</otherwise>
+			</choose>
+		</where>
+	</update>
+	<!-- /parameter로 받은 status값에 따라 현재 상황에 맞는 status로 업데이트 하는 쿼리 -JH -->
 </mapper>

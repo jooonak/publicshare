@@ -20,7 +20,6 @@ public class CheckNoticeInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		log.info("DO NOTICE CHECK INTERCEPTOR........");
 
 		MemberDTO member = (MemberDTO) WebUtils.getSessionAttribute(request, "member");
 		// 해당 member의 알림을 받기 위해 session에서 member의 정보를 받아온다.

@@ -30,13 +30,13 @@
 		  //    fancybox
 		    jQuery(".fancybox").fancybox();
 		});
-		
+	
 		//header 알람 표시를 위한 script
-		if(${notice.applycnt + notice.rejectcnt} !== 0){
-			$("#myLib").html(${notice.applycnt + notice.returncnt});	
+		if(${notice.applycnt + notice.rejectcnt} != 0){
+			$("#myLib").html(${notice.applycnt + notice.returncnt});
 		}
 		
-		if(${notice.applyreadycnt + notice.rejectcnt} !== 0){
+		if(${notice.applyreadycnt + notice.rejectcnt} != 0){
 			$("#myLoan").html(${notice.applyreadycnt + notice.rejectcnt});
 		}
 	</script>

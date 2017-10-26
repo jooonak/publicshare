@@ -409,7 +409,8 @@
 			
 			var $this = $(this);
 			var data = {
-					rno: $this.attr("data-rno"),
+					bno: ${book.bno},
+					lender: '${member.mid}',
 					status: $this.attr("data-status"),
 					latefee: $this.attr("data-fee")
 					};
@@ -592,11 +593,11 @@
 						result[0].startdate = date.getTime();
 					}
 					if(result[i].lender === '${member.mid}'){
-						checkUser = i;
+						checkUser = i + 1;
 						exist = true;
 						//리턴받은 리스트의 i번째의 유저 id가 현재 유저 id와 같다면 위 변수에 i값을 담는다
 					} else {
-                        checkUser = result.length - 1;
+                        checkUser = result.length;
                         exist = false;
                     }
 				}
@@ -607,10 +608,10 @@
 				//반납 날짜가 현재 날짜보다 작으면 연체중, 아니면 연체가 아님
 				var expect = 
 					late ? 
-						exist ? date.getTime() + (checkUser * 604800000) :
-							date.getTime() + (result[0].rescnt * 604800000) :
-						exist ? date.getTime() - endDate + (checkUser * 604800000) :
-							date.getTime() - endDate + (result[0].rescnt * 604800000);
+						exist ? date.getTime() + ((checkUser - 1) * 604800000) :
+							date.getTime() + ((result[0].rescnt - 1) * 604800000) :
+						exist ? endDate + ((checkUser - 1) * 604800000) :
+							endDate + ((result[0].rescnt - 1) * 604800000);
 				
 				//예상 대여 가능 날짜 - 현재 대여자가 연체중일때에는 현재 날짜 + (예약자수 * 7) 
 									//현재 대여자가 연체중이 아닐때에는 현재날짜 - 반납 날짜 + (예약자 수 * 7)
@@ -627,8 +628,8 @@
 				
 				time = new Date(expect);
 				time = (time.getFullYear()+"-"+(time.getMonth() + 1)+"-"+time.getDate());
-				
-				if (checkUser === 0){
+				console.log(checkUser);
+				if (checkUser == 0){
 					result[0].expect = 'X';
 				} else {
 					result[0].expect = time;	
@@ -641,7 +642,10 @@
 	
 	
 	function getHistory(result){
-		console.log(result);
+		
+		if(!result.checkUser == 1 || !result.checkUser == 0){
+			result.checkUser -= 1;
+		}
 		
 		var str = "";
 		str += "<div><p>Lender: " + result.lender + " | StartDate: " + result.startdate + "</p>";
@@ -650,19 +654,23 @@
 		if (result.lender == '${member.mid}'){
 			
 			if (result.status == 'onreturn'){
+				console.log(00000000000000000000000000000000000000);
 				str += "<p>반납 신청중 입니다.</p><p><button onclick=$('.modal').modal('hide')>확인</button></p>"
 			} else if (result.status == 'onapply') {
+				
+				console.log(111111111111111111111111111111111111);
 				str += "<p>현재 대여 신청중 입니다. 취소하시겠습니까?</p>";
-				str += "<p><button class='cancelBtn' data-status='" + result.status + "' data-rno=" + result.rno;
-				str += " data-fee=" + result.latefee + ">대여 취소하기</button></p>";	
+				str += "<p><button class='cancelBtn' data-status='onapply' data-rno=" + result.rno;
+				str += " data-fee=0>대여 취소하기</button></p>";	
 			}
 		} else if (result.exist) {
-			
+			console.log(22222222222222222222222222222222);
 			str += "<p>현재 예약 중 입니다. 취소하시겠습니까?</p>";
-			str += "<p><button class='cancelBtn' data-status='" + result.status + "' data-rno=" + result.rno;
-			str += " data-fee=" + result.latefee + ">예약취소</button></p>";
+			str += "<p><button class='cancelBtn' data-status='onres'";
+			str += " data-fee=0>예약취소</button></p>";
 			
 		} else {
+			console.log(33333333333333333333333333333333);
 			
 			str += "<p><button class='reserveBook'>예약하기</button></p></div>";
 		}
