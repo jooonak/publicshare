@@ -151,6 +151,26 @@ a:hover {
 #alarm:hover { 
     background-color: #d3d3d3;
 }
+
+.conditions {
+	margin-left: 0;
+	height: 35px;
+}
+
+.conditions>.left>li {
+	padding: 0;
+	list-style: none;
+	float: left;
+	margin-right: 2%;
+	border-right: 1px thin black;
+}
+
+.conditions>.right>li {
+	list-style: none;
+	float: right;
+	margin-left: 2%;
+	border-right: 1px thin black;
+}
 </style>
 
 
@@ -158,8 +178,8 @@ a:hover {
 <div id="headerwrap">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<h1>PUBLIC SHARE</h1>
+			<div class="col-md-6 col-md-offset-3" style="margin-left:20px">
+				<h1 style="font-size:5em;width:1000px">My Item Manage</h1>
 			</div>
 		</div>
 		<!--/row -->
@@ -193,21 +213,21 @@ a:hover {
 
 <!-- PORTFOLIO SECTION -->
 <section id="portfolio" name="portfolio"></section>
-<div id="portfoliowrap">
+<div id="portfoliowrap" style="margin-top:20px">
 	<div class="container">
-		<a href="/itemmanage/register">
-			<button style="float: left;" class="btn btn-primary">register</button>
-		</a>
-		
 		<!-- itemmanage에서 대여 요청에 대한 확인/거절을 누르는 modal -->
-
+		
+	<div class="conditions">
+		<ul class="right">
 		<!-- itemmanage에서 대여 요청에 대한 확인/거절을 누르는 modal(sb) -->
-		<button style="float: right;" id="resBtn" data-toggle="modal"
-			data-target="#myModal2" class="btn btn-default">대여 요청 리스트</button>
-		<button style="float: right;" id="returnBtn" data-toggle="modal"
-			data-target="#myModal2" class="btn btn-default">반납 요청 리스트</button>
+		<li><button style="float: right;" id="resBtn" data-toggle="modal"
+			data-target="#myModal2" class="btn btn-default">대여 요청 리스트</button></li>
+		<li><button style="float: right;" id="returnBtn" data-toggle="modal"
+			data-target="#myModal2" class="btn btn-default">반납 요청 리스트</button></li>
+		</ul>
+	</div>
+	<hr />	
 		<div class="row">
-			<h1>BOOKS</h1>
 			<!-- 나중에 css처리 해야함 -->
 			
 			<div class="container" style="height: 80%">
@@ -257,9 +277,9 @@ a:hover {
 			</c:choose>
 			</div>
 		</div>
-		
-		
-
+		<a href="/itemmanage/register" style = "margin-top:20px">
+			<button style="float: right;" class="btn btn-primary">도서 등록하기</button>
+		</a>
 		<ul id="divPaging">
 		</ul>
 	</div>

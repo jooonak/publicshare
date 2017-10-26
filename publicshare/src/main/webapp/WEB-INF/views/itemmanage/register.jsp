@@ -155,8 +155,8 @@
 <div id="headerwrap">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<h1>PUBLIC SHARE</h1>
+			<div class="col-md-6 col-md-offset-3" style="margin-left:20px">
+				<h1 style="font-size:5em;width:1000px">Book Register</h1>
 			</div>
 		</div>
 		<!--/row -->
@@ -168,12 +168,8 @@
 <!-- PORTFOLIO SECTION -->
 <section id="portfolio" name="portfolio"></section>
 
-<div id="portfoliowrap">
-
-
-
-	<h1>REGISTER BOOK</h1>
-	<div id="aboutwrap">
+<div id="portfoliowrap" style="margin-top:20px">
+	<div id="aboutwrap" style="margin-top:20px">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-4 name">
@@ -181,14 +177,13 @@
 					<a class="fancybox"
 						href="/resources/assets/img/camera.png"><img
 						class="img-responsive" src="/resources/assets/img/camera.png"
-						style="margin-top: 80px; box-shadow: 2px 2px 2px #888888"></a>
+						style="margin-top: 20px; box-shadow: 2px 2px 2px #888888"></a>
 					<hr>
 				</div>
 				<!--/col-lg-4-->
 				<div class="col-lg-8 name-desc">
 					<form class="register" method="post">
 						<!-- BookDTO, MemberDTO, Criteria 필요 -->
-						<h3>insert your book info</h3>
 						<div>
 							<label for="bname">book name</label> <input
 								class="input form-control" type="text" name="bname">
