@@ -172,11 +172,11 @@ a:hover {
 			<!--reigster btn  -->
 			<div class="conditions">
 				<ul class="left">
-					<li><a type="button" href="#"><span data-oper="onloan">Rented
+					<li><a class="btn" href="#"><span class="status" data-oper="onloan">Rented
 								Books</span></a></li>
-					<li><a type="button" href="#"><span data-oper="onapply">Apply
+					<li><a class="btn" href="#"><span class="status" data-oper="onapply">Apply
 								For Rental</span></a></li>
-					<li><a type="button" href="#"><span data-oper="onres">Booking
+					<li><a class="btn" href="#"><span class="status" data-oper="onres">Booking
 								Books</span></a></li>
 				</ul>
 				<ul class="right">
@@ -359,7 +359,7 @@ $(document).ready(function() {
 		getHistoryAlarm();
 	});
 	
-	$(".left").on("click", function(e){
+	$(".status").on("click", function(e){
 		$url = $(e.target).attr("data-oper");
 		onLoanList("/myreturn/list/"+ $url +"/"+${cri.page});
 	});
@@ -368,13 +368,17 @@ $(document).ready(function() {
 		
 		var str = "";
 		var text = "";
+		var messege = "";
 		
 		if(url.split("/")[3] == "onloan"){
 				text = "반납하기";
+				messege = "대여중인 도서가 없습니다";
 			} else if (url.split("/")[3] == "onapply") {
 				text = "대여 취소";
+				messege = "대여 신청중인 도서가 없습니다";
 			} else if (url.split("/")[3] == "onres") {
 				text = "예약 취소";
+				messege = "예약중인 도서가 없습니다";
 			} 
 		
 		$.getJSON(url, function(result){
@@ -401,7 +405,7 @@ $(document).ready(function() {
 					
 				}
 			} else {
-				str += "<div style='text-align: center; margin: 20% auto;'><h1>대여한 도서가 없습니다</h1></div>";
+				str += "<div style='text-align: center; margin: 20% auto;'><h1>" + messege + "</h1></div>";
 			}
 			
 			$("#listDiv").html(str);
@@ -415,6 +419,7 @@ $(document).ready(function() {
 		
 		var $this = $(this);
 		var data = { 
+				bno: $this.attr('data-bno'),
 			  	rno: $this.attr('data-rno'),
 			  	status: $this.attr('data-status'),
 			  	lateFee: $this.attr("data-fee")

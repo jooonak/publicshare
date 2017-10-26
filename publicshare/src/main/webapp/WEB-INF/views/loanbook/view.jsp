@@ -353,7 +353,7 @@
 		});
 	
 		//예약에 대한 처리 새로 만듬(hb)
-		$("#reserveBook").on("click", function() {
+		$(".history").on("click", "#reserveBook", function() {
 			console.log($(this).val());
 			var data = {bno: ${book.bno},
 					  	status: $(this).val()
@@ -532,6 +532,9 @@
 						checkUser = i;
 						exist = true;
 						//리턴받은 리스트의 i번째의 유저 id가 현재 유저 id와 같다면 위 변수에 i값을 담는다
+					} else {
+						checkUser = result.length - 1;
+						exist = false;
 					}
 				}
 				

@@ -196,7 +196,7 @@ a:hover {
 <section id="portfolio" name="portfolio"></section>
 <div id="portfoliowrap">
 	<div class="container">
-		<a href="http://localhost:8080/itemmanage/register">
+		<a href="/itemmanage/register">
 			<button style="float: left;" class="btn btn-primary">register</button>
 		</a>
 		
@@ -306,7 +306,7 @@ $(document).ready(function() {
 		$.getJSON("/myreturn/check", function(result) {
 			for (var i = 0; i < result.length; i++) {
 				
-				str += "<div id=alarm><img src=/upload/thumb/" + result[i].BookDTO.img + " onerror=this.src='/resources/assets/img/default.jpg'>";
+				str += "<div id=alarm><img src='/upload/thumb/" + result[i].BookDTO.img + "' onerror=this.src='/resources/assets/img/default.jpg'>";
 				str += "<p>" + result[i].BookDTO.bname + " | " + result[i].BookDTO.publisher + "</p>";
 				str += "<p>" + result[i].ReservationDTO.lender + result[i].ReservationDTO.startDate + "</p>";
 				str += "<p><button class='btn btn-default' id=returnBtn data-oper=returnconfirm data-rno=" + result[i].ReservationDTO.rno;
@@ -323,7 +323,7 @@ $(document).ready(function() {
 		$.getJSON("/reservation/applylist", function(result) {
 			for (var i = 0; i < result.length; i++) {
 				
-				str += "<div id=alarm><img src=/upload/thumb/" + result[i].BookDTO.img + " onerror=this.src='/resources/assets/img/default.jpg'>";
+				str += "<div id=alarm><img src='/upload/thumb/" + result[i].BookDTO.img + "' onerror=this.src='/resources/assets/img/default.jpg'>";
 				str += "<p>" + result[i].BookDTO.bname + " | " + result[i].BookDTO.publisher + "</p>";
 				str += "<p>" + result[i].ReservationDTO.lender + " | " + result[i].ReservationDTO.resDate + "</p>";
 				str += "<p><button class='btn btn-default' id=resBtn data-oper=confirm data-rno=" + result[i].ReservationDTO.rno; 
