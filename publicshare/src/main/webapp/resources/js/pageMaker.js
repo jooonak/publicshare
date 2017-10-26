@@ -8,8 +8,8 @@ function PageMaker(param){
     var condition = param.condition || "";    
     var url = param.url;
     
-    console.log(searchConcept);
-    console.log(condition);  
+    //console.log(searchConcept);
+    //console.log(condition);  
 
     var tempEnd = (function(){
         return Math.ceil(current / liCount) * liCount;
@@ -48,7 +48,7 @@ function PageMaker(param){
         if (next) {
             str += tag.replace("%page", '<a class="btn" href="' + url + '?page=' + (endPage + 1) + condition+searchConcept+'">Next</a>');
         }
-        console.log(str);
+        //console.log(str);
         return str;
     }
     return makePage();

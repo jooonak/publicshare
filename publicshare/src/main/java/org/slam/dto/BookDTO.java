@@ -5,7 +5,6 @@ import java.util.Date;
 import lombok.Data;
 import lombok.extern.java.Log;
 
-@Log
 @Data
 public class BookDTO {
 	

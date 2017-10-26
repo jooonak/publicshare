@@ -9,7 +9,6 @@ import org.slam.dto.BookDTO;
 import org.slam.dto.MemberDTO;
 import org.slam.dto.ReservationDTO;
 import org.slam.mapper.ResBookMapper;
-import org.slam.mapper.ReturnMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,4 +58,13 @@ public class ResBookServiceImpl implements ResBookService {
 		return mapper.bookCheck(bno);
 		//대여 신청할 때 해당 책에 대한 예약 카운트 (대여자 수)를 가져오는 메서드
 	}
+
+	@Override
+	public List<Map<String, Object>> getHistory(BookDTO dto, MemberDTO member) {
+		if(dto.getOwner().equals(member.getMid())) {
+			return mapper.getBookHistory(dto.getBno());
+		}
+		return mapper.getResHistory(dto.getBno());
+	}
+
 }

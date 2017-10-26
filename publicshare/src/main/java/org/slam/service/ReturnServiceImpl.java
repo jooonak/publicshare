@@ -28,9 +28,10 @@ public class ReturnServiceImpl implements ReturnService{
 		return cri;
 	}
 
+	@Transactional
 	@Override
 	public void request(ReservationDTO dto) {
-		if(dto.getStatus().equals("onapply") || dto.getStatus().equals("onres")) {
+		if(dto.getStatus().equals("cancel")) {
 			resBookMapper.updateResCntDown(dto.getBno());
 		}
 		System.out.println(dto);
