@@ -251,7 +251,7 @@
 			<div class="modal-dialog_a modal-lg">
 				<div class="modal-content_a">
 					<div class="modal-body_a  ">
-						<h1 class = "alert-subject">confirm</h1>
+						<h1 class = "alert-subject">CONFIRM</h1>
 						<h4 class = "alert-contents" style="margin-top:15px">대여 신청이 완료되었습니다.</h4>
 						<p>
 							<button type="button" class="btn btn-default alert-close" data-dismiss="modal">close</button>

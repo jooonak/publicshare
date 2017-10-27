@@ -61,8 +61,6 @@ public class ResBookServiceImpl implements ResBookService {
 
 	@Override
 	public List<Map<String, Object>> getHistory(BookDTO dto, MemberDTO member) {
-		System.out.println("elaksdjslkagjsdlgkjdfkjhgnerrkajnfkjesdnfjkaew!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-		
 		if(dto.getOwner().equals(member.getMid())) {
 			return mapper.getBookHistory(dto.getBno());
 		}

@@ -140,9 +140,9 @@
 }
 
 .modal-body_b {
-	background-color: black;
+	background-color: white;
 	border-radius: 10px;
-	color: white;
+	color: black;
 	padding: 10px;
 }
 
@@ -150,6 +150,15 @@
 	height:230px;
 	overflow:scroll;
 	overflow-x: hidden;
+}
+
+.history {
+	list-style: none;
+	text-align: left;
+}
+
+.history hr{
+	width: 93%
 }
 </style>
 
@@ -178,7 +187,7 @@
 					<!-- 상대경로, 절대경로 참조: https://stackoverflow.com/questions/34445457/404-error-for-bootstrap-min-css-and-bootstrap-min-js -->
 					<a class="fancybox" href="/upload/image/${book.img}"><img
 						class="img-responsive" src="/upload/thumb/${book.img}"
-						style="margin-top: 10px; box-shadow: 2px 2px 2px #888888"></a>
+						style="margin-top: 10px; box-shadow: 2px 2px 2px #888888" onerror=this.src='/resources/assets/img/default.jpg'></a>
 					<div class="container thumbview">
 						<c:forEach items="${book.imgFiles}" var="img">
 							<!-- fileUpload용 div -->
@@ -215,7 +224,7 @@
 								<h4>${book.bname}</h4>
 								<h5>등록 날짜:   <fmt:formatDate value="${book.regDate}" pattern="yyyy-MM-dd"></fmt:formatDate>   
 								|   현재 대여/예약자 수:   ${book.resCnt}</h5>
-								<ul class="history"></ul>
+								<ul class="history" style="margin-top: 20px;"></ul>
 								
 							</div>
 						</div>
@@ -252,9 +261,6 @@
 								value="등록">
 						</div>
 						<br> <br>
-
-
-
 						<!--댓글 리스트 (홍빈)  -->
 						<form class="form-horizontal tasi-form">
 							<div class="form-group has-success">
@@ -263,9 +269,6 @@
 							</div>
 						</form>
 						<!--댓글 리스트 (홍빈)  -->
-
-
-
 					</div>
 					<!-- /form-panel -->
 				</div>
@@ -480,13 +483,43 @@ $(document).ready(function() {
 			data:JSON.stringify(data),
 			success: function(result){
 				var str = "";
-				
+				var text = "";
 				console.log(result);
+				
 				for (var i = 0; i < result.length; i++) {
-					str += "<li><p><h5>대여자: " + result[i].lender + "연체금: " + result[i].latefee + "</h5></p>";
-					str += "<p><h5>대여자: " + result[i].lender + "연체금: " + result[i].latefee + "</h5></p></li>";
+					
+					if(result[i].status == 'onapply'){
+						str += "<li><p><h5>신청자:  " + result[i].lender + "  - 대여 신청중</h5></p>";
+						str += "<p><h5>신청 날짜:  " + result[i].resdate + "</h5></p></li><hr/>";
+					} else if(result[i].status == 'onres'){
+						str += "<li><p><h5>예약자:  " + result[i].lender + "  - 예약중</h5></p>";
+						str += "<p><h5>예약 날짜:  " + result[i].resdate + "</h5></p></li><hr/>";
+					} else if(result[i].status == 'onapplyready'){
+						str += "<li><p><h5>예약자:  " + result[i].lender + "  - 대여 수락 대기중</h5></p>";
+						str += "<p><h5>예약 날짜:  " + result[i].resdate + "</h5></p></li><hr/>";
+					} else if(result[i].status == 'onloan'){
+						str += "<li><p><h5>대여자:  " + result[i].lender + "  - 대여중</h5></p>";
+						str += "<p><h5>시작 날짜:  " + result[i].startdate + "</h5></p></li><hr/>";
+					} else if(result[i].status == 'onreturn'){
+						str += "<li><p><h5>대여자:  " + result[i].lender + "  - 반납 신청중</h5></p>";
+						str += "<p><h5>시작 날짜:  " + result[i].startdate + "</h5></p></li><hr/>";
+					} else if(result[i].status == 'cancel'){
+						str += "<li><p><h5>대여자:  " + result[i].lender + "  - 대여/예약 취소</h5></p>";
+						str += "</li><hr/>";
+					} else if(result[i].status == 'loanrejected'){
+						str += "<li><p><h5>대여자:  " + result[i].lender + "  - 대여/예약 거절</h5></p>";
+						str += "</li><hr/>";
+					} else if(result[i].status == 'returnrejected'){
+						str += "<li><p><h5>대여자:  " + result[i].lender + "  - 반납 거절 중</h5></p>";
+						str += "<p><h5>시작 날짜:  " + result[i].startdate + "</h5></p></li><hr/>";
+					} else if(result[i].status == 'returned'){
+						str += "<li><p><h5>대여자:  " + result[i].lender + "  - 반납 완료</h5></p>";
+						str += "<p><h5>시작 날짜:  " + result[i].startdate + " 반납 날짜: " + result[i].returndate + "</h5></p></li><hr/>";
+					}
 				}
-	 			
+				str += "<button style='margin-left: 40%;' onclick=$('.modalDialogB').modal('hide') class='btn btn-default'>확인</button>"
+				
+				$(".history").html(str);
 			} 
 		});
 	});

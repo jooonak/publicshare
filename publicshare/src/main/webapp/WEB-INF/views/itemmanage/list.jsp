@@ -289,8 +289,8 @@ a:hover {
 		<div class="modal-dialog_a modal-lg">
 			<div class="modal-content_a">
 				<div class="modal-body_a  ">
-					<h1 class = "alert-subject">confirm</h1>
-					<h4 class = "alert-contents" style="margin-top:25px">서적이 등록되었습니다.</h4>
+					<h1 class = "alert-subject">CONFIRM</h1>
+					<h4 class = "alert-contents" style="margin-top:25px">도서가 등록되었습니다.</h4>
 					<p>
 						<button type="button" class="btn btn-default alert-close" data-dismiss="modal">close</button>
 					</p>

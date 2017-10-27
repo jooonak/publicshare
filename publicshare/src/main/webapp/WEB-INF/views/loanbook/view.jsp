@@ -335,10 +335,26 @@
 		<!-- INPUT MESSAGES -->
 	</div>
 	<!-- /container -->
+	<div class="row text-center" style="padding: 50px;">
+		<div class="modal fade alert-modal" tabindex="-1"
+			role="dialogA" aria-labelledby="modalLabelA">
+			<div class="modal-dialog_a modal-lg">
+				<div class="modal-content_a">
+					<div class="modal-body_a  ">
+						<h1 class = "alert-subject">CONFIRM</h1>
+						<h4 class = "alert-contents" style="margin-top:15px">대여 신청이 완료되었습니다.</h4>
+						<p>
+							<button type="button" class="btn btn-default alert-close" data-dismiss="modal">close</button>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> 
+	
 </div>
 <!-- /aboutwrap -->
-</div>
-<!--/Portfoliowrap -->
+
 
 <!-- 수정되는 부분 -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -395,10 +411,15 @@ $(document).ready(function() {
 			type : 'post',
 			contentType: "application/json; charset=utf-8",
 			data:JSON.stringify(data),
-			success : function(result) {		
+			success : function(result) {
 				
-					alert("success");
+				$(".alert-contents").html("예약신청 완료");
+				
+				alertModal.modal("show");
+				alertModal.on("hidden.bs.modal", function () {
 					location.reload();
+				});
+				
 			}
 		});
 	});
@@ -421,8 +442,13 @@ $(document).ready(function() {
 			contentType: "application/json; charset=utf-8",
 			data:JSON.stringify(data),
 			success : function(result) {		
-				alert("성공");
-				location.reload();
+
+				$(".alert-contents").html("취소 처리 완료");
+				
+				alertModal.modal("show");
+				alertModal.on("hidden.bs.modal", function () {
+					location.reload();
+				});
 			}
 		});
 	});
@@ -627,6 +653,7 @@ $(document).ready(function() {
 				time = new Date(expect);
 				time = (time.getFullYear()+"-"+(time.getMonth() + 1)+"-"+time.getDate());
 				console.log(checkUser);
+				
 				if (checkUser == 0){
 					result[0].expect = 'X';
 				} else {
@@ -651,20 +678,23 @@ $(document).ready(function() {
 		if (result.lender == '${member.mid}'){
 			
 			if (result.status == 'onreturn'){
-				str += "<p>반납 신청중 입니다.</p><p><button onclick=$('.modal').modal('hide')>확인</button></p>"
+				str += "<p>반납 신청중 입니다.</p><p>"
 			} else if (result.status == 'onapply') {
 				str += "<p>현재 대여 신청중 입니다. 취소하시겠습니까?</p>";
-				str += "<p><button class='cancelBtn' data-status='onapply' data-rno=" + result.rno;
-				str += " data-fee=0>대여 취소하기</button></p>";	
+				str += "<p><button class='btn btn-default cancelBtn' data-status='onapply' data-rno=" + result.rno;
+				str += " data-fee=0>대여 취소하기</button>";	
 			}
 		} else if (result.exist) {
 			str += "<p>현재 예약 중 입니다. 취소하시겠습니까?</p>";
-			str += "<p><button class='cancelBtn' data-status='onres'";
-			str += " data-fee=0>예약취소</button></p>";
+			str += "<p><button class='btn btn-default cancelBtn' data-status='onres'";
+			str += " data-fee=0>예약취소</button>";
 			
 		} else {
-			str += "<p><button class='reserveBook'>예약하기</button></p></div>";
+			str += "<p><button class='btn btn-default reserveBook'>예약하기</button>";
 		}
+		
+		str += "<button onclick=$('.modalDialogB').modal('hide') class='btn btn-default'>닫기</button></p></div>";
+		
 		return str;
 	}
 });	

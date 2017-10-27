@@ -49,11 +49,13 @@ public interface ResBookMapper {
 	@Select("select rescnt from tbl_book where bno = #{bno}")
 	public int bookCheck(int bno);
 
+	//대여자 입장의 예약 히스토리 (현재 대여중인 사람과 예약자의 수 등)
 	@Select("select  rno, lender, status, startdate, rescnt, res.latefee from tbl_reservation res, tbl_book book where res.bno = book.bno and book.bno = #{bno} and status != 'returned'"
 			+ " and status != 'cancel' and status != 'loanrejected'")
 	public List<Map<String, Object>> getResHistory(int bno);
-
-	@Select("select lender, status, returndate, res.latefee, resdate, regdate, rescnt from tbl_reservation res, tbl_book book where res.bno = book.bno and book.bno = #{bno} order by rno desc")
+	
+	//소유자 입장의 대여 히스토리 (현재 대여/예약자의 수와 이력 등)
+	@Select("select lender, startdate, status, returndate, res.latefee, resdate, regdate, rescnt from tbl_reservation res, tbl_book book where res.bno = book.bno and book.bno = #{bno} order by rno")
 	public List<Map<String, Object>> getBookHistory(int bno);
 	
 	//사용자의 과거 대여 이력

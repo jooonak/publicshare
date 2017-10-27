@@ -175,7 +175,7 @@
 					<a class="fancybox"
 						href="/upload/image/${book.img}"><img
 						class="img-responsive" src="/upload/thumb/${book.img}"
-						style="margin-top: 20px; box-shadow: 2px 2px 2px #888888"></a>
+						style="margin-top: 20px; box-shadow: 2px 2px 2px #888888" onerror=this.src='/resources/assets/img/default.jpg'></a>
 						<hr>
 				</div>
 				<!--/col-lg-4-->
@@ -308,7 +308,7 @@ $(document).ready(function(){
 		var prethumb = $("input[name = 'prethumb']").val();	
 		console.log(prethumb);
 		var prethumb = $(".thumbimg[data-uploadName = '"+prethumb+"']").parent()
-		.append("<img class = 'mainthumb' src = '/resources/assets/img/check.png' data-uploadName='"+prethumb+"'>");
+		.append("<img class = 'mainthumb' src = '/resources/assets/img/check.png' data-uploadName='"+prethumb+"' onerror=this.src='/resources/assets/img/default.jpg'>");
 	})();
 	
 	
