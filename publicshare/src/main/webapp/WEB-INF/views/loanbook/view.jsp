@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%@include file="../include/header.jsp"%>
@@ -447,28 +448,47 @@ $(document).ready(function() {
 	
 	// 댓글 리스트만들기
 	function getReplyList() {
-	
+
 		var str = "";
 		$.getJSON("/reply/${book.bno}/list/1", function(arr) {
-	
+
 			for (var i = 0; i < arr.length; i++) {
-				str +="<li data-reno='"+arr[i].reno+"'><label class=col-sm-2 control-label col-lg-2 for=inputSuccess>"+arr[i].nickname+"</label>";
-				str +=arr[i].reno+"<div class=form-control id=inputSuccess >"+arr[i].reply+"</div>";
-				str +="<div class=addWindow data-addreno='"+arr[i].reno+"'></div>";
-				str +="<button class='replyModBtn'>수정</button>";
-				str +="<button class='replyDelBtn'>삭제</button>";
-				str +="<button class='reReplyBtn'>댓글 달기</button></li>";
-			}
-	
+				console.log("delreply:"+arr[i].delreply);
+				var regdate = new Date(arr[i].replydate);
+				regdate = (regdate.getFullYear()+"-"+(regdate.getMonth() + 1)+"-"+regdate.getDate()+" "+
+						regdate.getHours()+":"+regdate.getMinutes());
+				
+				if(arr[i].reno == arr[i].replytree){
+				
+					str += "<div class='media'>";
+					str += "<div class='media-left'> <img src='/resources/assets/img/1196652-200.png' class='media-object' style='width:45px' onerror=this.src='/resources/assets/img/default.jpg'></div>";
+					str += "<div class='media-body'><h5 class='media-heading'>"+arr[i].reno +" "+arr[i].nickname+" "+regdate+ "</h5>";
+					str += "<p class='addWindow' data-reno='"+arr[i].reno+"'>"+((arr[i].delreply === 'F')?arr[i].reply:"삭제된 댓글입니다.")+"";
+					if(arr[i].replyer == '${member.mid}'){
+					str +="<button style = float:right; id='replyModBtn' class='btn btn-default btn-position'>수정</button>";
+					str +="<button style = float:right; id='replyDelBtn' class='btn btn-default btn-position'>삭제</button>";
+					}
+					str +="<button style = float:right; id='reReplyBtn'  class='btn btn-default btn-position'>댓글 달기</button></p>";
+					str += "</div></div></div>";
+					
+				}else if(arr[i].reno != arr[i].replytree){
+					
+					str += "<div style='margin-left:50px;' class='media'>";
+					str += "<div class='media-left'><img src='/resources/assets/img/1196652-200.png' class='media-object' style='width:45px' onerror=this.src='/resources/assets/img/default.jpg'></div>";
+					str += "<div class='media-body'><h5  class='media-heading'>"+arr[i].reno +" "+arr[i].nickname+" "+regdate+ "</h5 >";
+					str += "<p class='addWindow'><h4>"+arr[i].reply+"</h4></p>";
+					str += "</div></div></div></div>";
+				}
+			}	
 			$(".replyUL").html(str);
 		});	
 	}
 	getReplyList();
-	
+
 	//댓글 등록
 	$(".regBtn").on("click",function(e){
 		
-		var data = {reply:$("#reply").val() ,bno: ${book.bno}};
+		var data = {reply:$("#reply").val() ,bno: ${book.bno} };
 				
 	 	$.ajax({
 			url:'/reply/new',
@@ -482,46 +502,43 @@ $(document).ready(function() {
 			} 
 		});
 	 });
-	
+
 	//댓글 삭제
-	$(".replyUL").on("click", ".replyDelBtn", function(e){
-		
-		e.preventDefault();
-		
+	$(".replyUL").on("click", "#replyDelBtn", function(e){
 		var reno = $(this).parent().attr("data-reno");
-		
 		$.ajax({
 			url:'/reply/'+reno,
 			type:'DELETE',
 			contentType:"application/json; charset=utf-8",
 			success: function(result){
-				alert("delete success");	
-				getReplyList();
-			}
+				alert("delete success");
+				location.reload();
+			} 
 		});
 		
 	});
-	
+
 	// 댓글 수정 창 띄우기 (나중에 모달로 바꿔야할듯)
-	$(".replyUL").on("click",".replyModBtn",function(e){
+	$(".replyUL").on("click","#replyModBtn",function(e){
 		
 		e.preventDefault();
 		
 		var reno = $(this).parent().attr("data-reno");
 		
-		var str ="<div class=modWindow><textarea id=modReply rows=1 cols=80 ></textarea><input class='modWindowBtn' type=button value=댓글수정></div>";
-	
-		$(".addWindow[data-addreno='"+reno+"']").html(str);
+		var str ="<div class=modWindow><textarea id=modReply rows=1 cols=90 ></textarea><input class='modWindowBtn btn btn-default btn-position' type=button value=댓글수정></div>";
+
+		$(".addWindow[data-reno='"+reno+"']").html(str);
 			 
 	});
-	
-	
+
+
 	// 댓글 수정	
 	$(".replyUL").on("click",".modWindowBtn", function(e){
 		
 		e.preventDefault();
 		
-		var reno = $(this).parent().parent().parent().attr("data-reno");
+		var reno = $(this).parent().parent().attr("data-reno");
+		
 		
 		var data = {reno : reno , reply:$("#modReply").val()};
 				
@@ -537,27 +554,28 @@ $(document).ready(function() {
 			} 
 		});		
 	});
-	
+
 	// 대댓글 창 띄우기
-	$(".replyUL").on("click",".reReplyBtn",function(e){
+	$(".replyUL").on("click", "#reReplyBtn",function(e){
 		
 		e.preventDefault();
 		
 		var reno = $(this).parent().attr("data-reno");
+		console.log(reno);
 		
 		var str ="<div class=rereplyWindow><textarea id=reReply rows=1 cols=60 ></textarea><input class='rereplyWindowBtn' type=button value=댓글달기></div>";
-	
-		$(".addWindow[data-addreno='"+reno+"']").html(str);
+
+		$(".addWindow[data-reno='"+reno+"']").html(str);
 			 
 	});
-	
+
 	// 대댓글 달기	
 	$(".replyUL").on("click",".rereplyWindowBtn", function(e){
 		
 		e.preventDefault();
 		
-		var reno = $(this).parent().parent().parent().attr("data-reno");
-		
+		var reno = $(this).parent().parent().attr("data-reno");
+		console.log(reno);
 		var data = {reno : reno , reply:$("#reReply").val(), bno: ${book.bno}};
 		console.log(data);
 		
@@ -573,6 +591,10 @@ $(document).ready(function() {
 			} 
 		});
 	});
+
+
+
+
 	
 	//예약하기 버튼을 눌렀을 때 나타나는 Modal에 현재 책의 예약현황을 보여주기위한 이벤트 처리
 	$("#resBtn").on("click", function(e){

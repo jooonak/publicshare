@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import lombok.extern.java.Log;
 
+//reply rest controller라고 이름을 정확히 명시할 것
+
 @RestController
 @RequestMapping("/reply/*")
 @Log
@@ -47,11 +49,10 @@ public class ReplyController {
 	// 삭제
 	@DeleteMapping("/{reno}")
 	public void removeReply(@PathVariable("reno") int reno) {
-
 		service.remove(reno);
 	}
 
-	// 수정
+//	 수정
 	@PutMapping("/{reno}")
 	public void updateReply(@PathVariable("reno") int reno, @RequestBody ReplyDTO dto) {
 		log.info(reno + "");

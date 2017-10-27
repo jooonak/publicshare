@@ -108,7 +108,7 @@ a:hover {
 	filter: alpha(opacity = 50); /* IE7 */
 	opacity: 0.6;
 	text-decoration: none;
-}
+}	
 
 #divPaging {
 	clear: both;
