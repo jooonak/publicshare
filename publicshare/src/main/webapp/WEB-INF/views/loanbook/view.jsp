@@ -178,7 +178,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<h1>PUBLIC SHARE</h1>
+				<h1 style="font-size:5em">BOOK INFORMATION</h1>
 			</div>
 		</div>
 		<!--/row -->
@@ -190,9 +190,8 @@
 <!-- PORTFOLIO SECTION -->
 <section id="portfolio" name="portfolio"></section>
 
-<div id="portfoliowrap">
-	<h1>BOOK INFORMATION</h1>
-	<div id="aboutwrap">
+<div id="portfoliowrap" style="margin-top:20px">
+	<div id="aboutwrap" style="margin-top:20px">
 		<div class="container">
 			<div class="row">
 				<!--col-lg-4-->

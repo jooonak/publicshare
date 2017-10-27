@@ -136,6 +136,7 @@ a:hover {
 }
 
 .conditions>.left>li {
+	padding: 0;
 	list-style: none;
 	float: left;
 	margin-left: 1%;
@@ -153,7 +154,7 @@ a:hover {
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<h1>PUBLIC SHARE</h1>
+				<h1 style="font-size:5em">My Loan List</h1>
 			</div>
 		</div>
 		<!--/row -->
@@ -164,36 +165,33 @@ a:hover {
 
 <!-- PORTFOLIO SECTION -->
 <section id="portfolio" name="portfolio"></section>
-<div id="portfoliowrap">
+<div id="portfoliowrap" style="margin-top:20px">
 	<div class="container">
 		<div class="row">
 			<!--reigster btn  -->
 			<div class="conditions">
-				<ul class="left">
-					<li><a class="btn"><span class="status" data-oper="onloan">Rented
-								Books</span></a></li>
-					<li><a class="btn"><span class="status" data-oper="onapply">Apply
-								For Rental</span></a></li>
-					<li><a class="btn"><span class="status" data-oper="onres">Booking
-								Books</span></a></li>
-				</ul>
 				<ul class="right">
 					<li><button id="returnalarm" style="float: right;"
 							data-toggle="modal" data-target="#myModal"
-							class="btn btn-default">Return Alarm
+							class="btn btn-default">반납 거절 리스트
 							<span id="rejectcnt" class="label label-danger"></span></button></li>
 					<li><button id="resalarm" style="float: right;"
 							data-toggle="modal" data-target="#myModal"
-							class="btn btn-default">Reservation Alarm
+							class="btn btn-default">예약 요청 리스트
 							<span id="applyreadycnt" class="label label-danger"></span></button></li>
 					<li><button id="history" style="float: right;"
 							data-toggle="modal" data-target="#myModal"
-							class="btn btn-default">Loan History</button></li>
+							class="btn btn-default">대여 내역</button></li>
 				</ul>
 			</div>
 			<hr />
-
-			<h1 class="dataP">BOOKS</h1>
+			<div class="conditions">
+				<ul class="left">
+					<li><a class="btn" href="#"><span class="status" data-oper="onloan">대여중인 도서</span></a></li>
+					<li><a class="btn" href="#"><span class="status" data-oper="onapply">대여 신청중인 도서</span></a></li>
+					<li><a class="btn" href="#"><span class="status" data-oper="onres">예약중인 도서</span></a></li>
+				</ul>
+			</div>
 			<!-- Modal -->
 			<div class="modal right fade" id="myModal" tabindex="-1"
 				role="dialog" aria-labelledby="myModalLabel2">
