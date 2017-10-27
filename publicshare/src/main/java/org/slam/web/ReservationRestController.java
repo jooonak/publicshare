@@ -46,7 +46,6 @@ public class ReservationRestController {
 
 	@PostMapping("/reserve")
 	public void reserve(@RequestBody ReservationDTO dto, @SessionAttribute("member") MemberDTO member) {
-
 		// 대여자가 소유주에게 대여 신청하는 메서드(sb)//예약메소드로 내용 변경 (hb)
 		log.info("" + dto.getBno());
 		service.bookReserve(dto, member.getMid());
@@ -57,7 +56,6 @@ public class ReservationRestController {
 		// 소유주가 대여자에게 대여를 허락하는 경우 분기되는 메서드(sb)
 		System.out.println("confirm:" + dto);
 		service.confirmBookReserve(dto);
-		//
 	}
 
 	@PostMapping("/reject")

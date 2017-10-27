@@ -139,15 +139,13 @@ a:hover {
 	padding: 0;
 	list-style: none;
 	float: left;
-	margin-right: 2%;
-	border-right: 1px thin black;
+	margin-left: 1%;
 }
 
 .conditions>.right>li {
 	list-style: none;
 	float: right;
 	margin-left: 2%;
-	border-right: 1px thin black;
 }
 </style>
 
@@ -176,10 +174,11 @@ a:hover {
 					<li><button id="returnalarm" style="float: right;"
 							data-toggle="modal" data-target="#myModal"
 							class="btn btn-default">반납 거절 리스트
-							<span class="label label-danger">2</span></button></li>
+							<span id="rejectcnt" class="label label-danger"></span></button></li>
 					<li><button id="resalarm" style="float: right;"
 							data-toggle="modal" data-target="#myModal"
-							class="btn btn-default">예약 요청 리스트</button></li>
+							class="btn btn-default">예약 요청 리스트
+							<span id="applyreadycnt" class="label label-danger"></span></button></li>
 					<li><button id="history" style="float: right;"
 							data-toggle="modal" data-target="#myModal"
 							class="btn btn-default">대여 내역</button></li>
@@ -230,18 +229,19 @@ a:hover {
 	crossorigin="anonymous"></script>
 <script type="text/javascript" src="/resources/js/pageMaker.js?ver=2"></script>
 <script type="text/javascript">
-var pageStr = PageMaker({
-    total: ${cri.total},
-    current: ${cri.page},
-    showCount: 8,
-    liCount: 5,
-    url: "/return/list" 
-});
 
-$("#divPaging").html(pageStr);
 
 $(document).ready(function() {
 	
+	var pageStr = PageMaker({
+	    total: ${cri.total},
+	    current: ${cri.page},
+	    showCount: 8,
+	    liCount: 5,
+	    url: "/return/list" 
+	});
+
+	$("#divPaging").html(pageStr);
 	
 	var $ModalLabel = $("#myModalLabel2");
 	var $modalBody = $(".modal-body");
@@ -477,7 +477,17 @@ $(document).ready(function() {
 			str: str,
 			lateFee:lateFee
 		};
-	}	
+	}
+	
+	//button 알람 표시를 위한 script
+	if(${notice.applyreadycnt} !== 0){
+		$("#applyreadycnt").html(${notice.applyreadycnt});
+	}
+	
+	if(${notice.rejectcnt} !== 0){
+		$("#rejectcnt").html(${notice.rejectcnt});
+	}
+	
 	
 	//시간 구하는 함수(hb)
 	function getTime(result){

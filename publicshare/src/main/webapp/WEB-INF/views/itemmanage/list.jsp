@@ -158,18 +158,15 @@ a:hover {
 }
 
 .conditions>.left>li {
-	padding: 0;
 	list-style: none;
 	float: left;
-	margin-right: 2%;
-	border-right: 1px thin black;
+	margin-left: 1%;
 }
 
 .conditions>.right>li {
 	list-style: none;
 	float: right;
 	margin-left: 2%;
-	border-right: 1px thin black;
 }
 </style>
 
@@ -221,12 +218,14 @@ a:hover {
 		<ul class="right">
 		<!-- itemmanage에서 대여 요청에 대한 확인/거절을 누르는 modal(sb) -->
 		<li><button style="float: right;" id="resBtn" data-toggle="modal"
-			data-target="#myModal2" class="btn btn-default">대여 요청 리스트</button></li>
+			data-target="#myModal2" class="btn btn-default">대여 요청 리스트
+			<span id="applycnt" class="label label-danger"></span></button></li>
 		<li><button style="float: right;" id="returnBtn" data-toggle="modal"
-			data-target="#myModal2" class="btn btn-default">반납 요청 리스트</button></li>
+			data-target="#myModal2" class="btn btn-default">반납 요청 리스트
+			<span id="returncnt" class="label label-danger"></span></button></li>
 		</ul>
 	</div>
-	<hr />	
+	<hr />
 		<div class="row">
 			<!-- 나중에 css처리 해야함 -->
 			
@@ -306,7 +305,6 @@ a:hover {
 	crossorigin="anonymous"></script>
 <script type="text/javascript" src="/resources/js/pageMaker.js?ver=2"></script>
 <script type="text/javascript">
-
 $(document).ready(function() {
 	var pageStr = PageMaker({
 	    total: ${cri.total},
@@ -315,9 +313,9 @@ $(document).ready(function() {
 	    liCount: 5,
 	    url: "/itemmanage/list" 
 	});
-	console.log(${cri.total});
 
 	$("#divPaging").html(pageStr);
+	
 	var $alertModal = $(".alert-modal");
 	var $alertContents = $(".alert-contents");
 	
@@ -421,6 +419,13 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+	if(${notice.applycnt} !== 0){
+		$("#applycnt").html(${notice.applycnt});	
+	}
+	if(${notice.returncnt} !== 0){
+		$("#returncnt").html(${notice.returncnt});	
+	}
 
 	//시간 구하는 함수(hb)
 	function getTime(result){

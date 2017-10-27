@@ -1,5 +1,7 @@
 package org.slam.service;
 
+import java.util.Map;
+
 import org.slam.dto.MemberDTO;
 
 public interface UserService {
@@ -11,4 +13,6 @@ public interface UserService {
 	public MemberDTO getMember(String mid);
 	
 	public void modifyUser(MemberDTO dto);
+	
+	public Map<String, Integer> getNotice(String mid);
 }

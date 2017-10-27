@@ -167,7 +167,9 @@ body {
 				<!-- <label>CHECK PASSWORD</label> 
 				<input type="password" name="mpwCK" class="form-control" placeholder="Password" required> --> 
 				<label>NAME</label> 
-				<input type="text" class="form-control" name="mname" placeholder="UserID" value="${member.mname}" readonly="readonly"> 
+				<input type="text" class="form-control" name="mname" placeholder="UserID" value="${member.mname}" readonly="readonly">
+				<label>NICKNAME</label> 
+				<input type="text" class="form-control" name="mname" placeholder="UserID" value="${member.nickname}" readonly="readonly"> 
 				<label>JOIN	DATE</label> 
 				<input type="text" class="form-control" name="mname" placeholder="UserID" value="${member.joinDate}" readonly="readonly">
 				<button id="modify" class="btn btn-success btn-block">MODIFY</button>
@@ -175,7 +177,6 @@ body {
 			</form>
 			<!-- /form -->
 
-			<a href="#" class="forgot-password"> Forgot the password? </a>
 		</div>
 		<!-- /card-container -->
 	</div>

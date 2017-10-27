@@ -199,7 +199,6 @@ body{
 		pageProperty.searchConcept = '&searchConcept='+searchConcept;
     };	
     
-    console.log(pageProperty);
 
 	var pageStr = PageMaker(pageProperty);
 	
