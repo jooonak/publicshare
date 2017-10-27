@@ -36,17 +36,17 @@ function PageMaker(param){
         var str = "";
 
         if (prev) {
-            str += tag.replace("%page", '<a class="btn" href="' + url + '?page=' + (startPage - 1)+ condition + searchConcept+'">Prev</a>');
+            str += tag.replace("%page", '<a class="btn" href="' + url + '?page=' + (startPage - 1) + condition + searchConcept + '">Prev</a>');
         } else {
 			str += tag.replace("%page", '<a class="btn" disabled>Prev</a>');
 		}
 
-        for (var i = startPage; i <= endPage; i++){
-            str += tag.replace("%page", '<a class="btn" href="' + url + '?page=' + (i) + condition + searchConcept+'">' + (i) + '</a>');
+        for (var i = startPage; i < endPage; i++){
+            str += tag.replace("%page", '<a class="btn" href="' + url + '?page=' + (i) + condition + searchConcept + '">' + (i) + '</a>');
         }
 
         if (next) {
-            str += tag.replace("%page", '<a class="btn" href="' + url + '?page=' + (endPage + 1) + condition+searchConcept+'">Next</a>');
+            str += tag.replace("%page", '<a class="btn" href="' + url + '?page=' + (endPage + 1) + condition + searchConcept + '">Next</a>');
         }
         //console.log(str);
         return str;

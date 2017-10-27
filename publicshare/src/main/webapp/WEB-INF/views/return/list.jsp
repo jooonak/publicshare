@@ -227,7 +227,7 @@ a:hover {
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
-<script type="text/javascript" src="/resources/js/pageMaker.js?ver=2"></script>
+<script type="text/javascript" src="/resources/js/pageMaker.js?ver=1"></script>
 <script type="text/javascript">
 
 
@@ -386,8 +386,8 @@ $(document).ready(function() {
 					
 					str += "<div class='col-sm-3 col-xs-12 desc'>";
 					str += "<div class='project-wrapper'><div class='project'>";
-					str += "<div class='photo-wrapper'><div class='photo'>";
-					str += "<img src='/upload/thumb/" + result[i].BookDTO.img + "' alt='' onerror=this.src='/resources/assets/img/default.jpg'>";
+					str += "<div class='photo-wrapper'><div>";
+					str += "<img src='/upload/thumb/" + result[i].BookDTO.img + "' onerror=this.src='/resources/assets/img/default.jpg'>";
 					str += "</div><div class='caption'><h4>" + result[i].BookDTO.bname + "</h4>";
 					str += "<p>" + result[i].BookDTO.owner + " | " + result[i].BookDTO.publisher + "</p>";
 					

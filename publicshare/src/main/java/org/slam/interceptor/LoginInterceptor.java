@@ -18,16 +18,6 @@ import lombok.extern.java.Log;
 @Log
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 	
-//	@Override
-//	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-//			throws Exception {
-//		
-//		Boolean logined = WebUtils.getSessionAttribute(request, "member") != null ? false : true;
-//		Boolean hasCookie = WebUtils.getCookie(request, "memberID") != null ? false : true;
-//		
-//		return logined ? hasCookie : logined;
-//	}
-
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {

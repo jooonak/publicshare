@@ -199,7 +199,7 @@
 					<!-- 상대경로, 절대경로 참조: https://stackoverflow.com/questions/34445457/404-error-for-bootstrap-min-css-and-bootstrap-min-js -->
 					<a class="fancybox" href="/upload/image/${book.img}"><img
 						class="img-responsive" src="/upload/thumb/${book.img}"
-						style="margin-top: 10px; box-shadow: 2px 2px 2px #888888"></a>
+						style="margin-top: 10px; box-shadow: 2px 2px 2px #888888" onerror="this.src='/resources/assets/img/default.jpg'"></a>
 					<div class="container thumbview">
 						<c:forEach items="${book.imgFiles}" var="img">
 							<!-- fileUpload용 div -->

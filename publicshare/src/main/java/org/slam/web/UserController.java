@@ -81,7 +81,7 @@ public class UserController {
 		service.modifyUser(dto);
 		
 		rttr.addFlashAttribute("result","modify");
-		return "redirect:/logout";
+		return "redirect:/mypage";
 	}
 	
 }
