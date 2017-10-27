@@ -16,7 +16,7 @@ public interface UserMapper {
 	@Select("select * from tbl_member where mid = #{mid}")
 	public MemberDTO getMember(String mid);
 
-	@Update("update tbl_member set mpw = #{mpw} where mid = #{mid}")
+	@Update("update tbl_member set mpw = #{mpw}, nickname = #{nickname} where mid = #{mid}")
 	public void updateUser(MemberDTO dto);
 	
 	//알람의 개수를 가져오는 query

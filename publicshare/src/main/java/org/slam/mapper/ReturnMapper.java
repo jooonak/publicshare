@@ -12,7 +12,7 @@ import org.slam.dto.ReservationDTO;
 public interface ReturnMapper {
 	
 
-	public List<Map<String, Object>> getList(@Param("skip") int skip, @Param("status") String status, @Param("mid") String mid);
+	public List<Map<String, Object>> getList(@Param("skip") Criteria cri, @Param("status") String status, @Param("mid") String mid);
 
 	public void request(ReservationDTO dto);
 	
@@ -30,8 +30,8 @@ public interface ReturnMapper {
 	@Update("update tbl_reservation set status = 'onloan' where rno = #{rno}")
 	public void checkReject(int rno);
 	
-	@Select("select count(*) from tbl_reservation where lender = #{mid} and status = 'onloan'")
-	public int getTotal(String mid);
+	@Select("select count(*) from tbl_reservation where lender = #{mid} and status = #{status}")
+	public int getTotal(@Param("mid") String mid, @Param("status") String status);
 
 	//사용자의 대여 이력 (hb)
 	public List<Map<String, Object>> loanHistoryList(String mid);

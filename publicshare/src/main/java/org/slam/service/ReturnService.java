@@ -8,9 +8,6 @@ import org.slam.dto.ReservationDTO;
 
 public interface ReturnService {
 
-	public Criteria setCri(Criteria cri, String mid);
-	//내가 대여한 책의 리스트를 가져오는 메서드
-
 	public void request(ReservationDTO dto);
 	//내가 대여한 책을 반납신청하는 메서드
 
@@ -32,7 +29,7 @@ public interface ReturnService {
 
 	public void checkReject(int rno);
 
-	public List<Map<String, Object>> getList(int page, String status, String mid);
+	public List<Map<String, Object>> getList(Criteria cri, String status, String mid);
 
 	//사용자의 대여 이력(hb)
 	public List<Map<String, Object>> loanHistoryList(String mid);

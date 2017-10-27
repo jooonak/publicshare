@@ -84,9 +84,9 @@ public class ReturnRestController {
 	}
 	
 	@GetMapping("/list/{status}/{page}")
-	public List<Map<String, Object>> List(@PathVariable("page") int page, @PathVariable("status") String status,
+	public List<Map<String, Object>> List(@PathVariable("page") Criteria cri, @PathVariable("status") String status,
 			@SessionAttribute(value = "member", required = false) MemberDTO member){
-		return service.getList(page, status, member.getMid());
+		return service.getList(cri, status, member.getMid());
 	}
 	
 	@GetMapping("/loanHistoryList")

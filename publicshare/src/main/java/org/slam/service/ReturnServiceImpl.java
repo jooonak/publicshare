@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.slam.dto.Criteria;
-import org.slam.dto.MemberDTO;
 import org.slam.dto.ReservationDTO;
 import org.slam.mapper.ResBookMapper;
 import org.slam.mapper.ReturnMapper;
@@ -21,12 +20,6 @@ public class ReturnServiceImpl implements ReturnService{
 	
 	@Inject
 	ResBookMapper resBookMapper;
-	
-	@Override
-	public Criteria setCri(Criteria cri, String mid) {
-		cri.setTotal(returnMapper.getTotal(mid));
-		return cri;
-	}
 
 	@Transactional
 	@Override
@@ -78,9 +71,9 @@ public class ReturnServiceImpl implements ReturnService{
 	}
 
 	@Override
-	public List<Map<String, Object>> getList(int page, String status, String mid) {
-		int skip = (page - 1) * 8;
-		return returnMapper.getList(skip, status, mid);
+	public List<Map<String, Object>> getList(Criteria cri, String status, String mid) {
+		cri.setTotal(returnMapper.getTotal(mid, status));
+		return returnMapper.getList(cri, status, mid);
 	}
 
 	@Override

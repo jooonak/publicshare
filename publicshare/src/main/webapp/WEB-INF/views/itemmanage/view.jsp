@@ -604,7 +604,7 @@ $(document).ready(function() {
 						str += "<li><p><h5>대여자:  " + result[i].lender + "  - 대여/예약 취소</h5></p>";
 						str += "</li><hr/>";
 					} else if(result[i].status == 'loanrejected'){
-						str += "<li><p><h5>대여자:  " + result[i].lender + "  - 대여/예약 거절</h5></p>";
+						str += "<li><p><h5>대여자:  " + result[i].lender + "  - 대여 거절</h5></p>";
 						str += "</li><hr/>";
 					} else if(result[i].status == 'returnrejected'){
 						str += "<li><p><h5>대여자:  " + result[i].lender + "  - 반납 거절 중</h5></p>";

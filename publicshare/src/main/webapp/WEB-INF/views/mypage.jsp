@@ -9,8 +9,9 @@
 <!-- í©ì³ì§ê³  ìµìíë ìµì  CSS -->
 
 <!-- ë¶ê°ì ì¸ íë§ -->
+<link href="/resources/assets/css/bootstrap.css" rel="stylesheet">
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
 <!-- w3 Modalì¬ì©ì ìí link -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -149,6 +150,32 @@ body {
 #regBtn {
 	float: right;
 }
+
+.modal {
+	padding-right: 0px;
+	background-color: rgba(4, 4, 4, 0.3);
+}
+
+.modal-dialog_a {
+	top: 20%;
+	width: 50%;
+	position: absolute;
+	margin-left: 25%;
+}
+
+.modal-content_a {
+	border-radius: 10px;
+	border: none;
+	padding: 25px;
+	top: 40%;
+}
+
+.modal-body_a {
+	background-color: white;
+	border-radius: 10px;
+	color: black;
+	padding: 10px;
+}
 </style>
 
 <div class="row text-center" style="padding: 50px;">
@@ -172,27 +199,22 @@ body {
 <div class="container">
 	<div class="card card-container">
 		<div>
-			
 			<p id="profile-name" class="profile-name-card"></p>
 			<form class="form-signin" action="/modify" method="post">
-				<span id="reauth-email" class="reauth-email"></span> 
-				<label>ID</label>
-				<input type="text" class="form-control" name="mid"	placeholder="UserID" value="${member.mid}" readonly="readonly">
-				<label>ENTER PASSWORD</label>
-				<input type="password" name="mpw" class="form-control" placeholder="Password" required value="${member.mpw}">
-				<!-- <label>CHECK PASSWORD</label> 
-				<input type="password" name="mpwCK" class="form-control" placeholder="Password" required> --> 
-				<label>NAME</label> 
-				<input type="text" class="form-control" name="mname" placeholder="UserID" value="${member.mname}" readonly="readonly">
-				<label>NICKNAME</label> 
-				<input type="text" class="form-control" name="mname" placeholder="UserID" value="${member.nickname}"> 
-				<label>JOIN	DATE</label> 
-				<input type="text" class="form-control" name="mname" placeholder="UserID" value="${member.joinDate}" readonly="readonly">
-				<button id="modify" class="btn btn-success btn-block">MODIFY</button>
+				<label>ID
+				<input type="text" class="form-control" name="mid"	placeholder="UserID" value="${member.mid}" readonly="readonly"></label>
+				<label>ENTER PASSWORD
+				<input type="password" class="form-control" name="mpw" placeholder="Password" required value="${member.mpw}"></label> 
+				<label>NICKNAME
+				<input type="text" class="form-control" name="nickname" placeholder="UserID" value="${member.nickname}"></label> 
+				<label>NAME
+				<input type="text" class="form-control" name="mname" placeholder="UserID" value="${member.mname}" readonly="readonly"></label> 
+				<label>JOIN	DATE
+				<input type="text" class="form-control" name="joindate" placeholder="UserID" value="${member.joinDate}" readonly="readonly"></label>
+				<button type="submit" id="modify" class="btn btn-success btn-block">MODIFY</button>
 				<button id="logout" class="btn btn-danger btn-block">LOGOUT</button>
 			</form>
 			<!-- /form -->
-
 		</div>
 		<!-- /card-container -->
 	</div>
@@ -202,13 +224,13 @@ body {
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
+<script src="/resources/assets/js/bootstrap.min.js?ver=1"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	var msg = '${result}';
 
 	var $alertModal = $(".alert-modal");
 	
-	if (msg == 'modify') {
+	if ('${result}' == 'modify') {
 		$(".alert-subject").html("정보 수정 성공!");
 		
 		$alertModal.modal('show');	
@@ -218,15 +240,10 @@ $(document).ready(function() {
 	}
 	
 	$("#logout").on("click", function(e){
+		e.preventDefault();
 		$(".form-signin").attr("action","/logout").attr("method","post").submit();
 	});
 	
-	/* $("#modify").on("click", function(e){
-		e.preventDefault();
-		
-		console.log($("input[type='password']"));
-		
-	}); */	
 });
 </script>
 
