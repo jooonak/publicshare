@@ -283,22 +283,24 @@ a:hover {
 		</ul>
 	</div>
 </div>
+
 <div class="row text-center" style="padding: 50px;">
-	<div class="modal fade alert-modal" tabindex="-1"
-		role="dialogA" aria-labelledby="modalLabelA">
-		<div class="modal-dialog_a modal-lg">
-			<div class="modal-content_a">
-				<div class="modal-body_a  ">
-					<h1 class = "alert-subject"></h1>
-					<p>
-						<button type="button" class="btn btn-default alert-close" data-dismiss="modal">확인</button>
-					</p>
+		<div class="modal fade alert-modal" tabindex="-1"
+			role="dialogA" aria-labelledby="modalLabelA">
+			<div class="modal-dialog_a modal-lg">
+				<div class="modal-content_a">
+					<div class="modal-body_a  ">
+					<br><br><br>
+						<h1 class = "alert-contents"></h1>
+						<br><br><br>
+						<p>
+							<button type="button" class="btn btn-default alert-close" data-dismiss="modal">확인</button>
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</div> 	
-
+	</div> 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
@@ -319,10 +321,10 @@ $(document).ready(function() {
 	var $alertContents = $(".alert-contents");
 	
 	if('${result}' === "success"){
-		$(".alert-subject").html("도서 등록 완료");
+		$(".alert-contents").html("도서 등록 완료");
 		$alertModal.modal("show");	
 	}else if('${result}' === "delete"){
-		$(".alert-subject").html("도서 삭제 완료");
+		$(".alert-contents").html("도서 삭제 완료");
 		$alertModal.modal("show");
 	}
 	
@@ -368,6 +370,7 @@ $(document).ready(function() {
 	}
 	
 	$("#returnBtn").on("click", function(e){
+		$ModalLabel.text("");
 		$ModalLabel.html("반납 요청");
 		$modalBody.html("");
 		checkReturn();
@@ -394,10 +397,11 @@ $(document).ready(function() {
 			contentType: "application/json; charset=utf-8",
 			data:JSON.stringify(data),
 			success : function(result) {
-				$alertContents.html("대여 처리 완료");
+				$alertContents.html("대여 요청 처리 완료");
 				$alertModal.modal("show");
 				$modalBody.html("");
 				checkApply();
+				
 			}
 		});
 	});
@@ -416,10 +420,11 @@ $(document).ready(function() {
 			contentType: "application/json; charset=utf-8",
 			data:JSON.stringify(data),
 			success : function(result) {
-				$alertContents.html("반납 처리 완료");
+				$alertContents.html("반납 요청 처리 완료");
 				$alertModal.modal("show");
 				$modalBody.html("");
 				checkReturn();
+				
 			}
 		});
 	});

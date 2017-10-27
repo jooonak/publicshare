@@ -9,6 +9,82 @@
 <!-- 왜 상대경로만 되는지... -->
 
 <style>
+/* modal style for reservation status(jn) */
+.modal.left .modal-dialog, .modal.right .modal-dialog {
+	position: fixed;
+	margin: auto;
+	width: 35%;
+	height: 100%;
+	-webkit-transform: translate3d(0%, 0, 0);
+	-ms-transform: translate3d(0%, 0, 0);
+	-o-transform: translate3d(0%, 0, 0);
+	transform: translate3d(0%, 0, 0);
+}
+
+.modal.left .modal-content, .modal.right .modal-content {
+	height: 100%;
+	overflow-y: auto;
+}
+
+.modal.left .modal-body, .modal.right .modal-body {
+	padding: 15px 15px 80px;
+}
+
+/*Right*/
+.modal.right.fade .modal-dialog {
+	right: -320px;
+	-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+	-moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+	-o-transition: opacity 0.3s linear, right 0.3s ease-out;
+	transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog {
+	right: 0;
+}
+
+/* ----- MODAL STYLE ----- */
+.modal-content {
+	border-radius: 0;
+	border: none;
+}
+
+.modal-header {
+	border-bottom-color: #EEEEEE;
+	background-color: #FAFAFA;
+}
+/* modal style for reservation status end(jn) */
+
+/* modal style for alert(hb) */
+.modal {
+	padding-right: 0px;
+	background-color: rgba(4, 4, 4, 0.3);
+}
+
+.modal-dialog_a {
+	top: 20%;
+	width: 50%;
+	position: absolute;
+	margin-left: 25%;
+}
+
+.modal-content_a {
+	border-radius: 10px;
+	border: none;
+	padding: 25px;
+	top: 40%;
+}
+
+.modal-body_a {
+	background-color: white;
+	border-radius: 10px;
+	color: black;
+	padding: 10px;
+}
+/* modal style for alert end(hb) */
+</style>
+
+<style>
 .project-wrapper {
 	border-radius: 5px;
 	text-align: center;
@@ -221,7 +297,23 @@ a:hover {
 		</ul>
 	</div>
 </div>
-
+<div class="row text-center" style="padding: 50px;">
+		<div class="modal fade alert-modal" tabindex="-1"
+			role="dialogA" aria-labelledby="modalLabelA">
+			<div class="modal-dialog_a modal-lg">
+				<div class="modal-content_a">
+					<div class="modal-body_a  ">
+					<br><br><br>
+						<h1 class = "alert-contents"></h1>
+						<br><br><br>
+						<p>
+							<button type="button" class="btn btn-default alert-close" id="okbtn" data-dismiss="modal">확인</button>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> 
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -243,6 +335,9 @@ $(document).ready(function() {
 
 	$("#divPaging").html(pageStr);
 	
+	var $alertModal = $(".alert-modal");
+	var $alertContents = $(".alert-contents");
+	
 	var $ModalLabel = $("#myModalLabel2");
 	var $modalBody = $(".modal-body");
 	
@@ -261,6 +356,8 @@ $(document).ready(function() {
 			contentType: "application/json; charset=utf-8",
 			data:JSON.stringify(data),
 			success : function(result) {
+				$alertContents.html("예약 확인 완료");
+				$alertModal.modal("show");
 				$modalBody.html("");
 				getResAlarm();
 			}
@@ -280,7 +377,9 @@ $(document).ready(function() {
 			contentType: "application/json; charset=utf-8",
 			data:JSON.stringify(data),
 			success : function(result) {
-				$modalBody.html("");
+				$alertContents.html("반납 거절 확인");
+				$alertModal.modal("show");
+				$modalBody.html("");				
 				getReturnAlarm();
 			}
 		});
@@ -394,11 +493,16 @@ $(document).ready(function() {
 					 //연체금 계산 함수 실행 및 연체금 있을 시 버튼 처리 변경
 					if(url.split("/")[3] == "onloan"){
 						str += lateFee(result[i]).str; 	
-						if(lateFee(result[i]).lateFee > 0){ text = '연체중'; }
+						if(lateFee(result[i]).lateFee > 0){ 
+							str += "<button id='btnStatus' class='btn btn-danger' data-rno=" + result[i].ReservationDTO.rno;
+							text = '연체 처리'; 
+						}else{
+							str += "<button id='btnStatus' class='btn btn-warning' data-rno=" + result[i].ReservationDTO.rno;
+						}
 					} else {
-						str += "<button id='btnStatus' data-rno=" + result[i].ReservationDTO.rno;
+						str += "<button id='btnStatus' class='btn btn-warning' data-rno=" + result[i].ReservationDTO.rno;
 					}
-					str += " data-status='" + url.split("/")[3] + "' class='btn btn-warning' data-bno=" + result[i].BookDTO.bno + ">" + text + "</button>";
+					str += " data-status='" + url.split("/")[3] + "'  data-bno=" + result[i].BookDTO.bno + ">" + text + "</button>";
 					str += "<p></p></div></div></div></div></div>";
 					
 				}
@@ -416,6 +520,7 @@ $(document).ready(function() {
 	$("#listDiv").on("click", "#btnStatus", function(e){
 		
 		var $this = $(this);
+		
 		var data = { 
 				bno: $this.attr('data-bno'),
 			  	rno: $this.attr('data-rno'),
@@ -430,9 +535,23 @@ $(document).ready(function() {
 			contentType: "application/json; charset=utf-8",
 			data:JSON.stringify(data),
 			success : function(result) {
-				location.reload();
+				
+				if(data.status=='onapply'){
+					$alertContents.html("대여 취소 완료");
+				}else if(data.status=='onres'){
+					$alertContents.html("예약 취소 완료");
+				}else if(data.status=='onloan'){
+					$alertContents.html("반납 처리 완료");
+				}else{
+					$alertContents.html("연체 처리 완료");
+				}
+				$alertModal.modal("show");
+				//location.reload();
 			}
 		});
+			
+		
+		
 	});
 	
 	//연체금 계산 함수
@@ -505,6 +624,15 @@ $(document).ready(function() {
 		
 		return timeString;
 	}
+	
+	/* $("#okbtn").on("click",function(e){
+		
+		
+		location.reload();
+		
+		
+		
+	}); */
 });	
 </script>
 
