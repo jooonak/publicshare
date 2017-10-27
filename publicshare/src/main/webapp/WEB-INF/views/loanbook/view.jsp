@@ -680,8 +680,6 @@ $(document).ready(function() {
 		
 		return str;
 	}
-});	
-
-
+});
 </script>
 <%@include file="../include/footer.jsp"%>
