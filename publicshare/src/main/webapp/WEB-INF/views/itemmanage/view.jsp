@@ -317,7 +317,7 @@
 				<!-- 수정/삭제 div 호출(대여 페이지에서 이동할 경우 표시되는 버튼) -->
 				<button class = "btn btn-warning btn-position modBtn">수정/삭제</button>
 				<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
-				<a href="/itemmanage/list">
+				<a href="/itemmanage/list?page=${cri.page}">
 					<button type="button" class = "btn btn-default btn-position" id="listBtn">뒤로가기</button>
 				</a>
 			</div>

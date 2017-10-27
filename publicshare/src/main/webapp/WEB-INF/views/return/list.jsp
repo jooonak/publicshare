@@ -154,7 +154,7 @@ a:hover {
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<h1 style="font-size:5em">My Loan List</h1>
+				<h1 style="font-size:5em">MY LOAN LIST</h1>
 			</div>
 		</div>
 		<!--/row -->
@@ -173,11 +173,11 @@ a:hover {
 				<ul class="right">
 					<li><button id="returnalarm" style="float: right;"
 							data-toggle="modal" data-target="#myModal"
-							class="btn btn-default">반납 거절 리스트
+							class="btn btn-default">반납 거절 알람
 							<span id="rejectcnt" class="label label-danger"></span></button></li>
 					<li><button id="resalarm" style="float: right;"
 							data-toggle="modal" data-target="#myModal"
-							class="btn btn-default">예약 요청 리스트
+							class="btn btn-default">예약 요청 알람
 							<span id="applyreadycnt" class="label label-danger"></span></button></li>
 					<li><button id="history" style="float: right;"
 							data-toggle="modal" data-target="#myModal"
@@ -203,7 +203,7 @@ a:hover {
 								aria-label="Close">
 								<span aria-hidden="true">×</span>
 							</button>
-							<h4 class="modal-title" id="myModalLabel2">Right Sidebar</h4>
+							<h4 class="modal-title" id="myModalLabel2"></h4>
 						</div>
 
 						<div class="modal-body"></div>
@@ -293,10 +293,10 @@ $(document).ready(function() {
 				
 				str += "<div id=alarm><img src=/upload/thumb/" + result[i].BookDTO.img + " onerror=this.src='/resources/assets/img/default.jpg'>";
 				str += "<p>반납 거부 됨 - 책의 소유주에게 문의 바람</p>";
-				str += "<p>Book title: " + result[i].BookDTO.bname  +"</p>";
-				str += "<p>Book owner: " + result[i].BookDTO.owner + "";
+				str += "<p>도서 제목: " + result[i].BookDTO.bname  +"</p>";
+				str += "<p>소유주: " + result[i].BookDTO.owner + "";
 				str += "<button id=checkReject data-rno=" + result[i].ReservationDTO.rno
-				str += " data-bno=" + result[i].BookDTO.bno + " class='btn btn-primary'>CONFIRM</button></p></div><hr/>";		
+				str += " data-bno=" + result[i].BookDTO.bno + " class='btn btn-primary'>확인</button></p></div><hr/>";		
 			}
 			$(".modal-body").html(str);
 		});
@@ -308,13 +308,13 @@ $(document).ready(function() {
 			console.log(result);
 			for (var i = 0; i < result.length; i++) {
 				str += "<div id=alarm><img src=/upload/thumb/" + result[i].BookDTO.img + " onerror=this.src='/resources/assets/img/default.jpg'>";
-				str += "<p>Book title: " + result[i].BookDTO.bname + "</p>";
-				str += "<p>Book owner: " + result[i].BookDTO.owner + "</p>";
-				str += "<p>Reservation time: " + getTime(result[i]) + "";
+				str += "<p>도서 제목: " + result[i].BookDTO.bname + "</p>";
+				str += "<p>소유주: " + result[i].BookDTO.owner + "</p>";
+				str += "<p>예약 시간: " + getTime(result[i]) + "";
 				str += "<button id=resBtn data-oper=reserveconfirm data-rno=" + result[i].ReservationDTO.rno;
-				str += " data-bno=" + result[i].BookDTO.bno + " class='btn btn-success'>ACCEPT</button>";
+				str += " data-bno=" + result[i].BookDTO.bno + " class='btn btn-success'>확인</button>";
 				str += "<button id=resBtn data-oper=reservereject data-rno=" + result[i].ReservationDTO.rno;
-				str += " data-bno=" + result[i].BookDTO.bno + " class='btn btn-danger'>CANCEL</button></p></div><hr/>";		
+				str += " data-bno=" + result[i].BookDTO.bno + " class='btn btn-danger'>거절</button></p></div><hr/>";		
 			}
 			$(".modal-body").html(str);
 		});
@@ -327,9 +327,9 @@ $(document).ready(function() {
 			for (var i = 0; i < result.length; i++) {
 				
 				str += "<div id=alarm><img src=/upload/thumb/" + result[i].BookDTO.img + " onerror=this.src='/resources/assets/img/default.jpg'>";
-				str += "<p>Book title: " + result[i].BookDTO.bname +"</p>";
-				str += "<p>Book owner: " + result[i].BookDTO.owner +"</p>";
-				str += "<p>Return time: " + getTime(result[i]) + "</p></div><hr/>";
+				str += "<p>도서 제목: " + result[i].BookDTO.bname +"</p>";
+				str += "<p>소유주: " + result[i].BookDTO.owner +"</p>";
+				str += "<p>반납 시간: " + getTime(result[i]) + "</p></div><hr/>";
 				
 			}
 			$(".modal-body").html(str);
@@ -338,21 +338,21 @@ $(document).ready(function() {
 	
 	$("#returnalarm").on("click", function(e){
 		$ModalLabel.text("");
-		$ModalLabel.text("Rejected Return");
+		$ModalLabel.text("반납 거절");
 		$modalBody.html("");
 		getReturnAlarm();
 	});
 	
 	$("#resalarm").on("click", function(e){
 		$ModalLabel.text("");
-		$ModalLabel.text("Check Reservation");
+		$ModalLabel.text("예약 확인");
 		$modalBody.html("");
 		getResAlarm();
 	});
 	
 	$("#history").on("click", function(e){
 		$ModalLabel.text("");
-		$ModalLabel.text("Loan History");
+		$ModalLabel.text("대여 내력");
 		$modalBody.html("");
 		getHistoryAlarm();
 	});

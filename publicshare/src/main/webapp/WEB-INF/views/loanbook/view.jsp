@@ -217,7 +217,7 @@
 					<!-- BookDTO, MemberDTO, Criteria 필요 -->
 					<h1 style="margin: 15px; font-weight: bold;">${book.bname}</h1>
 					<h4 style="text-align: right">
-						<b>publisher:</b> ${book.publisher} | <b>owner:</b> ${book.owner}
+						<b>출판사:</b> ${book.publisher} | <b>소유주:</b> ${book.owner}
 					</h4>
 					<hr style="margin-bottom: 0px">
 					<blockquote class="content-box">
@@ -231,19 +231,18 @@
 			<div style="margin-top: 2%;">
 				<c:choose>
 					<c:when test="${book.resCnt ne 0}">
-						<button id="resBtn" type="button"
-							class="btn btn-primary btn-position modBtn" data-toggle="modal"
-							data-target=".modalDialogB">reservation</button>
+						<button id="resBtn" type="button" class="btn btn-primary btn-position modBtn"
+						 	data-toggle="modal" data-target=".modalDialogB">예약</button>
 					</c:when>
 					<c:when test="${book.resCnt eq 0}">
 						<button type="button" class="btn btn-primary btn-position modBtn"
-							data-toggle="modal" data-target=".modalDialogA">loan</button>
+							data-toggle="modal" data-target=".modalDialogA">대여</button>
 					</c:when>
 				</c:choose>
 				<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
 				<a href="/loanbook/list?page=${cri.page}">
 					<button type="button" class="btn btn-default btn-position"
-						id="listBtn" name="list">back</button>
+						id="listBtn" name="list">뒤로가기</button>
 				</a>
 			</div>
 			<br>
@@ -288,33 +287,16 @@
 								<h1 class="alert-subject">신청 페이지</h1>
 								<h4 class="alert-contents">대여 하시겠습니까?</h4>
 								<p>
-									<button class="btn btn-default" id="rentBook" value="onapply">confirm</button>
+									<button class="btn btn-default" id="rentBook" value="onapply">확인</button>
 									<button type="button" class="btn btn-default"
-										data-dismiss="modal">close</button>
+										data-dismiss="modal">취소</button>
 								</p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="row text-center" style="padding: 50px;">
-				<div class="modal fade alert-modal" tabindex="-1" role="dialogA"
-					aria-labelledby="modalLabelA">
-					<div class="modal-dialog_a modal-lg">
-						<div class="modal-content_a">
-							<div class="modal-body_a  ">
-								<h1 class="alert-subject">confirm</h1>
-								<h4 class="alert-contents" style="margin-top: 15px">대여 신청이
-									완료되었습니다.</h4>
-								<p>
-									<button type="button" class="btn btn-default alert-close"
-										data-dismiss="modal">close</button>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 			<!-- bookDTO의 available이 F(False)일 경우 나타나는 모달 -->
 			<div class="row text-center" style="padding: 50px;">
 				<div class="modal fade modalDialogB " tabindex="-1" role="dialogB"
@@ -323,7 +305,7 @@
 						<div class="modal-content_b">
 							<div class="modal-body_b  ">
 								<h2>신청 페이지</h2>
-								<h4>Loan/Reservation History</h4>
+								<h4>대여/예약 히스토리</h4>
 								<div class="history"></div>
 
 							</div>
@@ -341,10 +323,11 @@
 			<div class="modal-dialog_a modal-lg">
 				<div class="modal-content_a">
 					<div class="modal-body_a  ">
-						<h1 class = "alert-subject">CONFIRM</h1>
-						<h4 class = "alert-contents" style="margin-top:15px">대여 신청이 완료되었습니다.</h4>
+					<br><br><br>
+						<h2 class = "alert-contents" style="margin-top:15px">대여 신청 완료</h2>
+						<br><br><br>
 						<p>
-							<button type="button" class="btn btn-default alert-close" data-dismiss="modal">close</button>
+							<button type="button" class="btn btn-default alert-close" data-dismiss="modal">확인</button>
 						</p>
 					</div>
 				</div>
@@ -672,8 +655,8 @@ $(document).ready(function() {
 		}
 		
 		var str = "";
-		str += "<div><p>Lender: " + result.lender + " | StartDate: " + result.startdate + "</p>";
-		str += "<p>Reservation Count: " + result.checkUser + " | Expected Wait Date: " + result.expect + "</p>";
+		str += "<div><p>대여자: " + result.lender + " | 대여 시작일: " + result.startdate + "</p>";
+		str += "<p>예약자 수: " + result.checkUser + " | 예상 대여 가능 시간: " + result.expect + "</p>";
 		
 		if (result.lender == '${member.mid}'){
 			

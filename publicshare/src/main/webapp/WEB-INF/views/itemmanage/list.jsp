@@ -244,7 +244,7 @@ a:hover {
 							<div class="project-wrapper">
 								<div class="project">
 									<div class="photo-wrapper">
-										<a href="/itemmanage/view?bno=${book.bno}">
+										<a href="/itemmanage/view?bno=${book.bno}&page=${cri.page}">
 											<div class="photo">
 												<img src="/upload/thumb/${book.img}" alt="" onerror="this.src='/resources/assets/img/default.jpg'">
 											</div>
@@ -342,7 +342,7 @@ $(document).ready(function() {
 				str += "<p>Application time: "+getTime(result[i])+"";
 				str += "<button class='btn btn-default' id=returnBtn data-oper=returnconfirm data-rno=" + result[i].ReservationDTO.rno;
 				str += " data-bno=" + result[i].BookDTO.bno + ">확인</button>";
-				str += "<button class='btn btn-default' id=returnBtn data-oper=returnreject data-rno=" + result[i].ReservationDTO.rno;
+				str += "<button class='btn btn-warning' id=returnBtn data-oper=returnreject data-rno=" + result[i].ReservationDTO.rno;
 				str += " data-bno=" + result[i].BookDTO.bno + ">거절</button></p></div><hr/>";
 				$(".modal-body").html(str);
 			}
