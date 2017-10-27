@@ -401,7 +401,7 @@ $(document).ready(function() {
 						str += "<button id='btnStatus' data-rno=" + result[i].ReservationDTO.rno;
 					}
 					str += " data-status='" + url.split("/")[3] + "' class='btn btn-warning' data-bno=" + result[i].BookDTO.bno + ">" + text + "</button>";
-					str += "<p></p></div><div class='overlay'></div></div></div></div></div>";
+					str += "<p></p></div></div></div></div></div>";
 					
 				}
 			} else {

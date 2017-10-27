@@ -62,7 +62,6 @@
 	display: none;
 }
 
-
 /*댓글 창 관련 css hb  */
 .form-panel {
 	background: #f4f4f4;
@@ -89,12 +88,11 @@
 	float: left;
 }
 
-
-#reReplyForm{
+#reReplyForm {
 	width: 80%;
 	margin-left: 100px;
 	line-height: 1.42857143;
-} 
+}
 
 .btn-position {
 	float: right;
@@ -109,19 +107,17 @@
 	height: 80px;
 	width: 100%;
 	box-shadow: 2px 2px 2px #888888;
-	
 }
 
 .thumbcontainer {
 	position: relative;
 	width: 25%;
-	height: 90%; 
-	display : inline-block;
+	height: 90%;
+	display: inline-block;
 	/* or */
 	float: left;
-	margin-top:1px;
-	margin-left:5px;
-	
+	margin-top: 1px;
+	margin-left: 5px;
 }
 
 .thumbimg {
@@ -144,7 +140,6 @@
 	transform: translate(-50%, -50%);
 	-ms-transform: translate(-50%, -50%)
 }
-
 
 .mainthumb {
 	position: absolute;
@@ -169,9 +164,10 @@
 	font-size: 16px;
 	padding: 16px 32px;
 }
+
 .content-box {
-	height:230px;
-	overflow:scroll;
+	height: 230px;
+	overflow: scroll;
 	overflow-x: hidden;
 }
 </style>
@@ -202,15 +198,16 @@
 				<!--col-lg-4-->
 				<div class="col-lg-4 name">
 					<!-- 상대경로, 절대경로 참조: https://stackoverflow.com/questions/34445457/404-error-for-bootstrap-min-css-and-bootstrap-min-js -->
-					<a class="fancybox"
-						href="/upload/image/${book.img}"><img
+					<a class="fancybox" href="/upload/image/${book.img}"><img
 						class="img-responsive" src="/upload/thumb/${book.img}"
 						style="margin-top: 10px; box-shadow: 2px 2px 2px #888888"></a>
 					<div class="container thumbview">
 						<c:forEach items="${book.imgFiles}" var="img">
-						<!-- fileUpload용 div -->
-							<div class = 'thumbcontainer'>
-								<img class='thumbimg' data-uploadName= "${img}" src = "/upload/thumb/${img}" onerror="this.src='/resources/assets/img/default.jpg'">
+							<!-- fileUpload용 div -->
+							<div class='thumbcontainer'>
+								<img class='thumbimg' data-uploadName="${img}"
+									src="/upload/thumb/${img}"
+									onerror="this.src='/resources/assets/img/default.jpg'">
 							</div>
 						</c:forEach>
 					</div>
@@ -219,125 +216,128 @@
 				<!--col-lg-8-->
 				<div class="col-lg-8 name-desc">
 					<!-- BookDTO, MemberDTO, Criteria 필요 -->
-					<h1 style="margin:15px;font-weight: bold;">${book.bname}</h1>
-					<h4 style="text-align: right"><b>publisher:</b> ${book.publisher} | <b>owner:</b> ${book.owner}</h4>
+					<h1 style="margin: 15px; font-weight: bold;">${book.bname}</h1>
+					<h4 style="text-align: right">
+						<b>publisher:</b> ${book.publisher} | <b>owner:</b> ${book.owner}
+					</h4>
 					<hr style="margin-bottom: 0px">
 					<blockquote class="content-box">
-				      <p>${book.contents}</p> 
-				    </blockquote>
-				    <hr>
+						<p>${book.contents}</p>
+					</blockquote>
+					<hr>
 				</div>
 			</div>
 			<!-- /row -->
 			<!--/col-lg-8-->
-			<div style="margin-top:2%;">
-				
+			<div style="margin-top: 2%;">
 				<c:choose>
 					<c:when test="${book.resCnt ne 0}">
-						<button id="resBtn" type="button" class = "btn btn-primary btn-position modBtn"  data-toggle="modal"
-							data-target=".modalDialogB" >reservation</button>
+						<button id="resBtn" type="button"
+							class="btn btn-primary btn-position modBtn" data-toggle="modal"
+							data-target=".modalDialogB">reservation</button>
 					</c:when>
 					<c:when test="${book.resCnt eq 0}">
-						<button type="button" class = "btn btn-primary btn-position modBtn"  data-toggle="modal"
-							data-target=".modalDialogA" >loan</button>
+						<button type="button" class="btn btn-primary btn-position modBtn"
+							data-toggle="modal" data-target=".modalDialogA">loan</button>
 					</c:when>
 				</c:choose>
 				<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
 				<a href="/loanbook/list?page=${cri.page}">
-				<button type="button" class = "btn btn-default btn-position" id="listBtn" name="list" >
-				back</button></a>
-				</div>
-				<br>
-				<!-- /row -->
-				<!-- INPUT MESSAGES (hb)-->
-				<div class="row mt">
-					<div class="col-lg-12">
-						<div class="form-panel">
-							<h4>
-								REPLIES
-								<!--댓글 입력 부분 _hb  -->
-								<div class="form-replypanel">
-									<input class="form-replycontrol" name="reply" id="reply">
-									<input style="float: right;" class="regBtn" type="button"
-										value="등록">
-								</div>
-							</h4>
-							<hr>
-							<!--댓글 리스트 (홍빈)  -->
-							<form class="form-horizontal tasi-form">
-								<div class="form-group has-success">
-									<ul class="col-lg-10 replyUL">
-									</ul>
-								</div>
-							</form>
-							<!--댓글 리스트 (홍빈)  -->
+					<button type="button" class="btn btn-default btn-position"
+						id="listBtn" name="list">back</button>
+				</a>
+			</div>
+			<br>
+			<!-- /row -->
+			<!-- INPUT MESSAGES (hb)-->
+			<div class="row mt">
+				<div class="col-lg-12">
+					<div class="form-panel">
+						<h4>
+							REPLIES
+							<!--댓글 입력 부분 _hb  -->
+							<div class="form-replypanel">
+								<input class="form-replycontrol" name="reply" id="reply">
+								<input style="float: right;" class="regBtn" type="button"
+									value="등록">
+							</div>
+						</h4>
+						<hr>
+						<!--댓글 리스트 (홍빈)  -->
+						<form class="form-horizontal tasi-form">
+							<div class="form-group has-success">
+								<ul class="col-lg-10 replyUL">
+								</ul>
+							</div>
+						</form>
+						<!--댓글 리스트 (홍빈)  -->
 
-						</div>
-						<!-- /form-panel -->
 					</div>
-					<!-- /col-lg-12 -->
+					<!-- /form-panel -->
 				</div>
-				<!-- /row -->
-				
-				<!-- choose/when구문을 사용해서 해당 bookDTO의 available상태에 따른 노출값이 다를 수 있도록 구현 -->
-					<!-- bookDTO의 available이 T(대여 가능)일 경우 나타나는 모달 -->
-					<div class="row text-center" style="padding: 50px;">
-						<div class="modal fade modalDialogA" tabindex="-1"
-							role="dialogA" aria-labelledby="modalLabelA">
-							<div class="modal-dialog_a modal-lg">
-								<div class="modal-content_a">
-									<div class="modal-body_a  ">
-										<h1 class = "alert-subject">신청 페이지</h1>
-										<h4 class = "alert-contents">대여 하시겠습니까?</h4>
-										<p>
-											<button class = "btn btn-default" id="rentBook" value="onapply">confirm</button>
-											<button type="button" class="btn btn-default" data-dismiss="modal">close</button>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row text-center" style="padding: 50px;">
-						<div class="modal fade alert-modal" tabindex="-1"
-							role="dialogA" aria-labelledby="modalLabelA">
-							<div class="modal-dialog_a modal-lg">
-								<div class="modal-content_a">
-									<div class="modal-body_a  ">
-										<h1 class = "alert-subject">confirm</h1>
-										<h4 class = "alert-contents" style="margin-top:15px">대여 신청이 완료되었습니다.</h4>
-										<p>
-											<button type="button" class="btn btn-default alert-close" data-dismiss="modal">close</button>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div> 	
-					<!-- bookDTO의 available이 F(False)일 경우 나타나는 모달 -->
-					<div class="row text-center" style="padding: 50px;">
-						<div class="modal fade modalDialogB " tabindex="-1"
-							role="dialogB" aria-labelledby="modalLabelB">
-							<div class="modal-dialog_b modal-lg">
-								<div class="modal-content_b">
-									<div class="modal-body_b  ">
-										<h2>신청 페이지</h2>
-										<h4>Loan/Reservation History</h4>
-										<div class="history"></div>
-										
-									</div>
-								</div>
+				<!-- /col-lg-12 -->
+			</div>
+			<!-- /row -->
+			<!-- choose/when구문을 사용해서 해당 bookDTO의 available상태에 따른 노출값이 다를 수 있도록 구현 -->
+			<!-- bookDTO의 available이 T(대여 가능)일 경우 나타나는 모달 -->
+			<div class="row text-center" style="padding: 50px;">
+				<div class="modal fade modalDialogA" tabindex="-1" role="dialogA"
+					aria-labelledby="modalLabelA">
+					<div class="modal-dialog_a modal-lg">
+						<div class="modal-content_a">
+							<div class="modal-body_a  ">
+								<h1 class="alert-subject">신청 페이지</h1>
+								<h4 class="alert-contents">대여 하시겠습니까?</h4>
+								<p>
+									<button class="btn btn-default" id="rentBook" value="onapply">confirm</button>
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">close</button>
+								</p>
 							</div>
 						</div>
 					</div>
 				</div>
-				
-				<!-- INPUT MESSAGES -->
+			</div>
+			<div class="row text-center" style="padding: 50px;">
+				<div class="modal fade alert-modal" tabindex="-1" role="dialogA"
+					aria-labelledby="modalLabelA">
+					<div class="modal-dialog_a modal-lg">
+						<div class="modal-content_a">
+							<div class="modal-body_a  ">
+								<h1 class="alert-subject">confirm</h1>
+								<h4 class="alert-contents" style="margin-top: 15px">대여 신청이
+									완료되었습니다.</h4>
+								<p>
+									<button type="button" class="btn btn-default alert-close"
+										data-dismiss="modal">close</button>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- bookDTO의 available이 F(False)일 경우 나타나는 모달 -->
+			<div class="row text-center" style="padding: 50px;">
+				<div class="modal fade modalDialogB " tabindex="-1" role="dialogB"
+					aria-labelledby="modalLabelB">
+					<div class="modal-dialog_b modal-lg">
+						<div class="modal-content_b">
+							<div class="modal-body_b  ">
+								<h2>신청 페이지</h2>
+								<h4>Loan/Reservation History</h4>
+								<div class="history"></div>
 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<!-- /container -->
+		<!-- INPUT MESSAGES -->
 	</div>
-	<!-- /aboutwrap -->
+	<!-- /container -->
+</div>
+<!-- /aboutwrap -->
 </div>
 <!--/Portfoliowrap -->
 
@@ -346,98 +346,97 @@
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-		
-		var alertModal = $(".alert-modal");
-		
-		$("#rentBook").on("click", function() {
-			console.log($(this).val());
-			var data = {bno: ${book.bno},
-					  	status: $(this).val()
-					  };
-			
-			$.ajax({ //문제발생
-				url : '/reservation/rent',
-				type : 'post',
-				contentType: "application/json; charset=utf-8",
-				data:JSON.stringify(data),
-				success : function(result) {		
-					
-					if (result === "true") {
-						
-						alertModal.modal("show");
-						alertModal.on("hidden.bs.modal", function () {
-							location.reload();
-						});
-					}else{
-						
-						$(".alert-contents").html("이 책은 이미 대여신청중 입니다");
-						alertModal.modal("show");
-						alertModal.on("hidden.bs.modal", function () {
-							location.reload();
-						});
-					}
-					//$(".modal").modal("show");
-				}
-			});
-		});
+$(document).ready(function() {
 	
-		//예약에 대한 처리 새로 만듬(hb)
-		$(".history").on("click", ".reserveBook", function() {
-			
-			var data = {
-					bno: ${book.bno},
-					status: 'onres'
-					};
-			
-			console.log(data);
-			
-			$.ajax({ //문제발생
-				url : '/reservation/reserve',
-				type : 'post',
-				contentType: "application/json; charset=utf-8",
-				data:JSON.stringify(data),
-				success : function(result) {		
-					
-						alert("success");
-						location.reload();
-				}
-			});
-		});
-		//뷰 페이지에서도 반납/ 예약취소 처리 할 수 있도록 구현
-		$(".history").on("click", ".cancelBtn", function() {
-			
-			var $this = $(this);
-			var data = {
-					bno: ${book.bno},
-					lender: '${member.mid}',
-					status: $this.attr("data-status"),
-					latefee: $this.attr("data-fee")
-					};
-			
-			console.log(data);
-			$.ajax({ //문제발생
-				
-				url : '/myreturn/request',
-				type : 'post',
-				contentType: "application/json; charset=utf-8",
-				data:JSON.stringify(data),
-				success : function(result) {		
-					alert("성공");
-					location.reload();
-				}
-			});
-		});
+	var alertModal = $(".alert-modal");
+	
+	$("#rentBook").on("click", function() {
+		var data = {bno: ${book.bno},
+				  	status: $(this).val()
+				  };
 		
-		//메인 썸네일을 설정하는 이벤트이다.
-		$(".thumbview").on("click", ".thumbimg", function(e) {
-			e.stopPropagation();
-			var fileName = $(e.target).attr("data-uploadName");
-
-			$(".fancybox").attr("href","/upload/image/"+ fileName);
-			$(".img-responsive").attr("src","/upload/thumb/"+ fileName);
+		$.ajax({ //문제발생
+			url : '/reservation/rent',
+			type : 'post',
+			contentType: "application/json; charset=utf-8",
+			data:JSON.stringify(data),
+			success : function(result) {		
+				
+				if (result === "true") {
+					
+					alertModal.modal("show");
+					alertModal.on("hidden.bs.modal", function () {
+						location.reload();
+					});
+				}else{
+					
+					$(".alert-contents").html("이 책은 이미 대여신청중 입니다");
+					alertModal.modal("show");
+					alertModal.on("hidden.bs.modal", function () {
+						location.reload();
+					});
+				}
+				//$(".modal").modal("show");
+			}
 		});
+	});
 
+	//예약에 대한 처리 새로 만듬(hb)
+	$(".history").on("click", ".reserveBook", function() {
+		
+		var data = {
+				bno: ${book.bno},
+				status: 'onres'
+				};
+		
+		console.log(data);
+		
+		$.ajax({ //문제발생
+			url : '/reservation/reserve',
+			type : 'post',
+			contentType: "application/json; charset=utf-8",
+			data:JSON.stringify(data),
+			success : function(result) {		
+				
+					alert("success");
+					location.reload();
+			}
+		});
+	});
+	//뷰 페이지에서도 반납/ 예약취소 처리 할 수 있도록 구현
+	$(".history").on("click", ".cancelBtn", function() {
+		
+		var $this = $(this);
+		var data = {
+				bno: ${book.bno},
+				lender: '${member.mid}',
+				status: $this.attr("data-status"),
+				latefee: $this.attr("data-fee")
+				};
+		
+		console.log(data);
+		$.ajax({ //문제발생
+			
+			url : '/myreturn/request',
+			type : 'post',
+			contentType: "application/json; charset=utf-8",
+			data:JSON.stringify(data),
+			success : function(result) {		
+				alert("성공");
+				location.reload();
+			}
+		});
+	});
+	
+	//메인 썸네일을 설정하는 이벤트이다.
+	$(".thumbview").on("click", ".thumbimg", function(e) {
+		e.stopPropagation();
+		var fileName = $(e.target).attr("data-uploadName");
+
+		$(".fancybox").attr("href","/upload/image/"+ fileName);
+		$(".img-responsive").attr("src","/upload/thumb/"+ fileName);
+	});
+	
 	// 댓글 리스트만들기
 	function getReplyList() {
 	
@@ -597,9 +596,9 @@
 						exist = true;
 						//리턴받은 리스트의 i번째의 유저 id가 현재 유저 id와 같다면 위 변수에 i값을 담는다
 					} else {
-                        checkUser = result.length;
-                        exist = false;
-                    }
+	                    checkUser = result.length;
+	                    exist = false;
+	                }
 				}
 				
 				var endDate = result[0].startdate + 604800000;
@@ -640,7 +639,6 @@
 		});
 	});
 	
-	
 	function getHistory(result){
 		
 		if(!result.checkUser == 1 || !result.checkUser == 0){
@@ -654,30 +652,24 @@
 		if (result.lender == '${member.mid}'){
 			
 			if (result.status == 'onreturn'){
-				console.log(00000000000000000000000000000000000000);
 				str += "<p>반납 신청중 입니다.</p><p><button onclick=$('.modal').modal('hide')>확인</button></p>"
 			} else if (result.status == 'onapply') {
-				
-				console.log(111111111111111111111111111111111111);
 				str += "<p>현재 대여 신청중 입니다. 취소하시겠습니까?</p>";
 				str += "<p><button class='cancelBtn' data-status='onapply' data-rno=" + result.rno;
 				str += " data-fee=0>대여 취소하기</button></p>";	
 			}
 		} else if (result.exist) {
-			console.log(22222222222222222222222222222222);
 			str += "<p>현재 예약 중 입니다. 취소하시겠습니까?</p>";
 			str += "<p><button class='cancelBtn' data-status='onres'";
 			str += " data-fee=0>예약취소</button></p>";
 			
 		} else {
-			console.log(33333333333333333333333333333333);
-			
 			str += "<p><button class='reserveBook'>예약하기</button></p></div>";
 		}
 		return str;
 	}
 });	
-	
+
 
 </script>
 <%@include file="../include/footer.jsp"%>
