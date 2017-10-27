@@ -300,9 +300,6 @@
 								<h5>등록 날짜:   <fmt:formatDate value="${book.regDate}" pattern="yyyy-MM-dd"></fmt:formatDate>   
 								|   현재 대여/예약자 수:   ${book.resCnt}</h5>
 								<ul class="history" style="margin-top: 20px;"></ul>
-								<p>
-									<button type="button" class="btn btn-default alert-close" data-dismiss="modal">확인</button>
-								</p>
 							</div>
 						</div>
 					</div>
@@ -370,6 +367,9 @@
 			<div class="modal-content_a">
 				<div class="modal-body_a  ">
 					<h1 class = "alert-subject">도서 수정 완료</h1>
+					<p>
+						<button type="button" class="btn btn-default alert-close" data-dismiss="modal">확인</button>
+					</p>
 				</div>
 			</div>
 		</div>

@@ -24,7 +24,6 @@ public class LoanBooksController {
 	@GetMapping("/list")
 	// test¿ë testOwner »ðÀÔ (hb)
 	public void getBookList(Model model, @ModelAttribute("cri") Criteria cri, @SessionAttribute(value="member", required=false) MemberDTO member) {
-		System.out.println("test+=============="+cri.getSearchConcept());
 		model.addAttribute("booklist", service.getBookList(cri, member.getMid()));
 		
 	}

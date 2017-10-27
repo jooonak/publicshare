@@ -29,6 +29,7 @@
 	<beans:bean name="login" class="org.slam.interceptor.LoginInterceptor"></beans:bean>
 	<beans:bean name="checkLogin" class="org.slam.interceptor.LoginCheckInterceptor"></beans:bean>
 	<beans:bean name="checkNotice" class="org.slam.interceptor.CheckNoticeInterceptor"></beans:bean>
+	<beans:bean name="checkModify" class="org.slam.interceptor.UserModifyInterceptor"></beans:bean>
 	
 	<!-- file처리용 설정 -->
 	<beans:bean id="multipartResolver"
@@ -56,6 +57,11 @@
 			<exclude-mapping path="/join"/>
 			<exclude-mapping path="/login"/> 
 			<beans:ref bean="checkNotice"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/mypage"/> 
+			<beans:ref bean="checkModify"/>
 		</interceptor>
 	</interceptors>
 

@@ -17,7 +17,7 @@
 
 <style>
 body {
-	background: url('/resources/assets/img/login.jpg') fixed;
+	background: url('/resources/assets/img/mypage.jpg') fixed;
 	background-size: cover;
 	padding: 0;
 	margin: 0;
@@ -151,12 +151,28 @@ body {
 }
 </style>
 
+<div class="row text-center" style="padding: 50px;">
+	<div class="modal fade alert-modal" tabindex="-1"
+		role="dialogA" aria-labelledby="modalLabelA">
+		<div class="modal-dialog_a modal-lg">
+			<div class="modal-content_a">
+				<div class="modal-body_a  ">
+					<h1 class = "alert-subject"></h1>
+					<p>
+						<button type="button" class="btn btn-default alert-close" data-dismiss="modal">확인</button>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> 	
+
+
 
 <div class="container">
 	<div class="card card-container">
 		<div>
-			<img id="profile-img" class="profile-img-card"
-				src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+			
 			<p id="profile-name" class="profile-name-card"></p>
 			<form class="form-signin" action="/modify" method="post">
 				<span id="reauth-email" class="reauth-email"></span> 
@@ -169,7 +185,7 @@ body {
 				<label>NAME</label> 
 				<input type="text" class="form-control" name="mname" placeholder="UserID" value="${member.mname}" readonly="readonly">
 				<label>NICKNAME</label> 
-				<input type="text" class="form-control" name="mname" placeholder="UserID" value="${member.nickname}" readonly="readonly"> 
+				<input type="text" class="form-control" name="mname" placeholder="UserID" value="${member.nickname}"> 
 				<label>JOIN	DATE</label> 
 				<input type="text" class="form-control" name="mname" placeholder="UserID" value="${member.joinDate}" readonly="readonly">
 				<button id="modify" class="btn btn-success btn-block">MODIFY</button>
@@ -187,10 +203,18 @@ body {
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
+$(document).ready(function() {
 	var msg = '${result}';
 
-	if (msg === 'success') {
-		$('#joinModal').style.display = 'none';
+	var $alertModal = $(".alert-modal");
+	
+	if (msg == 'modify') {
+		$(".alert-subject").html("정보 수정 성공!");
+		
+		$alertModal.modal('show');	
+		$alertModal.on('hidden.bs.modal', function () {
+			location.reload();
+		});
 	}
 	
 	$("#logout").on("click", function(e){
@@ -202,7 +226,8 @@ body {
 		
 		console.log($("input[type='password']"));
 		
-	}); */
+	}); */	
+});
 </script>
 
 </body>
