@@ -156,7 +156,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3" style="margin-left:20px">
-				<h1 style="font-size:5em;width:1000px">Book Register</h1>
+				<h1 style="font-size:5em;width:1000px">BOOK REGISTER</h1>
 			</div>
 		</div>
 		<!--/row -->
@@ -185,21 +185,21 @@
 					<form class="register" method="post">
 						<!-- BookDTO, MemberDTO, Criteria 필요 -->
 						<div>
-							<label for="bname">book name</label> <input
+							<label for="bname">도서 제목</label> <input
 								class="input form-control" type="text" name="bname">
 						</div>
 						<div>
-							<label for="publisher">publisher</label> <input
+							<label for="publisher">출판사</label> <input
 								class="input form-control" type="text" name="publisher">
 						</div>
 						<div>
-							<label for="owner">owner</label> <input
+							<label for="owner">소유자</label> <input
 								class="input form-control" type="text" name="owner"
 								value="${member.mid}" readonly="readonly">
 						</div>
 
 						<div>
-							<label for="contents">contents</label>
+							<label for="contents">내용</label>
 							<textarea class="input form-control" name="contents" rows="5"
 								resize="none"></textarea>
 						</div>
@@ -210,19 +210,19 @@
 
 			</div>
 			<div>
-				<h1 style="margin: 0px;margin-top: 40px">image upload</h1>
+				<h1 style="margin: 0px;margin-top: 40px">이미지</h1>
 				<!-- fileUpload용 div 및 버튼-->
-				<button style="margin-bottom:10px" type="button" class = "btn btn-primary btn-position" data-toggle="modal" data-target=".modalDialogA">file upload</button>
+				<button style="margin-bottom:10px" type="button" class = "btn btn-primary btn-position" data-toggle="modal" data-target=".modalDialogA">이미지 등록</button>
 			</div>
 				<!-- fileUpload용 div -->
 				<div class="container thumbview"></div>
 				<!-- 등록버튼  -->
 			<div style="margin-top:2%;">
-				<button type="button" class = "btn btn-primary btn-position" id="regBtn" >Register</button>
+				<button type="button" class = "btn btn-primary btn-position" id="regBtn" >등록</button>
 				<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
 				<a href="/itemmanage/list">
 					<button type="button" class = "btn btn-default btn-position" id="listBtn" name="list" >
-					back</button>
+					뒤로가기</button>
 				</a>
 			</div>
 		</div>
@@ -232,10 +232,10 @@
 				<div class="modal-dialog_a modal-lg">
 					<div class="modal-content_a">
 						<div class="modal-body_a  ">
-							<h2>file upload</h2>
+							<h2>이미지 등록</h2>
 							<div>
 								<input id="uploadForm" type='file' name='file'>
-								<button class='popBtn uploadBtn'>등록</button>
+								<button class='popBtn uploadBtn'>등록하기</button>
 							</div>
 						</div>
 					</div>
@@ -251,10 +251,10 @@
 			<div class="modal-dialog_a modal-lg">
 				<div class="modal-content_a">
 					<div class="modal-body_a  ">
-						<h1 class = "alert-subject">CONFIRM</h1>
+						<h1 class = "alert-subject">확인</h1>
 						<h4 class = "alert-contents" style="margin-top:15px">대여 신청이 완료되었습니다.</h4>
 						<p>
-							<button type="button" class="btn btn-default alert-close" data-dismiss="modal">close</button>
+							<button type="button" class="btn btn-default alert-close" data-dismiss="modal">확인</button>
 						</p>
 					</div>
 				</div>
@@ -302,7 +302,7 @@
 			}
 			if ($(".input[name='bname']").val() === "") {
 				$alertSubject.html("check");
-				$alertContents.html("책 제목을 입력해 주세요.");
+				$alertContents.html("도서 제목을 입력해 주세요.");
 				$alertModal.modal("show");
 				return;
 			} else if ($(".input[name='publisher']").val() === "") {
@@ -312,7 +312,7 @@
 				return;
 			} else if ($(".input[name='owner']").val() === "") {
 				$alertSubject.html("check");
-				$alertContents.html("책주인을 입력해주세요.");
+				$alertContents.html("소유주을 입력해주세요.");
 				$alertModal.modal("show");
 				return;
 			}
@@ -334,11 +334,11 @@
 				success : function(response) {
 					console.log(response);
 					if (response === "") {
-						$alertSubject.html("check");
+						$alertSubject.html("확인");
 						$alertContents.html("이미지 파일이 아닙니다.");
 						$alertModal.modal("show");
 					} else {
-						$alertSubject.html("confirm");
+						$alertSubject.html("이미지 등록완료");
 						$alertContents.html("이미지 등록 완료 (파일명: "+response.uploadName+")");
 						$alertModal.modal("show");
 					}
@@ -347,7 +347,7 @@
 							+ "<img class='thumbimg' alt='Avatar' data-uploadName=" + response.uploadName + "" +
 			                           " src = '/upload/thumb/" + response.uploadName + "'>"
 							+ "<div class = 'middle'>"
-							+ "<div class = 'text'>select thumbnail</div>"
+							+ "<div class = 'text'>선택</div>"
 							+ "</div>"
 							+ "<img class = 'delete' src = '/resources/assets/img/delete.png'>"
 							+ ((isFirstThumb) ? "<img class = 'mainthumb' src = '/resources/assets/img/check.png' data-uploadName=" + response.uploadName + ">"

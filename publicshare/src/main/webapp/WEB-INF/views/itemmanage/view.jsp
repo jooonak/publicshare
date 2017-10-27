@@ -8,6 +8,81 @@
 <%@include file="../include/header.jsp"%>
 <!-- 왜 상대경로만 되는지... -->
 <html>
+<style>
+/* modal style for reservation status(jn) */
+.modal.left .modal-dialog, .modal.right .modal-dialog {
+	position: fixed;
+	margin: auto;
+	width: 35%;
+	height: 100%;
+	-webkit-transform: translate3d(0%, 0, 0);
+	-ms-transform: translate3d(0%, 0, 0);
+	-o-transform: translate3d(0%, 0, 0);
+	transform: translate3d(0%, 0, 0);
+}
+
+.modal.left .modal-content, .modal.right .modal-content {
+	height: 100%;
+	overflow-y: auto;
+}
+
+.modal.left .modal-body, .modal.right .modal-body {
+	padding: 15px 15px 80px;
+}
+
+/*Right*/
+.modal.right.fade .modal-dialog {
+	right: -320px;
+	-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+	-moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+	-o-transition: opacity 0.3s linear, right 0.3s ease-out;
+	transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog {
+	right: 0;
+}
+
+/* ----- MODAL STYLE ----- */
+.modal-content {
+	border-radius: 0;
+	border: none;
+}
+
+.modal-header {
+	border-bottom-color: #EEEEEE;
+	background-color: #FAFAFA;
+}
+/* modal style for reservation status end(jn) */
+
+/* modal style for alert(hb) */
+.modal {
+	padding-right: 0px;
+	background-color: rgba(4, 4, 4, 0.3);
+}
+
+.modal-dialog_a {
+	top: 20%;
+	width: 50%;
+	position: absolute;
+	margin-left: 25%;
+}
+
+.modal-content_a {
+	border-radius: 10px;
+	border: none;
+	padding: 25px;
+	top: 40%;
+}
+
+.modal-body_a {
+	background-color: white;
+	border-radius: 10px;
+	color: black;
+	padding: 10px;
+}
+/* modal style for alert end(hb) */
+</style>
 
 <style>
 .hide {
@@ -203,7 +278,7 @@
 					<!-- BookDTO, MemberDTO, Criteria 필요 -->
 					<h1 style="margin: 15px; font-weight: bold;">${book.bname}</h1>
 					<h4 style="text-align: right">
-						<b>publisher:</b> ${book.publisher} | <b>owner:</b> ${book.owner}
+						<b>출판사:</b> ${book.publisher} | <b>소유주:</b> ${book.owner}
 					</h4>
 					<hr style="margin-bottom: 0px">
 					<blockquote class="content-box">
@@ -220,12 +295,14 @@
 					<div class="modal-dialog_b modal-lg">
 						<div class="modal-content_b">
 							<div class="modal-body_b  ">
-								<h2>Book History</h2>
+								<h2>책 히스토리</h2>
 								<h4>${book.bname}</h4>
 								<h5>등록 날짜:   <fmt:formatDate value="${book.regDate}" pattern="yyyy-MM-dd"></fmt:formatDate>   
 								|   현재 대여/예약자 수:   ${book.resCnt}</h5>
 								<ul class="history" style="margin-top: 20px;"></ul>
-								
+								<p>
+									<button type="button" class="btn btn-default alert-close" data-dismiss="modal">확인</button>
+								</p>
 							</div>
 						</div>
 					</div>
@@ -235,13 +312,13 @@
 			<!-- /row -->
 			<div style="margin-top:2%;">
 				<!-- history 버튼(-->
-				<button id="resBtn" type="button" class = "btn btn-primary btn-position " data-toggle="modal" data-target=".modalDialogB">history</button>
+				<button id="resBtn" type="button" class = "btn btn-primary btn-position " data-toggle="modal" data-target=".modalDialogB">히스토리</button>
 				
 				<!-- 수정/삭제 div 호출(대여 페이지에서 이동할 경우 표시되는 버튼) -->
-				<button class = "btn btn-warning btn-position modBtn">modify</button>
+				<button class = "btn btn-warning btn-position modBtn">수정/삭제</button>
 				<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
 				<a href="/itemmanage/list">
-					<button type="button" class = "btn btn-default btn-position" id="listBtn">back</button>
+					<button type="button" class = "btn btn-default btn-position" id="listBtn">뒤로가기</button>
 				</a>
 			</div>
 			<br>
@@ -255,7 +332,7 @@
 
 						<!--댓글 입력 부분 _hb  -->
 						<div class="form-horizontal">
-							<h4>REPLIES</h4>
+							<h4>댓글</h4>
 							<input class="form-replycontrol" name="reply" id="reply">
 							<input style="float: right;" class="regBtn btn btn-default btn-position" type="button"
 								value="등록">
@@ -285,6 +362,19 @@
 	<!-- /aboutwrap -->
 </div>
 <!--/Portfoliowrap -->
+
+<div class="row text-center" style="padding: 50px;">
+	<div class="modal fade alert-modal" tabindex="-1"
+		role="dialogA" aria-labelledby="modalLabelA">
+		<div class="modal-dialog_a modal-lg">
+			<div class="modal-content_a">
+				<div class="modal-body_a  ">
+					<h1 class = "alert-subject">도서 수정 완료</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> 	
 
 <!-- actionForm form 데이터 전송용  -->
 <form id="actionForm" action="/itemmanage/modify?bno=${book.bno }"
@@ -447,6 +537,13 @@ $(".replyUL").on("click",".rereplyWindowBtn", function(e){
 
 
 $(document).ready(function() {
+	
+	var $alertModal = $(".alert-modal");
+	var $alertContents = $(".alert-contents");
+	
+	if('${result}' === "modify"){
+		$alertModal.modal("show");	
+	}
 
 	$(".modBtn").on("click", function(e) {
 
