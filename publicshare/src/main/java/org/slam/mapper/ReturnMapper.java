@@ -14,7 +14,6 @@ public interface ReturnMapper {
 
 	public List<Map<String, Object>> getList(@Param("skip") int skip, @Param("status") String status, @Param("mid") String mid);
 
-	@Update("update tbl_reservation set status = #{status}, latefee = #{lateFee} where rno = #{rno}")
 	public void request(ReservationDTO dto);
 	
 	public List<Map<String, Object>> getOnApplyReadyList(String lender);

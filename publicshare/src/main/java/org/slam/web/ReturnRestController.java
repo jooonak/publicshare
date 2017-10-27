@@ -34,8 +34,10 @@ public class ReturnRestController {
 		//반납 요청하는 메서드 -JH
 		System.out.println(dto);
 		if(dto.getStatus().equals("onapply") || dto.getStatus().equals("onres")) {
+			// 예약, 대여신청의 취소
 			dto.setStatus("cancel");
 		} else {
+			// 반납 신청
 			dto.setStatus("onreturn");
 		}
 		service.request(dto);

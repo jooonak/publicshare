@@ -65,8 +65,9 @@ body{
 <div id="headerwrap">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<h1>PUBLIC SHARE</h1>
+			
+			<div class="col-md-6 col-md-offset-3" >
+				<h1 style="font-size:5em;">Loan page</h1>
 			</div>
 		</div>
 		<!--container 검색용 elements https://bootsnipp.com/snippets/featured/search-panel-with-filters -->
@@ -109,10 +110,10 @@ body{
 <!-- PORTFOLIO SECTION -->
 <section id="portfolio" name="portfolio"></section>
 
-<div id="portfoliowrap">
+<div id="portfoliowrap" style="margin-top:20px">
 	<div class="container">
+		<hr>
 		<div class="row">
-			<h1>SOME OF MY LATEST WORKS</h1>
 			<!-- list 출력을 위한 forEach 시작 -->
 			<div class="container" style="height: 80%">
 			<c:choose>

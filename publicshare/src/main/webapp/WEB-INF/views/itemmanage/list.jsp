@@ -175,8 +175,8 @@ a:hover {
 <div id="headerwrap">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<h1>PUBLIC SHARE</h1>
+			<div class="col-md-6 col-md-offset-3" style="margin-left:20px">
+				<h1 style="font-size:5em;width:1000px">MY ITEM MANAGE</h1>
 			</div>
 		</div>
 		<!--/row -->
@@ -210,30 +210,23 @@ a:hover {
 
 <!-- PORTFOLIO SECTION -->
 <section id="portfolio" name="portfolio"></section>
-<div id="portfoliowrap">
+<div id="portfoliowrap" style="margin-top:20px">
 	<div class="container">
-		
-		
 		<!-- itemmanage에서 대여 요청에 대한 확인/거절을 누르는 modal -->
-
+		
+	<div class="conditions">
+		<ul class="right">
 		<!-- itemmanage에서 대여 요청에 대한 확인/거절을 누르는 modal(sb) -->
-
+		<li><button style="float: right;" id="resBtn" data-toggle="modal"
+			data-target="#myModal2" class="btn btn-default">대여 요청 알람
+			<span id="applycnt" class="label label-danger"></span></button></li>
+		<li><button style="float: right;" id="returnBtn" data-toggle="modal"
+			data-target="#myModal2" class="btn btn-default">반납 요청 알람
+			<span id="returncnt" class="label label-danger"></span></button></li>
+		</ul>
+	</div>
+	<hr />
 		<div class="row">
-			<div class="conditions">
-				<ul class="left">
-					<li><a href="/itemmanage/register"><button style="float: left;" class="btn btn-primary">register</button></a></li>
-				</ul>
-				<ul class="right">
-					<li><button style="float: right;" id="resBtn" data-toggle="modal"
-					data-target="#myModal2" class="btn btn-default">대여 요청 리스트
-					<span id="applycnt" class="label label-danger"></span></button></li>
-					<li><button style="float: right;" id="returnBtn" data-toggle="modal"
-					data-target="#myModal2" class="btn btn-default">반납 요청 리스트
-					<span id="returncnt" class="label label-danger"></span></button></li>
-				</ul>
-			</div>
-			<hr />
-			<h1>BOOKS</h1>
 			<!-- 나중에 css처리 해야함 -->
 			
 			<div class="container" style="height: 80%">
@@ -283,9 +276,9 @@ a:hover {
 			</c:choose>
 			</div>
 		</div>
-		
-		
-
+		<a href="/itemmanage/register" style = "margin-top:20px">
+			<button style="float: right; margin-top: 30px" class="btn btn-primary">도서 등록하기</button>
+		</a>
 		<ul id="divPaging">
 		</ul>
 	</div>
@@ -296,10 +289,9 @@ a:hover {
 		<div class="modal-dialog_a modal-lg">
 			<div class="modal-content_a">
 				<div class="modal-body_a  ">
-					<h1 class = "alert-subject">confirm</h1>
-					<h4 class = "alert-contents" style="margin-top:25px">서적이 등록되었습니다.</h4>
+					<h1 class = "alert-subject"></h1>
 					<p>
-						<button type="button" class="btn btn-default alert-close" data-dismiss="modal">close</button>
+						<button type="button" class="btn btn-default alert-close" data-dismiss="modal">확인</button>
 					</p>
 				</div>
 			</div>
@@ -327,8 +319,13 @@ $(document).ready(function() {
 	var $alertContents = $(".alert-contents");
 	
 	if('${result}' === "success"){
-		$(".alert-modal").modal("show");	
+		$(".alert-subject").html("도서 등록 완료");
+		$alertModal.modal("show");	
+	}else if('${result}' === "delete"){
+		$(".alert-subject").html("도서 삭제 완료");
+		$alertModal.modal("show");
 	}
+	
 	
 	
 	var $ModalLabel = $("#myModalLabel2");
@@ -344,9 +341,9 @@ $(document).ready(function() {
 				str += "<p>Applicant for return: " + result[i].ReservationDTO.lender +"</p>";
 				str += "<p>Application time: "+getTime(result[i])+"";
 				str += "<button class='btn btn-default' id=returnBtn data-oper=returnconfirm data-rno=" + result[i].ReservationDTO.rno;
-				str += " data-bno=" + result[i].BookDTO.bno + ">ACCEPT</button>";
+				str += " data-bno=" + result[i].BookDTO.bno + ">확인</button>";
 				str += "<button class='btn btn-default' id=returnBtn data-oper=returnreject data-rno=" + result[i].ReservationDTO.rno;
-				str += " data-bno=" + result[i].BookDTO.bno + ">REJECT</button></p></div><hr/>";
+				str += " data-bno=" + result[i].BookDTO.bno + ">거절</button></p></div><hr/>";
 				$(".modal-body").html(str);
 			}
 		});
@@ -362,23 +359,23 @@ $(document).ready(function() {
 				str += "<p>Applicant for loan: " + result[i].ReservationDTO.lender + "</p>";
 				str += "<p>Application time: "+getTime(result[i])+"";
 				str += "<button class='btn btn-default' id=resBtn data-oper=confirm data-rno=" + result[i].ReservationDTO.rno; 
-				str += " data-bno=" + result[i].BookDTO.bno + ">ACCEPT</button>";
+				str += " data-bno=" + result[i].BookDTO.bno + ">확인</button>";
 				str += "<button class='btn btn-warning' id=resBtn data-oper=reject data-rno=" + result[i].ReservationDTO.rno;
-				str += " data-bno=" + result[i].BookDTO.bno + ">REJECT</button></p></div><hr/>";
+				str += " data-bno=" + result[i].BookDTO.bno + ">거절</button></p></div><hr/>";
 				$(".modal-body").html(str);
 			}
 		});
 	}
 	
 	$("#returnBtn").on("click", function(e){
-		$ModalLabel.html("Return request");
+		$ModalLabel.html("반납 요청");
 		$modalBody.html("");
 		checkReturn();
 	});
 	
 	$("#resBtn").on("click", function(e){
 		$ModalLabel.text("");
-		$ModalLabel.text("Loan request");
+		$ModalLabel.text("대여 요청");
 		$modalBody.html("");
 		checkApply();
 	});
@@ -397,7 +394,7 @@ $(document).ready(function() {
 			contentType: "application/json; charset=utf-8",
 			data:JSON.stringify(data),
 			success : function(result) {
-				$alertContents.html("대여 처리되었습니다.");
+				$alertContents.html("대여 처리 완료");
 				$alertModal.modal("show");
 				$modalBody.html("");
 				checkApply();
@@ -419,7 +416,7 @@ $(document).ready(function() {
 			contentType: "application/json; charset=utf-8",
 			data:JSON.stringify(data),
 			success : function(result) {
-				$alertContents.html("반납 처리되었습니다.");
+				$alertContents.html("반납 처리 완료");
 				$alertModal.modal("show");
 				$modalBody.html("");
 				checkReturn();
