@@ -360,21 +360,25 @@
 </div>
 <!--/Portfoliowrap -->
 
+
 <div class="row text-center" style="padding: 50px;">
-	<div class="modal fade alert-modal" tabindex="-1"
-		role="dialogA" aria-labelledby="modalLabelA">
-		<div class="modal-dialog_a modal-lg">
-			<div class="modal-content_a">
-				<div class="modal-body_a  ">
-					<h1 class = "alert-subject">도서 수정 완료</h1>
-					<p>
-						<button type="button" class="btn btn-default alert-close" data-dismiss="modal">확인</button>
-					</p>
+		<div class="modal fade alert-modal" tabindex="-1"
+			role="dialogA" aria-labelledby="modalLabelA">
+			<div class="modal-dialog_a modal-lg">
+				<div class="modal-content_a">
+					<div class="modal-body_a  ">
+					<br><br><br>
+						<h2 class = "alert-contents" style="margin-top:15px">도서 수정 완료</h2>
+						<br><br><br>
+						<p>
+							<button type="button" class="btn btn-default alert-close" data-dismiss="modal">확인</button>
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</div> 	
+	</div> 
+
 
 <!-- actionForm form 데이터 전송용  -->
 <form id="actionForm" action="/itemmanage/modify?bno=${book.bno }"
