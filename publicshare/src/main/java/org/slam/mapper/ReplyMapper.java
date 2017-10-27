@@ -17,8 +17,9 @@ public interface ReplyMapper {
 
 	@Insert("insert into tbl_reply(bno,reply,replyer,replytree) values(#{dto.bno},#{dto.reply},#{mid},(select max(reno)+1 from tbl_reply a))")
 	public void create(@Param("dto") ReplyDTO dto, @Param("mid") String mid);
-
-	@Delete("delete from tbl_reply where reno = #{reno}")
+	
+	//댓글에 대한 기록은 남겨놔야 하므로 삭제처리를 요청해도 db 상에서는 해당 댓글 기록을 남겨놓아야 한다. 그렇게 하기 위해 상태값 업데이트를 진행한다.
+	@Delete("update tbl_reply set delreply = 'T' where reno = #{reno}")
 	public void delete(int reno);
 
 	@Update("update tbl_reply set reply= #{reply} where reno = #{reno} ")

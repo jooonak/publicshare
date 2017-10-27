@@ -297,7 +297,6 @@
 
 <!-- 클래스 link 버튼 처리 -->
 <script type="text/javascript">
-
 // 댓글 리스트만들기
 function getReplyList() {
 
@@ -305,7 +304,7 @@ function getReplyList() {
 	$.getJSON("/reply/${book.bno}/list/1", function(arr) {
 
 		for (var i = 0; i < arr.length; i++) {
-			
+			console.log("delreply:"+arr[i].delreply);
 			var regdate = new Date(arr[i].replydate);
 			regdate = (regdate.getFullYear()+"-"+(regdate.getMonth() + 1)+"-"+regdate.getDate()+" "+
 					regdate.getHours()+":"+regdate.getMinutes());
@@ -315,9 +314,11 @@ function getReplyList() {
 				str += "<div class='media'>";
 				str += "<div class='media-left'> <img src='/resources/assets/img/1196652-200.png' class='media-object' style='width:45px' onerror=this.src='/resources/assets/img/default.jpg'></div>";
 				str += "<div class='media-body'><h5 class='media-heading'>"+arr[i].reno +" "+arr[i].nickname+" "+regdate+ "</h5>";
-				str += "<p class='addWindow' data-reno='"+arr[i].reno+"'>"+arr[i].reply+"";
+				str += "<p class='addWindow' data-reno='"+arr[i].reno+"'>"+((arr[i].delreply === 'F')?arr[i].reply:"삭제된 댓글입니다.")+"";
+				if(arr[i].replyer == '${member.mid}'){
 				str +="<button style = float:right; id='replyModBtn' class='btn btn-default btn-position'>수정</button>";
 				str +="<button style = float:right; id='replyDelBtn' class='btn btn-default btn-position'>삭제</button>";
+				}
 				str +="<button style = float:right; id='reReplyBtn'  class='btn btn-default btn-position'>댓글 달기</button></p>";
 				str += "</div></div></div>";
 				
@@ -361,8 +362,8 @@ $(".replyUL").on("click", "#replyDelBtn", function(e){
 		type:'DELETE',
 		contentType:"application/json; charset=utf-8",
 		success: function(result){
-			alert("delete success");	
-			getReplyList();
+			alert("delete success");
+			location.reload();
 		} 
 	});
 	
@@ -406,7 +407,7 @@ $(".replyUL").on("click",".modWindowBtn", function(e){
 });
 
 // 대댓글 창 띄우기
-$(".replyUL").on("click","#reReplyBtn",function(e){
+$(".replyUL").on("click", "#reReplyBtn",function(e){
 	
 	e.preventDefault();
 	
