@@ -63,7 +63,7 @@ public class UserController {
 		//@SessionAttribute를 사용하면 Session에 있는 명시된 이름의 data를 가져올 수 있다 (참고 : http://egloos.zum.com/springmvc/v/535572)
 		
 		log.info("member........." + member);
-		model.addAttribute("member", member);
+		model.addAttribute("member", service.getMember(member.getMid()));
 	}
 	
 	@PostMapping("/logout")
@@ -78,10 +78,35 @@ public class UserController {
 	
 	@PostMapping("/modify")
 	public String userModify(MemberDTO dto, RedirectAttributes rttr) {
+		
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		System.out.println(dto);
+		
 		service.modifyUser(dto);
 		
 		rttr.addFlashAttribute("result","modify");
-		return "redirect:/logout";
+		return "redirect:/mypage";
 	}
 	
 }

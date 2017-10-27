@@ -67,7 +67,7 @@ body{
 		<div class="row">
 			
 			<div class="col-md-6 col-md-offset-3" >
-				<h1 style="font-size:5em;">Loan page</h1>
+				<h1 style="font-size:5em;">LOAN PAGE</h1>
 			</div>
 		</div>
 		<!--container 검색용 elements https://bootsnipp.com/snippets/featured/search-panel-with-filters -->
@@ -79,13 +79,13 @@ body{
 				    <div class="input-group">
 		                <div style="opacity:0.9" class="input-group-btn search-panel">
 		                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-		                    	<span id="search_concept">bname</span><span class="caret"></span>
+		                    	<span id="search_concept">도서 제목</span><span class="caret"></span>
 		                    </button>
 		                    <ul style="opacity:0.9" class="dropdown-menu" role="menu">
-		                      <li><a>bname</a></li>
-		                      <li><a>publisher</a></li>
-		                      <li><a>owner</a></li>
-		                      <li><a>bookname+contents</a></li>
+		                      <li><a>도서 제목</a></li>
+		                      <li><a>출판사</a></li>
+		                      <li><a>소유주</a></li>
+		                      <li><a>도서 제목+내용</a></li>
 		                      
 		                    </ul>
 		                </div>

@@ -154,7 +154,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3" style="margin-left:20px">
-				<h1  style="font-size:5em;width:1000px">Modify Book Info</h1>
+				<h1  style="font-size:5em;width:1000px">MODIFY BOOK INFO</h1>
 			</div>
 		</div>
 		<!--/row -->
@@ -175,7 +175,7 @@
 					<a class="fancybox"
 						href="/upload/image/${book.img}"><img
 						class="img-responsive" src="/upload/thumb/${book.img}"
-						style="margin-top: 20px; box-shadow: 2px 2px 2px #888888"></a>
+						style="margin-top: 20px; box-shadow: 2px 2px 2px #888888" onerror=this.src='/resources/assets/img/default.jpg'></a>
 						<hr>
 				</div>
 				<!--/col-lg-4-->
@@ -183,22 +183,22 @@
 					<form class = "modify" action="/itemmanage/modify" method="post">
 						<!-- BookDTO, MemberDTO, Criteria 필요 -->
 						<div>
-							<label for="bname">book name</label> 
+							<label for="bname">도서 제목</label> 
 							<input class="input form-control" type="text" 
 							name="bname" value="${book.bname}">
 						</div>
 						<div>
-							<label for="publisher">publisher</label> 
+							<label for="publisher">출판사</label> 
 							<input class="input form-control" type="text" 
 							name="publisher" value="${book.publisher}">
 						</div>
 						<div>
-							<label for="owner">owner</label> 
+							<label for="owner">소유주</label> 
 							<input class="input form-control" type="text" 
 							name="owner" value="${book.owner}" readonly="readonly">
 						</div>
 						<div>
-							<label for="contents">contents</label>
+							<label for="contents">내용</label>
 							<textarea class="input form-control" name="contents" rows="5"
 								resize="none" >${book.contents}
 							</textarea>
@@ -212,9 +212,9 @@
 			</div>
 			<!-- /row -->
 			<div>
-				<h1 style="margin: 0px;margin-top: 40px">image upload</h1>
+				<h1 style="margin: 0px;margin-top: 40px">이미지</h1>
 				<!-- upload 버튼 -->
-				<button style="margin-bottom:10px" type="button" class = " btn btn-primary btn-position" data-toggle="modal" data-target=".modalDialogA">file upload</button>
+				<button style="margin-bottom:10px" type="button" class = " btn btn-primary btn-position" data-toggle="modal" data-target=".modalDialogA">이미지 등록</button>
 	
 			</div>
 			<div class="container thumbview">
@@ -223,7 +223,7 @@
 					<div class = 'thumbcontainer' >
 						<img class='thumbimg' data-uploadName= "${img}" src = "/upload/thumb/${img}" >
 						<div class = 'middle'>
-							<div class = 'text'>select thumbnail</div>
+							<div class = 'text'>선택</div>
 						</div>
 						<img class = 'delete' src = '/resources/assets/img/delete.png'>
 						
@@ -233,13 +233,13 @@
 				<!-- 등록버튼  -->
 			<div style="margin-top:2%;">	
 				<!-- 수정  btn -->
-				<button type="button" class = "btn btn-warning btn-position modBtn">modify</button>
+				<button type="button" class = "btn btn-warning btn-position modBtn">수정</button>
 				<!-- 삭제 btn-->
-				<button type="button" class = "btn btn-danger btn-position delBtn">delete</button>
+				<button type="button" class = "btn btn-danger btn-position delBtn">삭제</button>
 				<!-- 대여리스트 화면으로 분기/ 이전 url에 따라서 뒤로가는 페이지가 다름 -->
-				<a href="/itemmanage/list">
+				<a href="/itemmanage/view?bno=${book.bno}">
 					<button type="button" class = "btn btn-default btn-position backBtn" id="listBtn" name="list" >
-					back</button>
+					취소</button>
 				</a>
 			</div>	
 		</div>
@@ -252,10 +252,10 @@
 				<div class="modal-dialog_a modal-lg">
 					<div class="modal-content_a">
 						<div class="modal-body_a  ">
-							<h2>file upload</h2>
+							<h2>이미지 등록 </h2>
 							<div>
 								<input id="uploadForm" type='file' name='file'>
-								<button class='popBtn uploadBtn'>등록</button>
+								<button class='popBtn uploadBtn'>등록하기</button>
 							</div>
 						</div>
 					</div>
@@ -272,10 +272,10 @@
 			<div class="modal-dialog_a modal-lg">
 				<div class="modal-content_a">
 					<div class="modal-body_a  ">
-						<h1 class = "alert-subject">confirm</h1>
+						<h1 class = "alert-subject">확인</h1>
 						<h4 class = "alert-contents" style="margin-top:15px">대여 신청이 완료되었습니다.</h4>
 						<p>
-							<button type="button" class="btn btn-default alert-close" data-dismiss="modal">close</button>
+							<button type="button" class="btn btn-default alert-close" data-dismiss="modal">확인</button>
 						</p>
 					</div>
 				</div>
@@ -308,7 +308,7 @@ $(document).ready(function(){
 		var prethumb = $("input[name = 'prethumb']").val();	
 		console.log(prethumb);
 		var prethumb = $(".thumbimg[data-uploadName = '"+prethumb+"']").parent()
-		.append("<img class = 'mainthumb' src = '/resources/assets/img/check.png' data-uploadName='"+prethumb+"'>");
+		.append("<img class = 'mainthumb' src = '/resources/assets/img/check.png' data-uploadName='"+prethumb+"' onerror=this.src='/resources/assets/img/default.jpg'>");
 	})();
 	
 	
@@ -326,11 +326,11 @@ $(document).ready(function(){
 			success : function(response) {
 				console.log(response);
 				if (response === "") {
-					$alertSubject.html("check");
+					$alertSubject.html("확인");
 					$alertContents.html("이미지 파일이 아닙니다.");
 					$alertModal.modal("show");
 				} else {
-					$alertSubject.html("confirm");
+					$alertSubject.html("이미지 등록완료");
 					$alertContents.html("이미지 등록 완료 (파일명: "+response.uploadName+")");
 					$alertModal.modal("show");
 				}
@@ -339,7 +339,7 @@ $(document).ready(function(){
 						+ "<img class='thumbimg' alt='Avatar' data-uploadName=" + response.uploadName + "" +
 		                           " src = '/upload/thumb/" + response.uploadName + "'>"
 						+ "<div class = 'middle'>"
-						+ "<div class = 'text'>select thumbnail</div>"
+						+ "<div class = 'text'>선택</div>"
 						+ "</div>"
 						+ "<img class = 'delete' src = '/resources/assets/img/delete.png'>"
 						+ "</div>";
@@ -398,7 +398,7 @@ $(document).ready(function(){
 		var mainThumb = $(".thumbview .thumbcontainer .mainthumb").attr("data-uploadName");
 		console.log(mainThumb);
 		if (mainThumb === undefined) {
-			$alertSubject.html("check");
+			$alertSubject.html("확인");
 			$alertContents.html("이미지를 최소 1개 이상 등록한 후 썸네일을 지정해주세요.");
 			$alertModal.modal("show");
 			return;
@@ -416,18 +416,18 @@ $(document).ready(function(){
 		var input = $(".input[name='bname']").val();
 
 		if ($(".input[name='bname']").val() === "") {
-			$alertSubject.html("check");
-			$alertContents.html("책 제목을 입력해 주세요.");
+			$alertSubject.html("확인");
+			$alertContents.html("도서 제목을 입력해 주세요.");
 			$alertModal.modal("show");
 			return;
 		} else if ($(".input[name='publisher']").val() === "") {
-			$alertSubject.html("check");
+			$alertSubject.html("확인");
 			$alertContents.html("출판사를 입력해 주세요.");
 			$alertModal.modal("show");
 			return;
 		} else if ($(".input[name='owner']").val() === "") {
-			$alertSubject.html("check");
-			$alertContents.html("책주인을 입력해주세요.");
+			$alertSubject.html("확인");
+			$alertContents.html("소유주을 입력해주세요.");
 			$alertModal.modal("show");
 			return;
 		}
@@ -437,7 +437,7 @@ $(document).ready(function(){
 	
 	$(".delBtn").on("click",function(e){
 		if(${book.resCnt} > 0){
-			$alertSubject.html("check");
+			$alertSubject.html("확인");
 			$alertContents.html("현재 예약자가 존재하여 삭제하실 수 없습니다.");
 			$alertModal.modal("show");
 			return;

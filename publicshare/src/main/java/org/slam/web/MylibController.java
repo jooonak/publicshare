@@ -70,6 +70,7 @@ public class MylibController {
 	public String modifyPost(@ModelAttribute("cri") Criteria cri, BookDTO dto, RedirectAttributes rttr) {
 		service.modify(dto, cri);
 		rttr.addAttribute("bno", dto.getBno());
+		rttr.addFlashAttribute("result","modify");
 		return "redirect:/itemmanage/view";
 	}
 	
@@ -77,6 +78,7 @@ public class MylibController {
 	@PostMapping("/remove")
 	public String remove(BookDTO dto, Model model, RedirectAttributes rttr) {
 		service.remove(dto.getBno());	
+		rttr.addFlashAttribute("result","delete");
 		return "redirect:/itemmanage/list";
 	}
 
